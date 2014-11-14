@@ -1,8 +1,8 @@
 {
   "name": "titledk/silverstripe-calendar",
-  "description": "Highly flexible calendar system",
+  "description": "Highly flexible calendar system for SilverStripe",
   "type": "silverstripe-module",
-  "homepage": "https://bitbucket.org/titledk/silverstripe-calendar",
+  "homepage": "https://github.com/titledk/silverstripe-calendar",
   "keywords": ["silverstripe", "calendar", "events"],
   "authors": [
     {"name": "Anselm Christophersen","email": "ac@anselm.dk"},
