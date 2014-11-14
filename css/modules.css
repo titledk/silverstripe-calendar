@@ -1,0 +1,7 @@
+.fatDate { float: left; width: 100px; }
+.fatDate .month { display: block; text-align: center; color: #333; font-size: 18px; line-height: 18px; }
+.fatDate .dayOfMonth { display: block; text-align: center; color: #777; font-size: 55px; }
+
+a.feed-checkbox { background-image: url('../images/feed.png?1389954816'); background-position: 3px 3px; background-repeat: no-repeat; border-radius: 5px 5px 5px 5px; display: inline-block; height: 16px; margin-left: 3px; margin-right: 5px; vertical-align: text-top; width: 16px; }
+
+a.feed-checkbox-text { color: #666; text-decoration: none; }

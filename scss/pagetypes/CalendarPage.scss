@@ -1,0 +1,126 @@
+
+@import "compass/utilities";
+
+
+////////////////////////////////////////
+////////// LIST ////////////////////////
+////////////////////////////////////////
+
+.EventList {
+	.event {
+		padding:10px;
+		&.odd {
+			background:#efefef;
+		}
+	}
+}
+
+
+
+
+
+.event {
+	&.row {
+		margin-bottom: 20px;
+	}
+
+	@include clearfix;
+
+	.content {
+		//float:left;
+		margin-left:100px;
+	}
+
+	
+	h4 {
+		color: #333;
+		letter-spacing: -1px;
+		margin-top: 0;
+	}
+
+	.details {
+		margin: 10px 0;
+		overflow: hidden;
+		
+		p {
+			font-size: 12px;
+			text-overflow: ellipsis;
+		}
+	}
+
+	.feedBox {
+		//float: left;
+		width: 30px;
+		//padding-top: 7px;
+		position:absolute;
+	}
+
+}
+
+
+
+
+//register
+
+.EventRegistration {
+	h3 {
+		span {
+			display:block;
+			&.first {
+				color:#999;
+				font-size:80%;
+			}
+		}
+	}
+	form {
+		margin-top:26px;
+	}
+}
+
+
+////////////////////////////////////////
+////////// FULLCALENDAR ////////////////
+////////////////////////////////////////
+
+.fc-event {
+	cursor:pointer!important;
+}
+
+////////////////////////////////////////
+/////// Calendar Page Menu /////////////
+////////////////////////////////////////
+
+
+//ul.CalendarPageMenu {
+//	//@include clearfix;
+//	@include horizontal-list;
+//	li {
+//		&.current {
+//			border-bottom:6px solid orange;
+//			a {
+//				color:orange;
+//			}
+//		}
+//		a {
+//			display: block;
+//			padding:5px;
+//			padding-bottom:10px;
+//		}
+//	}
+//
+//}
+
+////////////////////////////////////////
+/////// Calendar Page Menu /////////////
+////////////////////////////////////////
+
+#FullcalendarCustomNav {
+	a {
+		&.current {
+			background-color:#e6e6e6;
+		}
+	}
+}
+
+
+

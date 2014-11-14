@@ -1,0 +1,105 @@
+@import "compass/utilities";
+@import "compass/typography/text/replacement";
+@import "mixins";
+
+
+.CalendarEventGridfieldDetailForm {
+	.field {
+		border:none;
+		box-shadow:none;
+		padding:0px;
+	}
+
+	input {
+		@include input-placeholder {
+		  color: #bfbfbf;
+		  font-style: italic;
+		}
+	}
+
+	.middleColumn {
+		margin-left:100px;
+	}
+	label.left {
+		width:85px;
+	}
+
+
+	#AllDay,
+	#NoEnd {
+		float:left;
+		padding-left:10px;
+		padding-top:5px;
+		padding-bottom:0px;
+		input {
+			min-height:10px;
+		}
+	}
+	#StartDateTime {
+		float:left;
+		clear:both;
+	}
+
+
+	#StartDateTime,
+	#EndDateTime {
+		.middleColumn {
+			width:auto;
+			margin-right:10px;
+		}
+		input {
+			width:110px;
+
+			//styling the readonly field
+			cursor:pointer;
+		}
+	}
+
+	h5#Form_ItemEditForm_TimeFrameHeader {
+		margin-bottom:12px;
+		clear:both;
+	}
+
+	ul.selectiongroup {
+		@include clearfix;
+		margin:0px;
+
+		li {
+			margin-bottom:10px;
+			div.field {
+				margin:0px;
+			}
+			>label {
+				width:auto;
+				float:left;
+			}
+		}
+
+		#Duration {
+			@include clearfix;
+			margin-left:100px;
+			label.right {
+				margin:0px;
+				margin-top:1px;
+			}
+			input {
+				width:100px;
+			}
+		}
+
+	}
+
+	.clear {
+		clear:both;
+	}
+
+	#CalendarID {
+		margin-top:15px;
+		width:350px;
+	}
+
+
+
+
+
+}

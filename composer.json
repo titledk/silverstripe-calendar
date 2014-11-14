@@ -1,0 +1,14 @@
+{
+  "name": "titledk/silverstripe-calendar",
+  "description": "Highly flexible calendar system",
+  "type": "silverstripe-module",
+  "homepage": "https://bitbucket.org/titledk/silverstripe-calendar",
+  "keywords": ["silverstripe", "calendar", "events"],
+  "authors": [
+    {"name": "Anselm Christophersen","email": "ac@anselm.dk"},
+    {"name": "Colin Burns","email": "ccburns@gmail.com"}
+  ],
+  "extra": {
+    "installer-name": "calendar"
+  }
+}
