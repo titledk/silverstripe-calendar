@@ -173,7 +173,23 @@ to work on this.
 		* go through includes and layout templates and see how they fit as building blocks
 	* Change `EventPage` to be a `DataExtension`, and call it `EventsPage`. (We might need an update script for this.)
 
+## Versioning
 
+We're trying to stick to the [Semantic Versioning](http://semver.org)
+paradigm. That is: 
+
+> Consider a version format of X.Y.Z (Major.Minor.Patch). Bug fixes not affecting the API increment the patch version, 
+backwards compatible API additions/changes increment the minor version, and backwards incompatible API changes 
+increment the major version.
+
+So:
+
+* Go for the `Master` branch, if you want to live on the edge
+* Go for the `1.0` branch if you want minor changes and pathes
+* Go for the tags (`1.0.0` and following), if you only want the actual releases
+
+**NOTE:** If you think I'm missing something here, please let me know, @anselmdk on twitter, or through
+this repo's chat on [Gitter](https://gitter.im/titledk/silverstripe-calendar).
 
 
 
