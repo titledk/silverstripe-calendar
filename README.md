@@ -23,6 +23,8 @@ please [contact us](http://title.dk/contact/).
 **Pull requests are very welcome!** But please, get in touch with us if you're planning
 to develop a feature.
 
+You can also join the conversation about this module on Gitter: 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/titledk/silverstripe-calendar?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Demo
 
