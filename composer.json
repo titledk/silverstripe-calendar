@@ -4,11 +4,16 @@
   "type": "silverstripe-module",
   "homepage": "https://github.com/titledk/silverstripe-calendar",
   "keywords": ["silverstripe", "calendar", "events"],
+  "license": "MIT",
   "authors": [
     {"name": "Anselm Christophersen","email": "ac@anselm.dk"},
     {"name": "Colin Burns","email": "ccburns@gmail.com"}
   ],
   "extra": {
-    "installer-name": "calendar"
+    "installer-name": "calendar",
+    "screenshots": [
+      "docs/img/preview.png",
+      "docs/img/screenshots/frontend-fullcalendar.png"
+    ]
   }
 }

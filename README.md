@@ -3,8 +3,11 @@
 _by Title Web Solutions_
 
 The calendar for SilverStripe 3.1 is a solid base for all your calendaring needs, 
-it's built to be flexible and configurable so that it fits to most scenarios 
-- both for web sites with public events, and web apps with private events - or a combination hereof.
+it's built to be flexible and configurable so that it fits to most scenarios - both for 
+web sites with public events, and web apps with private events - or a combination hereof.
+
+
+![Preview](docs/img/preview.png)
 
 
 ## NOTE
@@ -23,9 +26,11 @@ to develop a feature.
 
 ## Demo
 
-There's a demo site available on <http://calendar-demo.title.dk>.
+There's a demo site available on <http://calendar-demo.title.dk>.    
+_On the demo site you can read more about the features, with practical examples._
 
-The code for the demo will be open sourced shortly!
+The code for the demo is available at <https://github.com/titledk/silverstripe-calendar-demo>.    
+If you plan to use the calendar, start out installing this!
 
 
 
@@ -44,20 +49,23 @@ time picker and dropdown, and duration dropdown, still allowing manual inputs
 * Event Registrations (this might be moved to an external module)
 * Calendar colors with configurable color options, and JS color palette field 
 (works on both frontend and backend) - shading calendars allow for holiday calendars etc. to appear in the background
-* No frontend default styling.
+* No default frontend styling.
 * Composer based workflow. You’ll be able to add and update the module using Composer.
 
 
 ## Weak points at the moment
 
-_The following features might need a review:_
-
+* The event model and adminstration is solid, but is missing recurring events
+	* See the bottom of this readme file for our "wishlist"
 * Frontend templates
+	* The demo is overwriting much of the templates in the calendar
+		* Includes should be more generic
 	* preferably we should have a `Bootstrap` and a `Foundation` module
 	for these
 * Frontend styling
 	* Would be nice with some easy-to-include Sass mixins
 * Registrations
+	See also [this discussion](https://gitter.im/jedateach/silverstripe-eventmanagement) on event registrations
 
 
 
@@ -80,6 +88,22 @@ CalendarConfig::init();
 ```
 
 See `CalendarConfig` on how to configure the module.
+
+
+## Screenshots
+
+### CMS
+
+![Calendar](docs/img/screenshots/cms-calendar.png)
+![Add event](docs/img/screenshots/cms-addevent.png)
+
+
+### Frontend
+
+![Add event](docs/img/screenshots/frontend-addevent.png)
+![Fullcalendar](docs/img/screenshots/frontend-fullcalendar.png)
+![List](docs/img/screenshots/frontend-list.png)
+
 
 
 ## Illustrations
@@ -122,24 +146,22 @@ to work on this.
 ## Roadmap/Ideas/Plans
 
 
-### 1.x
 
-* use ss 3.1 config system
-* consider implementing the `EventInterface`, allowing everything to act as an event
-* hiding page types that are not enabled via the settings
-  * see [here](http://www.balbus.tk/hide-a-page-from-the-cms-pagetype-dropdown/) for a reference
-* remove SS3.0 compatibility to make support for SS3.1 easier (make sure to make a tag w. SS3.0 compatibility)
-
-
-## Wish List
+### Wish List
 
 * Recurring events
 * Unit tests
 * Make everything translatable
 
 
-## Possible Improvements
+### Possible Improvements
 
+* Structure
+	* consider using ss 3.1 config system
+	* consider implementing the `EventInterface`, allowing everything to act as an event
+	* hiding page types that are not enabled via the settings
+		* see [here](http://www.balbus.tk/hide-a-page-from-the-cms-pagetype-dropdown/) for a reference
+	* remove SS3.0 compatibility to make support for SS3.1 easier (make sure to make a tag w. SS3.0 compatibility)
 * Backend
 	* Implement event search in sidebar (see `CMSMAin->SearchForm()`)
 	* Dashboard panel to display individual calendars' coming events, and jump to creation form
