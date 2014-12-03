@@ -32,6 +32,8 @@ class EventCategory extends DataObject {
 
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
+		
+		//Events shouldn't be editable from here by default
 		$fields->removeByName('Events');
 		return $fields;
 	}
