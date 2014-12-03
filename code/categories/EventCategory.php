@@ -29,4 +29,11 @@ class EventCategory extends DataObject {
 		$this->extend('updateAddNewFields', $fields);
 		return $fields;
 	}
+
+	public function getCMSFields() {
+		$fields = parent::getCMSFields();
+		$fields->removeByName('Events');
+		return $fields;
+	}
+
 }

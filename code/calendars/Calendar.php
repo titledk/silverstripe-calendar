@@ -21,4 +21,11 @@ class Calendar extends DataObject {
 	private static $summary_fields = array(
 		'Title' => 'Title',
 	);
+
+	public function getCMSFields() {
+		$fields = parent::getCMSFields();
+		$fields->removeByName('Events');
+		return $fields;
+	}
+
 }
