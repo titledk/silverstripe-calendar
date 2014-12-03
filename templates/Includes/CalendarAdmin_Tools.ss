@@ -20,9 +20,9 @@
 			<% end_if %>
 		<% end_if %>
 		<% if $CategoriesEnabled %>
-			<% if $Action != "calendars" %>
+			<% if $Action != "categories" %>
 				<div style="margin-bottom:5px;">
-					<a href="{$Link}calendars/" class="ss-ui-button ss-ui-action-constructive cms-panel-link ui-corner-all">Calendars</a>
+					<a href="{$Link}categories/" class="ss-ui-button ss-ui-action-constructive cms-panel-link ui-corner-all">Categories</a>
 				</div>
 			<% end_if %>
 		<% end_if %>

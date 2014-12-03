@@ -21,7 +21,8 @@ class CalendarAdmin extends LeftAndMain {
 		'ComingEventsForm',
 		'PastEventsForm',
 		'CalendarsForm',
-		'CategoriesForm'
+		'CategoriesForm',
+		'categories'
 	);	
 	
 	
