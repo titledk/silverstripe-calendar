@@ -57,7 +57,7 @@ time picker and dropdown, and duration dropdown, still allowing manual inputs
 
 ## Weak points at the moment
 
-* The event model and adminstration is solid, but is missing recurring events
+* The event model and administration is solid, but is missing recurring events
 	* See the bottom of this readme file for our "wishlist"
 * Frontend templates
 	* The demo is overwriting much of the templates in the calendar
