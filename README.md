@@ -28,12 +28,17 @@ You can also join the conversation about this module on Gitter:
 
 ## Demo
 
-There's a demo site available on <http://calendar-demo.title.dk>.    
+There's a demo site available on <http://calendar.demo.title.dk>.    
 _On the demo site you can read more about the features, with practical examples._
 
 The code for the demo is available at <https://github.com/titledk/silverstripe-calendar-demo>.    
 If you plan to use the calendar, start out installing this!
 
+## Compatibility
+
+The calendar is compatible with SilverStripe versions `3.1` and `3.2`.
+
+For tested versions check out the [Calendar demo](https://github.com/titledk/silverstripe-calendar-demo#compatibility)
 
 
 ## Features
