@@ -200,7 +200,8 @@ increment the major version.
 So:
 
 * Go for the `Master` branch, if you want to live on the edge
-* Go for the `1.0` branch if you want minor changes and patches
+* Go for the latest version branch (e.g. `1.0`) if you want minor changes and patches
+(choose the one that fit's your SilverStripe version, see above)
 * Go for the tags (`1.0.0` and following), if you only want the actual releases
 
 **NOTE:** If you think I'm missing something here, please let me know, @anselmdk on twitter, or through
