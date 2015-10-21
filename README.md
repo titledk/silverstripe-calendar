@@ -42,6 +42,15 @@ If you plan to use the calendar, start out installing this!
 For tested versions check out the [Calendar demo](https://github.com/titledk/silverstripe-calendar-demo#compatibility)
 
 
+## This module in the wild
+
+The module is used on the following sites:
+
+* <http://texasbeefcheckoff.com/resources/calendar/>
+* <http://v2.bartonvilletc.com/events/>
+
+_Are you using this module on your site? Let us know!_
+
 ## Features
 
 * Extensible. Customize it any way you want, while the basic concepts are taken care of.
