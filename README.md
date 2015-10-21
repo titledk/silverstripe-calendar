@@ -36,8 +36,8 @@ If you plan to use the calendar, start out installing this!
 
 ## Compatibility
 
-* For SilverStripe `3.1.x`: tag `1.0.1`
-* For SilverStripe `3.2.x`: branch `1.0` / tag `1.1`
+* For SilverStripe `3.1.x`: branch `1.0`
+* For SilverStripe `3.2.x`: `master` / branch `1.1`
 
 For tested versions check out the [Calendar demo](https://github.com/titledk/silverstripe-calendar-demo#compatibility)
 
