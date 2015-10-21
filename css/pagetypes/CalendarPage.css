@@ -1,18 +1,49 @@
-.EventList .event { padding: 10px; }
-.EventList .event.odd { background: #efefef; }
+.EventList .event {
+  padding: 10px; }
+  .EventList .event.odd {
+    background: #efefef; }
 
-.event { overflow: hidden; *zoom: 1; }
-.event.row { margin-bottom: 20px; }
-.event .content { margin-left: 100px; }
-.event h4 { color: #333; letter-spacing: -1px; margin-top: 0; }
-.event .details { margin: 10px 0; overflow: hidden; }
-.event .details p { font-size: 12px; text-overflow: ellipsis; }
-.event .feedBox { width: 30px; position: absolute; }
+.event.row {
+  margin-bottom: 20px; }
 
-.EventRegistration h3 span { display: block; }
-.EventRegistration h3 span.first { color: #999; font-size: 80%; }
-.EventRegistration form { margin-top: 26px; }
+.event:before,
+.event:after {
+  content: "";
+  display: table; }
 
-.fc-event { cursor: pointer !important; }
+.event:after {
+  clear: both; }
 
-#FullcalendarCustomNav a.current { background-color: #e6e6e6; }
+.event .content {
+  margin-left: 100px; }
+
+.event h4 {
+  color: #333;
+  letter-spacing: -1px;
+  margin-top: 0; }
+
+.event .details {
+  margin: 10px 0;
+  overflow: hidden; }
+  .event .details p {
+    font-size: 12px;
+    text-overflow: ellipsis; }
+
+.event .feedBox {
+  width: 30px;
+  position: absolute; }
+
+.EventRegistration h3 span {
+  display: block; }
+  .EventRegistration h3 span.first {
+    color: #999;
+    font-size: 80%; }
+
+.EventRegistration form {
+  margin-top: 26px; }
+
+.fc-event {
+  cursor: pointer !important; }
+
+#FullcalendarCustomNav a.current {
+  background-color: #e6e6e6; }

@@ -1,0 +1,11 @@
+{
+  "name": "silverstripe-calendar",
+  "version": "1.1.0",
+  "description": "Developed by Anselm Christophersen/Title Web Solutions",
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "gulp": "latest",
+    "gulp-sass": "latest",
+    "gulp-load-plugins": "latest"
+  }
+}

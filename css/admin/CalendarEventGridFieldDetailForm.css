@@ -1,21 +1,86 @@
-.CalendarEventGridfieldDetailForm .field { border: none; box-shadow: none; padding: 0px; }
-.CalendarEventGridfieldDetailForm input::-webkit-input-placeholder { color: #bfbfbf; font-style: italic; }
-.CalendarEventGridfieldDetailForm input:-moz-placeholder { color: #bfbfbf; font-style: italic; }
-.CalendarEventGridfieldDetailForm input:-ms-input-placeholder { color: #bfbfbf; font-style: italic; }
-.CalendarEventGridfieldDetailForm .middleColumn { margin-left: 100px; }
-.CalendarEventGridfieldDetailForm label.left { width: 85px; }
-.CalendarEventGridfieldDetailForm #AllDay, .CalendarEventGridfieldDetailForm #NoEnd { float: left; padding-left: 10px; padding-top: 5px; padding-bottom: 0px; }
-.CalendarEventGridfieldDetailForm #AllDay input, .CalendarEventGridfieldDetailForm #NoEnd input { min-height: 10px; }
-.CalendarEventGridfieldDetailForm #StartDateTime { float: left; clear: both; }
-.CalendarEventGridfieldDetailForm #StartDateTime .middleColumn, .CalendarEventGridfieldDetailForm #EndDateTime .middleColumn { width: auto; margin-right: 10px; }
-.CalendarEventGridfieldDetailForm #StartDateTime input, .CalendarEventGridfieldDetailForm #EndDateTime input { width: 110px; cursor: pointer; }
-.CalendarEventGridfieldDetailForm h5#Form_ItemEditForm_TimeFrameHeader { margin-bottom: 12px; clear: both; }
-.CalendarEventGridfieldDetailForm ul.selectiongroup { overflow: hidden; *zoom: 1; margin: 0px; }
-.CalendarEventGridfieldDetailForm ul.selectiongroup li { margin-bottom: 10px; }
-.CalendarEventGridfieldDetailForm ul.selectiongroup li div.field { margin: 0px; }
-.CalendarEventGridfieldDetailForm ul.selectiongroup li > label { width: auto; float: left; }
-.CalendarEventGridfieldDetailForm ul.selectiongroup #Duration { overflow: hidden; *zoom: 1; margin-left: 100px; }
-.CalendarEventGridfieldDetailForm ul.selectiongroup #Duration label.right { margin: 0px; margin-top: 1px; }
-.CalendarEventGridfieldDetailForm ul.selectiongroup #Duration input { width: 100px; }
-.CalendarEventGridfieldDetailForm .clear { clear: both; }
-.CalendarEventGridfieldDetailForm #CalendarID { margin-top: 15px; width: 350px; }
+.CalendarEventGridfieldDetailForm .field {
+  border: none;
+  box-shadow: none;
+  padding: 0px; }
+
+.CalendarEventGridfieldDetailForm input::-webkit-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+
+.CalendarEventGridfieldDetailForm input:-moz-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+
+.CalendarEventGridfieldDetailForm input:-ms-input-placeholder {
+  color: #bfbfbf;
+  font-style: italic; }
+
+.CalendarEventGridfieldDetailForm .middleColumn {
+  margin-left: 100px; }
+
+.CalendarEventGridfieldDetailForm label.left {
+  width: 85px; }
+
+.CalendarEventGridfieldDetailForm #Form_ItemEditForm_AllDay_Holder,
+.CalendarEventGridfieldDetailForm #Form_ItemEditForm_NoEnd_Holder {
+  float: left;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 0px; }
+  .CalendarEventGridfieldDetailForm #Form_ItemEditForm_AllDay_Holder input,
+  .CalendarEventGridfieldDetailForm #Form_ItemEditForm_NoEnd_Holder input {
+    min-height: 10px; }
+
+.CalendarEventGridfieldDetailForm #Form_ItemEditForm_StartDateTime_Holder {
+  float: left;
+  clear: both; }
+
+.CalendarEventGridfieldDetailForm #Form_ItemEditForm_StartDateTime_Holder .middleColumn,
+.CalendarEventGridfieldDetailForm #Form_ItemEditForm_EndDateTime_Holder .middleColumn {
+  width: auto;
+  margin-right: 10px; }
+
+.CalendarEventGridfieldDetailForm #Form_ItemEditForm_StartDateTime_Holder input,
+.CalendarEventGridfieldDetailForm #Form_ItemEditForm_EndDateTime_Holder input {
+  width: 110px;
+  cursor: pointer; }
+
+.CalendarEventGridfieldDetailForm h5#Form_ItemEditForm_TimeFrameHeader {
+  margin-bottom: 12px;
+  clear: both; }
+
+.CalendarEventGridfieldDetailForm ul.selectiongroup {
+  margin: 0px; }
+  .CalendarEventGridfieldDetailForm ul.selectiongroup:before,
+  .CalendarEventGridfieldDetailForm ul.selectiongroup:after {
+    content: "";
+    display: table; }
+  .CalendarEventGridfieldDetailForm ul.selectiongroup:after {
+    clear: both; }
+  .CalendarEventGridfieldDetailForm ul.selectiongroup li {
+    margin-bottom: 10px; }
+    .CalendarEventGridfieldDetailForm ul.selectiongroup li div.field {
+      margin: 0px; }
+    .CalendarEventGridfieldDetailForm ul.selectiongroup li > label {
+      width: auto;
+      float: left; }
+  .CalendarEventGridfieldDetailForm ul.selectiongroup #Form_ItemEditForm_Duration_Holder {
+    margin-left: 100px; }
+    .CalendarEventGridfieldDetailForm ul.selectiongroup #Form_ItemEditForm_Duration_Holder:before,
+    .CalendarEventGridfieldDetailForm ul.selectiongroup #Form_ItemEditForm_Duration_Holder:after {
+      content: "";
+      display: table; }
+    .CalendarEventGridfieldDetailForm ul.selectiongroup #Form_ItemEditForm_Duration_Holder:after {
+      clear: both; }
+    .CalendarEventGridfieldDetailForm ul.selectiongroup #Form_ItemEditForm_Duration_Holder label.right {
+      margin: 0px;
+      margin-top: 1px; }
+    .CalendarEventGridfieldDetailForm ul.selectiongroup #Form_ItemEditForm_Duration_Holder input {
+      width: 100px; }
+
+.CalendarEventGridfieldDetailForm .clear {
+  clear: both; }
+
+.CalendarEventGridfieldDetailForm #Form_ItemEditForm_CalendarID_Holder {
+  margin-top: 15px;
+  width: 350px; }

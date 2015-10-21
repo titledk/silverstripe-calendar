@@ -1,5 +1,3 @@
-@import "compass/utilities";
-@import "compass/typography/text/replacement";
 @import "mixins";
 
 
@@ -12,8 +10,8 @@
 
 	input {
 		@include input-placeholder {
-		  color: #bfbfbf;
-		  font-style: italic;
+			color: #bfbfbf;
+			font-style: italic;
 		}
 	}
 
@@ -25,8 +23,8 @@
 	}
 
 
-	#AllDay,
-	#NoEnd {
+	#Form_ItemEditForm_AllDay_Holder,
+	#Form_ItemEditForm_NoEnd_Holder {
 		float:left;
 		padding-left:10px;
 		padding-top:5px;
@@ -35,14 +33,14 @@
 			min-height:10px;
 		}
 	}
-	#StartDateTime {
+	#Form_ItemEditForm_StartDateTime_Holder {
 		float:left;
 		clear:both;
 	}
 
 
-	#StartDateTime,
-	#EndDateTime {
+	#Form_ItemEditForm_StartDateTime_Holder,
+	#Form_ItemEditForm_EndDateTime_Holder {
 		.middleColumn {
 			width:auto;
 			margin-right:10px;
@@ -75,7 +73,7 @@
 			}
 		}
 
-		#Duration {
+		#Form_ItemEditForm_Duration_Holder {
 			@include clearfix;
 			margin-left:100px;
 			label.right {
@@ -93,13 +91,8 @@
 		clear:both;
 	}
 
-	#CalendarID {
+	#Form_ItemEditForm_CalendarID_Holder {
 		margin-top:15px;
 		width:350px;
 	}
-
-
-
-
-
 }

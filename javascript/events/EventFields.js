@@ -6,16 +6,18 @@ var EventFields = function(form) {
 	var $this = this;
 
 	//Date inputs
-	var startDateInput = form.find('#StartDateTime input.date');
-	var endDateInput = form.find('#EndDateTime input.date');
+	var startDateInput = form.find("[name='StartDateTime[date]']");
+	var endDateInput = form.find("[name='EndDateTime[date]']");
 
 
 	//Time inputs
-	var startTimeInput = form.find('#StartDateTime input.time');
-	var endTimeInput = form.find('#EndDateTime input.time');
-	var startEndTimeInputs = form.find('#StartDateTime input.time, #EndDateTime input.time');
-	var durationTimeInput = form.find('#Duration input.time')
+	var startTimeInput = form.find("[name='StartDateTime[time]']");
+	var endTimeInput = form.find("[name='EndDateTime[time]']");
+	var startEndTimeInputs = form.find("[name='StartDateTime[time]'], [name='EndDateTime[time]']");
+	var durationTimeInput = form.find("[name='Duration']");
 
+	var titleInput = form.find("[name='Title']");
+	var allDayInput = form.find("[name='AllDay']");
 
 	this.init = function(){
 		
@@ -29,7 +31,7 @@ var EventFields = function(form) {
 		$this.init_noendtoggling();
 		$this.init_sanitychecks();
 		
-		if (form.find('#Title input').val().length == 0) {
+		if (titleInput.val().length == 0) {
 			$this.addform_init();
 		}
 		
@@ -87,11 +89,11 @@ var EventFields = function(form) {
 	 * the calendar config
 	 */
 	this.init_alldaytoggling = function() {
-		var checkbox = form.find('#AllDay input.checkbox');
+		var checkbox = allDayInput;
 		if (checkbox.length) {
 			if (checkbox.is(':checked')) {
 				$this.allday_toggle(checkbox, 'hide');
-				form.find('#Title input').focus();
+				titleInput.focus();
 			}
 			checkbox.click(function() {
 				$this.allday_toggle(checkbox, 'fade');
@@ -104,11 +106,11 @@ var EventFields = function(form) {
 	 * checkbox is toggled
 	 */
 	this.allday_toggle = function(checkbox, effect){
-		var durationLi = form.find('#Duration').closest('li');
+		var durationLi = durationTimeInput.closest('li');
 		
 		if (checkbox.is(':checked')) {
 			//selecting "DateTime" option
-			form.find('#EndDateTime').closest('li').find('.selector').trigger('click');
+			endTimeInput.closest('li').find('.selector').trigger('click');
 			//hiding "Duration" option
 
 			$this.do_toggle(durationLi,'hide', effect);
@@ -130,7 +132,7 @@ var EventFields = function(form) {
 	 * Note that this only applies if end dates are not enforced
 	 */
 	this.init_noendtoggling = function() {
-		var checkbox = form.find('#NoEnd input.checkbox');
+		var checkbox = form.find("[name='NoEnd']");
 		if (checkbox.length) {
 			if (checkbox.is(':checked')) {
 				//initial toggle
@@ -139,8 +141,7 @@ var EventFields = function(form) {
 			checkbox.click(function() {
 				
 				//in case allday is clicked make sure to unclick it
-				var alldayCheckbox = form.find('#AllDay input.checkbox');
-				if (alldayCheckbox.length && alldayCheckbox.is(':checked')) {
+				if (allDayInput.length && allDayInput.is(':checked')) {
 					//console.log('allday is checked');
 					//alldayCheckbox.trigger('click');
 					
@@ -148,8 +149,8 @@ var EventFields = function(form) {
 					
 					//$this.allday_toggle(checkbox, 'fade');
 					
-					alldayCheckbox.attr('checked', false);
-					$this.do_toggle(form.find('#Duration').closest('li'),'show', 'show');
+					allDayInput.attr('checked', false);
+					$this.do_toggle(durationTimeInput.closest('li'),'show', 'show');
 					$this.do_toggle(startEndTimeInputs,'show', 'show');
 				}
 				
@@ -164,7 +165,7 @@ var EventFields = function(form) {
 	 * checkbox is toggled
 	 */
 	this.noend_toggle = function(checkbox, effect){
-		var endInput = form.find('.SelectionGroup, #Form_ItemEditForm_TimeFrameHeader, #AllDay');
+		var endInput = form.find(".SelectionGroup, #Form_ItemEditForm_TimeFrameHeader, [name='AllDay']");
 		
 		if (checkbox.is(':checked')) {
 			$this.do_toggle(endInput,'hide', effect);
@@ -218,8 +219,8 @@ var EventFields = function(form) {
 	
 	this.addform_init = function(){
 		//trigger duration time frame on first add
-		form.find('#Duration').closest('li').find('.selector').trigger('click');
-		form.find('#Title input').focus();
+		durationTimeInput.closest('li').find('.selector').trigger('click');
+		titleInput.focus();
 	}
 	
 }
