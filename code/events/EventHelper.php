@@ -102,6 +102,10 @@ class EventHelper {
 		$startTime = strtotime($startStr->value);
 		$endTime = strtotime($endStr->value);
 
+		if ($startTime == $endTime) {
+			return null;
+		}
+
 		if ($endStr) {
 			//time frame is only applicable if both start and end time is on the same day
 			if (date('Y-m-d', $startTime) == date('Y-m-d', $endTime)) {
