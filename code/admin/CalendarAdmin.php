@@ -22,8 +22,9 @@ class CalendarAdmin extends LeftAndMain {
 		'PastEventsForm',
 		'CalendarsForm',
 		'CategoriesForm',
-		'categories'
-	);	
+		'categories',
+		'PublicEventImportForm'
+	);
 	
 	
 //	static $url_handlers = array (
@@ -93,8 +94,11 @@ class CalendarAdmin extends LeftAndMain {
 		$form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
 		return $form;
 	}
-	
-	
+	public function PublicEventImportForm(){
+		$form = new PublicEventImportForm($this, "PublicEventImportForm");
+		$form->addExtraClass('cms-search-form ' . $this->BaseCSSClasses());
+		return $form;
+	}
 
 	public function SubTitle(){
 		$str = 'Coming Events';
