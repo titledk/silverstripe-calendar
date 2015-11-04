@@ -73,7 +73,7 @@ class PaymentRegistrationForm extends Form {
 		$form->saveInto($r);
 		$r->write();
 
-		exit;
+		return "Thanks. We've received your registration.";
 
 	}
 
