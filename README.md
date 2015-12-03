@@ -42,12 +42,13 @@ If you plan to use the calendar, start out installing this!
 For tested versions check out the [Calendar demo](https://github.com/titledk/silverstripe-calendar-demo#compatibility)
 
 
-## This module in the wild
+## Live examples
 
 The module is used on the following sites:
 
 * <http://texasbeefcheckoff.com/resources/calendar/>
 * <http://v2.bartonvilletc.com/events/>
+* <http://justin.cultivateapps.com/community/calendar/>
 
 _Are you using this module on your site? Let us know!_
 
