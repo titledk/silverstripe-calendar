@@ -13,7 +13,7 @@
  * This will seldom be the case, and hence it's expected that the configuration is amended
  * when the module is instantiated in the project _config.php file.
  *
- * 
+ *
  * ...and YES, I know SilverStripe 3.1 has a built-in config system, this
  * has been coded prior to this though - pull requests welcome ;)
  *

@@ -17,29 +17,29 @@
  * @copyright Copyright (c) 2011, Dominik Zogg
  *
  */
- 
+
 class ICSExport
 {
 	/**
 	 * @var array $_arrCalendar the calendar array
 	 */
 	protected $_arrCalendar = array();
-	
+
 	/**
 	 * @var string $_strIcsHeader the header of the calendar
 	 */
 	protected $_strIcsHeader = "BEGIN:VCALENDAR\r\nPRODID:-//php/ics\r\nVERSION:2.0\r\nMETHOD:PUBLISH\r\n";
-	
+
 	/**
 	 * @var string $_strIcsFooter the footer of the calendar
 	 */
 	protected $_strIcsFooter = 'END:VCALENDAR';
- 
+
 	/**
 	 * @var string $_strIcs ics string
 	 */
 	protected $_strIcs = '';
- 
+
 	/**
 	 * __construct
 	 * @param array $arrCalendar the calendar as an array
@@ -54,7 +54,7 @@ class ICSExport
 		}
 		$this->_strIcs .= $this->_strIcsFooter;
 	}
-	
+
 	/**
 	 * getFile
 	 * @param string $strFilename the names of the file
@@ -67,7 +67,7 @@ class ICSExport
 		ob_flush();
 		die();
 	}
-	
+
 	/**
 	 * getString
 	 * @return string ics string
@@ -76,16 +76,16 @@ class ICSExport
 	{
 		return $this->_strIcs;
 	}
- 
-		
+
+
 		public static function ics_date($str, $allDay) {
 			$time = strtotime($str);
-			
+
 			//this sets the time according to server locale
 			//this is with time zone - but needs the locale to be set properly on the server
 			//it wasn't on my mac
 			//$date = gmstrftime("%Y%m%dT%H%M00Z", $str);
-			
+
 			//event without time zone - see:
 			//http://stackoverflow.com/questions/7626114/ics-timezone-not-working
 			if ($allDay) {
@@ -95,29 +95,29 @@ class ICSExport
 			} else {
 				$date = strftime("%Y%m%dT%H%M00", $time);
 			}
-			
-			
+
+
 			//$date = gmstrftime("%Y%m%dT%H%M00Z", $time);
 			return $date;
 		}
-		
+
 	/**
 	 *
 	 * generateEventString
 	 * @param array $arrEvent
-	 * @return string event as ics string 
+	 * @return string event as ics string
 	 */
 	public static function generateEventString(array $arrEvent)
 	{
 		$strReturn = "BEGIN:VEVENT\r\n";
 		$arrEventParts = array();
-		
+
 		// set uid
 		if(isset($arrEvent['ID']))
 		{
 			$arrEventParts['UID'] = md5($arrEvent['ID'] . "@" . $_SERVER['SERVER_NAME']);
 		}
- 
+
 		// set creation date
 		if(isset($arrEvent['Created']))
 		{
@@ -127,37 +127,37 @@ class ICSExport
 		{
 			$arrEventParts['DTSTAMP'] = self::ics_date($arrEvent['StartDateTime'], $arrEvent['AllDay']);
 		}
- 
+
 		// set start time of the event
 		if(isset($arrEvent['StartDateTime']))
 		{
 			$arrEventParts['DTSTART'] = self::ics_date($arrEvent['StartDateTime'], $arrEvent['AllDay']);
 		}
-		
+
 		// set end time of the event
 		if(isset($arrEvent['EndDateTime']))
 		{
 			$arrEventParts['DTEND'] = self::ics_date($arrEvent['EndDateTime'], $arrEvent['AllDay']);
 		}
- 
+
 		// set summary
 		if(isset($arrEvent['Title']))
 		{
 			$arrEventParts['SUMMARY'] = self::cleanString($arrEvent['Title']);
 		}
- 
+
 		// set description
 		if(isset($arrEvent['Details']))
 		{
 			$arrEventParts['DESCRIPTION'] = self::cleanString($arrEvent['Details']);
 		}
- 
+
 		// set location
 //        if(isset($arrEvent['location']))
 //        {
 //            $arrEventParts['LOCATION'] = self::cleanString($arrEvent['location']);
 //        }
- 
+
 				//setting end date = start date if no end date is present
 				//TODO: warning, or log here
 				if (!isset($arrEventParts['DTEND'])) {
@@ -168,36 +168,36 @@ class ICSExport
 				if (!isset($arrEventParts['DTSTART'])) {
 					$arrEventParts['DTSTART'] = $arrEventParts['DTEND'];
 				}
-				
-				
+
+
 		// check if all needed values are set if not throw exception
 		if(!isset($arrEventParts['UID']) ||
 		   !isset($arrEventParts['DTSTAMP']) ||
 		   !isset($arrEventParts['DTSTART']) ||
 		   !isset($arrEventParts['DTEND']) ||
 		   !isset($arrEventParts['SUMMARY']))
-		{		
+		{
 					Debug::dump($arrEventParts);
 		  throw new Exception('at least one missing value');
 		}
-		
+
 		// add event parts to return string
 		foreach($arrEventParts as $strKey => $strValue)
 		{
 			$strReturn .= $strKey . ":" . $strValue . "\r\n";
 		}
-		
+
 		// add end to return string
 		$strReturn .= "END:VEVENT" . "\r\n";
-		
+
 		// return event string
 		return($strReturn);
 	}
- 
+
 	/**
 	 * cleanString
 	 * @param string $strDirtyString the dirty input string
-	 * @return string cleaned string 
+	 * @return string cleaned string
 	 */
 	public static function cleanString($strDirtyString)
 	{
@@ -205,8 +205,8 @@ class ICSExport
 		$arrGoodSigns = array('\n', '\n', '\n', '', '', '', ' ', '\"');
 		return(trim(str_replace($arrBadSigns, $arrGoodSigns, strip_tags($strDirtyString, '<br>'))));
 	}
-		
-		
+
+
 		/**
 		 * returns an ICSExport calendar object by supplying a Silverstripe calendar
 		 * @param type $cal
@@ -220,25 +220,25 @@ class ICSExport
 			$ics = new ICSExport($eventsArr);
 			return $ics;
 		}
-		
+
 }
 
 //by Anselm
 /**
  * ICS Export controller
- * 
+ *
  * Usage:
  * * "all" link is "/ics/all", like this: "/ics/all?dump=1" for debugging.
  * * Example links (will only work once you've called the get methods at least once):
  *   * Excursion calendar: /ics/cal/excursions
- * 
+ *
  * More explaination:
  * https://github.com/colinburns/daypack.com.au/issues/48
- * 
- * 
+ *
+ *
  */
 class ICSExport_Controller extends Controller {
-	
+
 	function init(){
 		parent::init();
 	}
@@ -247,13 +247,13 @@ class ICSExport_Controller extends Controller {
 		'cal',
 		'all',
 		'my',
-	);	
-	
-	
+	);
+
+
 	function index(){
 		return false;
 	}
-	
+
 	/**
 	 * Single calendar
 	 * Can be public or private
@@ -263,24 +263,24 @@ class ICSExport_Controller extends Controller {
 	 */
 	function cal(){
 		//echo 'test';
-		
+
 		$call = null;
 		$request = $this->getRequest();
-		
+
 		$ics = null;
-		
+
 		$idOrURL = $request->param('ID');
-		
+
 		//echo $idOrURL;
-		
+
 		//Public calendar via id
 		if (is_numeric($idOrURL)) {
 			//calendar id is requested
 			//echo 'request is numeric';
 			$cal = Calendar::get()->ByID((int) $request->param('ID'));
-			
+
 			//echo $cal->getLink();
-		
+
 		//Public calendar via url
 		} else {
 			//calendar url is requested
@@ -291,7 +291,7 @@ class ICSExport_Controller extends Controller {
 				->filter('URLSegment' , $url)
 				->First();
 		}
-		
+
 		//If not public calendar is found we check for a private calendar
 		if (!$cal) {
 			echo $idOrURL;
@@ -303,11 +303,11 @@ class ICSExport_Controller extends Controller {
 				return $this->memberCalendar($member);
 			}
 		}
-		
-		
-		
+
+
+
 		if ($cal && $cal->exists()) {
-			
+
 			//everybody can access public calendars
 			if ($cal->ClassName == 'PublicCalendar') {
 				$ics = ICSExport::ics_from_sscal($cal);
@@ -317,9 +317,9 @@ class ICSExport_Controller extends Controller {
 		} else {
 			echo "calendar can't be found";
 		}
-		
+
 	}
-	
+
 	/**
 	 * All public calendars
 	 */
@@ -329,17 +329,17 @@ class ICSExport_Controller extends Controller {
 		foreach ($calendars as $cal) {
 			$events->merge($cal->Events());
 		}
-		
-		
+
+
 		$eventsArr = $events->toNestedArray();
 
 		//Debug::dump($eventsArr);
 		//return false;
-		
+
 		$ics = new ICSExport($eventsArr);
 		return $this->output($ics, 'all');
 	}
-	
+
 	/**
 	 * The currently logged in user's calendar
 	 */
@@ -349,9 +349,9 @@ class ICSExport_Controller extends Controller {
 			return 'please log in';
 		}
 		return $this->memberCalendar($member);
-		
+
 	}
-	
+
 	protected function memberCalendar($member) {
 		$events = PrivateEvent::get()
 			->filter(array(
@@ -362,29 +362,29 @@ class ICSExport_Controller extends Controller {
 				'EndDateTime:LessThan' => PrivateCalendarController::offset_date('end', null, 300),
 			));
 
-		
+
 		$eventsArr = $events->toNestedArray();
 
 		//Debug::dump($eventsArr);
-		//return false;		
+		//return false;
 
 		$ics = new ICSExport($eventsArr);
-		return $this->output($ics, strtolower($member->FirstName));		
+		return $this->output($ics, strtolower($member->FirstName));
 	}
-	
-	
+
+
 	protected function output($ics, $name){
 		if ($ics) {
 			if (isset($_GET['dump'])) {
 				//dump/debug mode
 				echo "<pre>";
 				echo $ics->getString();
-				echo "</pre>";			
+				echo "</pre>";
 			} else {
 				//normal mode
 				return $ics->getFile("$name.ics");
 			}
 		}
 	}
-	
+
 }

@@ -1,14 +1,14 @@
 <?php
 /**
  * Event Page
- * A page that can serve as a permanent url for recurring events like festivals, monthly shopping events etc. 
+ * A page that can serve as a permanent url for recurring events like festivals, monthly shopping events etc.
  * Dates are added manually.
- * 
+ *
  * @package calendar
  * @subpackage pagetypes
  */
 class EventPage extends Page {
-	
+
 	private static $singular_name = 'Event Page';
 	private static $description = 'Provides for a permanent URL for recurring events like festivals, monthly shopping events etc.';
 
@@ -17,7 +17,7 @@ class EventPage extends Page {
 		'Events' => 'Event',
 	);
 
-	
+
 	public function ComingEvents(){
 		//Coming events
 		$comingEvents = $this->Events()
@@ -27,7 +27,7 @@ class EventPage extends Page {
 		);
 		return $comingEvents;
 	}
-	
+
 	public function PastEvents(){
 		//Past events
 		$pastEvents = $this->Events()
@@ -40,45 +40,45 @@ class EventPage extends Page {
 
 
 	public function getCMSFields() {
-		
+
 		$fields = parent::getCMSFields();
-		
+
 		$gridEventConfig = GridFieldConfig_RecordEditor::create();
 		$gridEventConfig->removeComponentsByType('GridFieldDetailForm');
 		$gridEventConfig->addComponent(new CalendarEventPageGridFieldDetailForm());
 
 		//Coming events
 		$comingEvents = $this->ComingEvents();
-		
-		$GridFieldComing = new GridField('ComingEvents', '', 
-			$comingEvents, 
+
+		$GridFieldComing = new GridField('ComingEvents', '',
+			$comingEvents,
 			$gridEventConfig
 		);
 		$GridFieldComing->setModelClass('PublicEvent');
 
 		$fields->addFieldToTab(
-			'Root.ComingEvents', 
+			'Root.ComingEvents',
 			$GridFieldComing
 		);
-		
+
 		//Past events
 		$pastEvents = $this->PastEvents();
-		$GridFieldPast = new GridField('PastEvents', '', 
-			$pastEvents, 
+		$GridFieldPast = new GridField('PastEvents', '',
+			$pastEvents,
 			$gridEventConfig
 		);
 		$GridFieldPast->setModelClass('PublicEvent');
 
 		$fields->addFieldToTab(
-			'Root.PastEvents', 
+			'Root.PastEvents',
 			$GridFieldPast
 		);
-		
+
 		return $fields;
 	}
 
-	
-	
+
+
 	/**
 	 * Title shown in the calendar administration
 	 * @return string
@@ -86,7 +86,7 @@ class EventPage extends Page {
 	public function getCalendarTitle(){
 		return $this->Title;
 	}
-	
+
 }
 
 class EventPage_Controller extends Page_Controller {
@@ -96,7 +96,7 @@ class EventPage_Controller extends Page_Controller {
 			return 'past';
 		} else {
 			return 'coming';
-		}		
+		}
 	}
 	public function Events() {
 		if ($this->ComingOrPastEvents() == 'past') {

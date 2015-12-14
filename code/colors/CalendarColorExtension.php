@@ -2,20 +2,20 @@
 /**
  * Color Extension
  * Allows calendars or categories to have colors
- * 
+ *
  * @package calendar
  * @subpackage colors
  */
 class CalendarColorExtension extends DataExtension {
-	
+
 	public static $db = array(
 		'Color' => 'Varchar',
 	);
-	
+
 	public function TextColor(){
 		return $this->owner->calculateTextColor($this->owner->getColorWithHash());
 	}
-	
+
 	/**
 	 * Text Color calculation
 	 * From http://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
@@ -28,14 +28,14 @@ class CalendarColorExtension extends DataExtension {
 		$rgb[0] = hexdec(substr($c,0,2));
 		$rgb[1] = hexdec(substr($c,2,2));
 		$rgb[2] = hexdec(substr($c,4,2));
-		
+
 		if ($rgb[0]+$rgb[1]+$rgb[2]<382) {
 			return '#fff';
 		} else {
-			return '#000';	
+			return '#000';
 		}
-	}	
-	
+	}
+
 	/**
 	 * Getter that always returns the color with a hash
 	 * As the standard Silverstripe color picker seems to save colors without a hash,
@@ -49,17 +49,17 @@ class CalendarColorExtension extends DataExtension {
 		} else {
 			return $color;
 		}
-	}	
-	
-	
+	}
+
+
 	public function updateCMSFields(FieldList $fields) {
 		$colors = ColorpaletteHelper::get_palette();
-		
+
 		$fields->removeByName('Color');
 		$fields->addFieldToTab(
-			'Root.Main', 
+			'Root.Main',
 			new ColorpaletteField('Color', 'Colour', $colors)
 		);
-		
+
 	}
 }

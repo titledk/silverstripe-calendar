@@ -64,7 +64,7 @@ class EventRegistrationForm extends Form {
 		$form->saveInto($r);
 
 		$EventDetails = Event::get()->byID($r->EventID);
-		
+
 		if ($EventDetails->TicketsRequired) {
 			$r->AmountPaid = ($r->AmountPaid/100);
 		}

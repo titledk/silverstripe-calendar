@@ -12,8 +12,8 @@ class DoURLSegmentExtension extends DataExtension {
 	function onBeforeWrite() {
 		$this->owner->URLSegment = singleton('SiteTree')->generateURLSegment($this->owner->Title);
 	}
-	
-	
+
+
 	function getLink(){
 		$link = $this->owner->URLSegment;
 		if (!$link) {
@@ -23,10 +23,10 @@ class DoURLSegmentExtension extends DataExtension {
 		}
 		return $link;
 	}
-	
+
 //	function getName(){
 //		$name = $this->owner->Title;
 //		return $name;
 //	}
-	
+
 }

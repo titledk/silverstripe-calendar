@@ -20,7 +20,7 @@
 					$SectionTitle:
 				<% else %>
 				<% end_if %>
-								
+
 								$SubTitle
 			</h2>
 		</div>
@@ -44,7 +44,7 @@
 
 	<div class="cms-content-fields center ui-widget-content" data-layout-type="border">
 			$Tools
-			
+
 			<% if $Action == 'index' %>
 				$ComingEventsForm
 			<% end_if %>
@@ -57,7 +57,7 @@
 			<% if $Action == 'categories' %>
 				$CategoriesForm
 			<% end_if %>
-		
+
 
 	</div>
 

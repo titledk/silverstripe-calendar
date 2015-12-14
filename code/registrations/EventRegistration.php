@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Registration
- * 
+ *
  * @package calendar
  * @subpackage registrations
  */
@@ -9,7 +9,7 @@ class EventRegistration extends DataObject {
 
 	static $singular_name = 'Registration';
 	static $plural_name = 'Registrations';
-	
+
 	static $db = array(
 		'Name' => 'Varchar',
 		'PayersName' => 'Varchar',
@@ -19,7 +19,7 @@ class EventRegistration extends DataObject {
 		'AmountPaid' => 'Money',
 		'Notes' => 'HTMLText'
 	);
-	
+
 	static $has_one = array(
 		'Event' => 'Event'
 	);
@@ -32,7 +32,7 @@ class EventRegistration extends DataObject {
 		'NumberOfTickets' => 'Tickets',
 		'AmountPaid' => 'Amount Paid'
 	);
-	
+
 	/**
 	 * Frontend fields
 	 */
@@ -43,7 +43,7 @@ class EventRegistration extends DataObject {
 			TextField::create('Email'),
 			HiddenField::create('EventID')
 		);
-		
+
 		$this->extend('updateFrontEndFields', $fields);
 		return $fields;
 	}

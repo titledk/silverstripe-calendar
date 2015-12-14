@@ -1,6 +1,6 @@
 <?php
 class ColorpaletteField extends DropdownField {
-	
+
 	public function __construct($name, $title = null, $source = null, $value = "", $form=null) {
 		if(!is_array($source)) {
 			$source = ColorpaletteHelper::get_palette();
@@ -12,9 +12,9 @@ class ColorpaletteField extends DropdownField {
 		$this->addExtraClass('ColorpaletteInput');
 		ColorpaletteHelper::requirements();
 		Requirements::javascript("calendar/javascript/admin/ColorpaletteField.js");
-		
+
 		$source = $this->getSource();
-		
+
 		//adding the current value to the mix if isn't in the array
 		$val = $this->getColorWithHash();
 		$this->value = $val;
@@ -23,8 +23,8 @@ class ColorpaletteField extends DropdownField {
 		$this->setSource($source);
 
 		return parent::Field();
-	}	
-	
+	}
+
 
 	/**
 	 * Getter that always returns the color with a hash

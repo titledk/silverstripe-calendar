@@ -2,12 +2,12 @@
 /**
  * Event Calendar Extension
  * Allowing events to have calendars
- * 
+ *
  * @package calendar
  * @subpackage calendars
  */
 class EventCalendarExtension extends DataExtension {
-	
+
 	public static $has_one = array(
 		'Calendar' => 'Calendar',
 	);
@@ -17,8 +17,8 @@ class EventCalendarExtension extends DataExtension {
 		$calendarDropdown = DropdownField::create('CalendarID','Calendar',
 				PublicCalendar::get()->map('ID', 'Title'))
 				->setEmptyString('Choose calendar...');
-			
+
 		$fields->push($calendarDropdown);
-		
+
 	}
 }

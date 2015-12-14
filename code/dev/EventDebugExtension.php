@@ -1,12 +1,12 @@
 <?php
 /**
  * Event Debug Extension
- * 
+ *
  * @package calendar
  * @subpackage dev
  */
 class EventDebugExtension extends DataExtension {
-	
+
 	public static $db = array(
 		'DebugLog' => 'Text',
 	);
@@ -17,7 +17,7 @@ class EventDebugExtension extends DataExtension {
 		if ($write) {
 			$e->write();
 		}
-	}	
-	
-	
+	}
+
+
 }

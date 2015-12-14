@@ -2,12 +2,12 @@
 /**
  * Event Has EventPage Extension
  * Allowing events to belong to an EventPage.
- * 
+ *
  * @package calendar
  * @subpackage pagetypes
  */
 class EventHasEventPageExtension extends DataExtension {
-	
+
 	public static $has_one = array(
 		'EventPage' => 'EventPage',
 	);
@@ -19,11 +19,11 @@ class EventHasEventPageExtension extends DataExtension {
 		} else {
 			return '-';
 		}
-		
-	}	  
-	
+
+	}
+
 	public function updateCMSFields(FieldList $fields) {
-		
+
 		$fields->addFieldToTab('Root.RelatedPage',
 			DropdownField::create('EventPageID','EventPage',
 				EventPage::get()->map('ID', 'Title'))

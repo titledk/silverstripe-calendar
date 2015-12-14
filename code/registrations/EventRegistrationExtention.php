@@ -20,7 +20,7 @@ class EventRegistrationExtension extends DataExtension {
 	);
 
 	public function updateCMSFields(FieldList $fields) {
-		
+
 		$fields->addFieldToTab('Root.Registrations',
 			new HeaderField('Header1', 'Event Registration', 2)
 		);

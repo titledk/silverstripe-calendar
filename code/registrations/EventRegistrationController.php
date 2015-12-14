@@ -6,12 +6,12 @@
  * @subpackage registrations
  */
 class EventRegistrationController extends Controller {
-	
+
 	private static $allowed_actions = array(
 		'registerform',
 		'paymentregisterform'
 	);
-	
+
 
 	function init() {
 		parent::init();

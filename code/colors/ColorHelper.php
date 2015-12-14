@@ -13,12 +13,12 @@ class ColorHelper {
 		$rgb[0] = hexdec(substr($c,0,2));
 		$rgb[1] = hexdec(substr($c,2,2));
 		$rgb[2] = hexdec(substr($c,4,2));
-		
+
 		if ($rgb[0]+$rgb[1]+$rgb[2]<382) {
 			return '#fff';
 		} else {
 			return '#000';
 		}
 	}
-	
+
 }
