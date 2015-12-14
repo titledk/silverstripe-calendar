@@ -96,7 +96,7 @@ class FullcalendarController extends Controller {
 	/**
 	 * Handles returning the JSON events data for a time range.
 	 *
-	 * @param  SS_HTTPRequest $request
+	 * @param SS_HTTPRequest $request
 	 * @return SS_HTTPResponse
 	 */
 	function publicevents($request, $json=true, $calendars=null, $offset=30){
