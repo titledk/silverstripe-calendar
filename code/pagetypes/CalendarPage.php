@@ -29,7 +29,7 @@ class CalendarPage_Controller extends Page_Controller {
 		'noregistrations'
 	);
 
-	function init(){
+	public function init(){
 		parent::init();
 		Requirements::javascript('calendar/javascript/pagetypes/CalendarPage.js');
 		Requirements::css('calendar/css/pagetypes/CalendarPage.css');
@@ -44,7 +44,7 @@ class CalendarPage_Controller extends Page_Controller {
 	/**
 	 * Coming events
 	 */
-	function index(){
+	public function index(){
 		$s = CalendarConfig::subpackage_settings('pagetypes');
 		$indexSetting = $s['calendarpage']['index'];
 		if ($indexSetting == 'eventlist') {
@@ -56,17 +56,17 @@ class CalendarPage_Controller extends Page_Controller {
 
 	}
 
-	function eventlist(){
+	public function eventlist(){
 		//return $this->returnTemplate();
 		return $this;
 	}
 
-	function registered($req) {
+	public function registered($req) {
 		//This has been taken out for now - should go to an own module
 		//If you need this, contact Anselm (ac@title.dk)
 
 	}
-	function eventregistration(){
+	public function eventregistration(){
 		//TODO: filter this so only registerable events are shown
 		//return $this->returnTemplate();
 		return $this;
@@ -78,7 +78,7 @@ class CalendarPage_Controller extends Page_Controller {
 	 * Renders the fullcalendar
 	 *
 	 */
-	function calendarview(){
+	public function calendarview(){
 		$s = CalendarConfig::subpackage_settings('pagetypes');
 
 		//Debug::dump($s);
@@ -139,7 +139,7 @@ class CalendarPage_Controller extends Page_Controller {
 	 * @param $req
 	 * @return array
 	 */
-	function detail($req){
+	public function detail($req){
 		$event = Event::get()->byID($req->param('ID'));
 		if (!$event) return $this->httpError(404);
 		return array(
@@ -152,7 +152,7 @@ class CalendarPage_Controller extends Page_Controller {
 	 * @param $req
 	 * @return array
 	 */
-	function register($req) {
+	public function register($req) {
 		if (CalendarConfig::subpackage_enabled('registrations')) {
 			return $this->detail($req);
 		} else {

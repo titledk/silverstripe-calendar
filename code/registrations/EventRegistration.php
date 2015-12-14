@@ -36,7 +36,7 @@ class EventRegistration extends DataObject {
 	/**
 	 * Frontend fields
 	 */
-	function getFrontEndFields($param = null) {
+	public function getFrontEndFields($param = null) {
 
 		$fields = FieldList::create(
 			TextField::create('Name'),

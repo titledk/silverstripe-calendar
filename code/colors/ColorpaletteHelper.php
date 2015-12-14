@@ -11,7 +11,7 @@
  */
 class ColorpaletteHelper {
 
-	static function requirements($dev = false) {
+	public static function requirements($dev = false) {
 //		if ($dev) {
 			//Requirements::javascript('calendar/thirdparty/colorpicker/jquery.colourPicker.js');
 			Requirements::javascript('calendar/thirdparty/colorpicker/jquery.colourPicker.mod.js');
@@ -21,7 +21,7 @@ class ColorpaletteHelper {
 		Requirements::css('calendar/thirdparty/colorpicker/jquery.colourPicker.css');
 	}
 
-	static function palette_dropdown($name) {
+	public static function palette_dropdown($name) {
 		$dropdown = DropdownField::create($name)
 			->setSource(self::get_palette());
 			//->setEmptyString('select color');
@@ -47,7 +47,7 @@ class ColorpaletteHelper {
 	 * @param int $numColors Number of colors - default: 30
 	 * @return null
 	 */
-	static function get_palette($numColors = 50, $type='hsv') {
+	public static function get_palette($numColors = 50, $type='hsv') {
 
 		//overwriting with the palette from the calendar settings
 		$s = CalendarConfig::subpackage_settings('colors');

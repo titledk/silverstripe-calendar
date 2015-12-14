@@ -12,7 +12,7 @@ class CategoriesForm extends Form {
 	 * @param type $controller
 	 * @param type $name
 	 */
-	function __construct($controller, $name) {
+	public function __construct($controller, $name) {
 
 		//Administering categories
 		if (CalendarConfig::subpackage_enabled('categories')) {

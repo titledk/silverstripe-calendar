@@ -30,7 +30,7 @@ class Event extends DataObject {
 		//'Calendar.Title' => 'Calendar'
 	);
 
-	function summaryFields(){
+	public function summaryFields(){
 		return array(
 			'Title' => 'Title',
 			'Calendar.Title'   => 'Calendar',
@@ -268,7 +268,7 @@ class Event extends DataObject {
 	 * Frontend fields
 	 * Simple list of the basic fields - how they're intended to be edited
 	 */
-	function getFrontEndFields($params = null) {
+	public function getFrontEndFields($params = null) {
 		//parent::getFrontEndFields($params);
 
 		$timeFrameHeaderText = 'Time Frame';
@@ -347,7 +347,7 @@ class Event extends DataObject {
 	/**
 	 * CMS Fields
 	 */
-	function getCMSFields() {
+	public function getCMSFields() {
 		$eventFields = $this->getFrontEndFields();
 
 		$fields = new FieldList();
@@ -369,12 +369,12 @@ class Event extends DataObject {
 	}
 
 
-	function getAddNewFields() {
+	public function getAddNewFields() {
 		return $this->getFrontEndFields();
 
 	}
 
-	function getIsPastEvent() {
+	public function getIsPastEvent() {
 		if(strtotime($this->StartDateTime) < mktime(0, 0, 0, date('m'), date('d'), date('Y'))){
 			return true;
 		}else{
@@ -388,19 +388,19 @@ class Event extends DataObject {
 	 * Returns either the event's date or both start and end date if the event spans more than
 	 * one date
 	 */
-	function getFormattedDates(){
+	public function getFormattedDates(){
 		return EventHelper::formatted_dates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
 	}
 
-	function getFormattedTimeframe(){
+	public function getFormattedTimeframe(){
 		return EventHelper::formatted_timeframe($this->obj('StartDateTime'), $this->obj('EndDateTime'));
 	}
 
-	function getStartAndEndDates(){
+	public function getStartAndEndDates(){
 		return EventHelper::formatted_alldates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
 	}
 
-	function getDatesAndTimeframe(){
+	public function getDatesAndTimeframe(){
 
 		$dates = $this->getFormattedDates();
 		$timeframe = $this->getFormattedTimeframe();

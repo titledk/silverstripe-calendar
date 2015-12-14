@@ -21,7 +21,7 @@ class FullcalendarController extends Controller {
 	);
 
 
-	function init() {
+	public function init() {
 		parent::init();
 
 		$member = Member::currentUser();
@@ -64,7 +64,7 @@ class FullcalendarController extends Controller {
 	 * @param int $timestamp
 	 * return \SS_Datetime
 	 */
-	function eventlistOffsetDate($type, $timestamp, $offset = 30){
+	public function eventlistOffsetDate($type, $timestamp, $offset = 30){
 		return self::offset_date($type, $timestamp, $offset);
 	}
 
@@ -72,7 +72,7 @@ class FullcalendarController extends Controller {
 	 * Calculate start/end date for event list
 	 * TODO this should go in a helper class
 	 */
-	static function offset_date($type, $timestamp, $offset = 30) {
+	public static function offset_date($type, $timestamp, $offset = 30) {
 
 		if (!$timestamp) {
 			$timestamp = time();
@@ -99,7 +99,7 @@ class FullcalendarController extends Controller {
 	 * @param SS_HTTPRequest $request
 	 * @return SS_HTTPResponse
 	 */
-	function publicevents($request, $json=true, $calendars=null, $offset=30){
+	public function publicevents($request, $json=true, $calendars=null, $offset=30){
 
 		$calendarsSupplied = false;
 		if ($calendars) {
@@ -175,7 +175,7 @@ class FullcalendarController extends Controller {
 	 * Shaded events for the calendar are called once on calendar initialization,
 	 * hence the offset of 3000 days
 	 */
-	function shadedevents($request, $json=true, $calendars = null, $offset=3000){
+	public function shadedevents($request, $json=true, $calendars = null, $offset=3000){
 
 		if (!$calendars) {
 			$calendars = PublicCalendar::get();
@@ -191,7 +191,7 @@ class FullcalendarController extends Controller {
 	/**
 	 * Rendering event in popup
 	 */
-	function eventpopup(){
+	public function eventpopup(){
 		if ($e = $this->event){
 			return $e->renderWith('EventPopup');
 		}
@@ -205,7 +205,7 @@ class FullcalendarController extends Controller {
 	 * @param boolean $success
 	 * @return \SS_HTTPResponse
 	 */
-	function handleJsonResponse($success = false, $retVars = null) {
+	public function handleJsonResponse($success = false, $retVars = null) {
 		$result = array();
 		if ($success) {
 			$result = array(
@@ -225,7 +225,7 @@ class FullcalendarController extends Controller {
 	 * Format an event to comply with the fullcalendar format
 	 * @param Event $event
 	 */
-	static function format_event_for_fullcalendar($event) {
+	public static function format_event_for_fullcalendar($event) {
 
 		$bgColor = '#999'; //default
 		$textColor = '#FFF'; //default
@@ -250,7 +250,7 @@ class FullcalendarController extends Controller {
 	 * Format SS_Datime to fullcalendar format
 	 * @param SS_Datetime $datetime
 	 */
-	static function format_datetime_for_fullcalendar($datetime) {
+	public static function format_datetime_for_fullcalendar($datetime) {
 		$time = strtotime($datetime);
 		$str = date('c', $time);
 

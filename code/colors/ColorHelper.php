@@ -8,7 +8,7 @@ class ColorHelper {
 	 * @param type $color
 	 * @return string
 	 */
-	static function calculate_textcolor($color) {
+	public static function calculate_textcolor($color) {
 		$c = str_replace('#','',$color);
 		$rgb[0] = hexdec(substr($c,0,2));
 		$rgb[1] = hexdec(substr($c,2,2));
