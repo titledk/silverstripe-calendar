@@ -8,8 +8,8 @@
  */
 class CalendarHelper {
 
-	
-	
+
+
 	/**
 	 * Get all coming public events
 	 */
@@ -27,7 +27,7 @@ class CalendarHelper {
 		$events = self::coming_events($from)->limit($limit);
 		return $events;
 	}
-	
+
 	/**
 	 * Get all past public events
 	 */
@@ -37,7 +37,7 @@ class CalendarHelper {
 					'StartDateTime:LessThan' => date('Y-m-d',time())
 				)
 			);
-		
+
 		return $events;
 	}
 
@@ -64,10 +64,10 @@ class CalendarHelper {
 	 */
 	static function events_for_month($month){
 		$nextMonth = strtotime('last day of this month', strtotime($month));
-		
+
 		$currMonthStr = date('Y-m-d',strtotime($month));
 		$nextMonthStr = date('Y-m-d',$nextMonth);
-		
+
 		$sql =	"(StartDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr')" .
 						" OR " .
 						"(EndDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr')";
@@ -75,7 +75,7 @@ class CalendarHelper {
 
 		$events = PublicEvent::get()
 			->where($sql);
-		
+
 		return $events;
 	}
 }

@@ -14,7 +14,7 @@
 			<% include EventListEvents %>
 		<% else %>
 			<em>We didn't find any results.</em>
-		<% end_if %>		
+		<% end_if %>
 	</div>
 
 

@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * Calendar Admin
  *
  * @package calendar
@@ -9,10 +9,10 @@ class CalendarAdmin extends LeftAndMain {
 
 	static $menu_title = "Calendar";
 	static $url_segment = "calendar";
-	
+
 	//static $menu_priority = 100;
 	//static $url_priority = 30;
-	
+
 	static $menu_icon = "calendar/images/icons/calendar.png";
 
 	private static $allowed_actions = array(
@@ -25,10 +25,10 @@ class CalendarAdmin extends LeftAndMain {
 		'categories',
 		'PublicEventImportForm'
 	);
-	
-	
+
+
 //	static $url_handlers = array (
-//		
+//
 //		//'panel/$ID' => 'handlePanel',
 //		'$Action!' => '$Action',
 //		'' => 'index'
@@ -37,8 +37,8 @@ class CalendarAdmin extends LeftAndMain {
 
 	public function init() {
 		parent::init();
-		
-		
+
+
 		//CSS/JS Dependencies - currently not much there
 		Requirements::css("calendar/css/admin/CalendarAdmin.css");
 		Requirements::javascript("calendar/javascript/admin/CalendarAdmin.js");
@@ -46,7 +46,7 @@ class CalendarAdmin extends LeftAndMain {
 
 
 //	public function getEditForm($id = null, $fields = null) {
-//	
+//
 //		$form = null;
 //
 //		switch ($this->Action) {
@@ -62,18 +62,18 @@ class CalendarAdmin extends LeftAndMain {
 //			case 'index':
 //				$form = new CategoriesForm($this, "EditForm");
 //				break;
-//		}		
-//		
-//		
+//		}
+//
+//
 //		$form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
 //		$form->loadDataFrom($this->request->getVars());
-//		
+//
 //		$this->extend('updateEditForm', $form);
 //
 //		return $form;
 //	}
-	
-	
+
+
 	public function ComingEventsForm(){
 		$form = new ComingEventsForm($this, "ComingEventsForm");
 		$form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
@@ -114,16 +114,16 @@ class CalendarAdmin extends LeftAndMain {
 		}
 		return $str;
 	}
-	
+
 	public function CalendarsEnabled(){
 		return CalendarConfig::subpackage_enabled('calendars');
 	}
 	public function CategoriesEnabled(){
 		return CalendarConfig::subpackage_enabled('categories');
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Action "pastevents"
 	 * @param type $request
@@ -132,7 +132,7 @@ class CalendarAdmin extends LeftAndMain {
 	public function pastevents($request) {
 		return $this->getResponseNegotiator()->respond($request);
 	}
-	
+
 	/**
 	 * Action "calendars"
 	 * @param type $request
@@ -143,7 +143,7 @@ class CalendarAdmin extends LeftAndMain {
 			return $this->getResponseNegotiator()->respond($request);
 		}
 	}
-	
+
 	/**
 	 * Action "categories"
 	 * @param type $request
@@ -154,8 +154,8 @@ class CalendarAdmin extends LeftAndMain {
 			return $this->getResponseNegotiator()->respond($request);
 		}
 	}
-	
-	
+
+
 
 }
 

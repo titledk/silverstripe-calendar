@@ -1,10 +1,10 @@
 <div class="cms-content-tools west cms-panel cms-panel-layout" id="cms-content-tools-CalendarAdmin" data-expandOnClick="true" data-layout-type="border">
 	<div class="cms-panel-content center">
 		<h3 class="cms-panel-header">Options</h3>
-	
+
 		<% if $Action != "index" %>
 			<div style="margin-bottom:5px;">
-				<a href="$Link" class="ss-ui-button ss-ui-action-constructive cms-panel-link ui-corner-all">Coming Events</a>	
+				<a href="$Link" class="ss-ui-button ss-ui-action-constructive cms-panel-link ui-corner-all">Coming Events</a>
 			</div>
 		<% end_if %>
 		<% if $Action != "pastevents" %>

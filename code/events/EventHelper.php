@@ -2,45 +2,45 @@
 /**
  * Event Helper
  * Helper class for event related calculations and formatting
- * 
+ *
  * @package calendar
  */
 class EventHelper {
 
-	
+
 	/**
 	 * Formatted Dates
 	 * Returns either the event's date or both start and end date if the event spans more than
 	 * one date
-	 * 
+	 *
 	 * Format:
 	 * Jun 7th - Jun 10th
-	 * 
+	 *
 	 * @param SS_Datetime $startObj
 	 * @param SS_Datetime $endObj
 	 * @return string
 	 */
 	static function formatted_dates($startObj, $endObj){
-		
+
 		//Checking if end date is set
 		$endDateIsset = true;
 		if (isset($endObj->value)) {
 			$endDateIsset = false;
 		}
-		
+
 		$startTime = strtotime($startObj->value);
 		$endTime = strtotime($endObj->value);
-		
+
 		$startMonth = date('M', $startTime);
 		$startDayOfMonth = $startObj->DayOfMonth(true);
 		$str = $startMonth . ' ' . $startDayOfMonth;
-		
+
 		if (date('Y-m-d', $startTime) == date('Y-m-d', $endTime)) {
 			//one date - str. has already been written
-			
+
 		} else {
 			//two dates
-			
+
 			if ($endDateIsset) {
 				$endMonth = date('M', $endTime);
 				$endDayOfMonth = $endObj->DayOfMonth(true);
@@ -50,7 +50,7 @@ class EventHelper {
 				} else {
 					$str .= ' - ' . $endMonth . ' ' . $endDayOfMonth;
 				}
-				
+
 			}
 		}
 		return $str;
@@ -82,7 +82,7 @@ class EventHelper {
 
 		return $startDate." &ndash; ".$endDate;
 	}
-	
+
 	/**
 	 * Formatted time frame
 	 * Returns either a string or null
@@ -94,11 +94,11 @@ class EventHelper {
 	static function formatted_timeframe($startStr, $endStr) {
 
 		$str = null;
-		
+
 		if ($startStr == $endStr) {
 			return null;
 		}
-		
+
 		$startTime = strtotime($startStr->value);
 		$endTime = strtotime($endStr->value);
 
@@ -114,9 +114,9 @@ class EventHelper {
 		} else {
 			$str = date('g:ia', $startTime);
 		}
-		
+
 		return $str;
 	}
-	
-	
+
+
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Allowing events to have many-many categories
- * 
+ *
  * @package calendar
  * @subpackage categories
  */
@@ -10,14 +10,14 @@ class EventCategoryExtension extends DataExtension {
 	static $belongs_many_many = array(
 		'Categories' => 'EventCategory'
 	);
-	
-	
+
+
 	public function updateCMSFields(FieldList $fields) {
-		
+
 		$categories = function(){
 			//TODO: This should only be the case for public events
 			return PublicEventCategory::get()->map()->toArray();
-		};	
+		};
 		$categoriesField = ListboxField::create('Categories', 'Categories')
 			->setMultiple(true)
 			->setSource($categories()
@@ -28,7 +28,7 @@ class EventCategoryExtension extends DataExtension {
 		if (class_exists('QuickAddNewExtension')) {
 			$categoriesField->useAddNew('PublicEventCategory', $categories);
 		}
-		
+
 		$fields->addFieldToTab('Root.Main',$categoriesField);
 	}
 }

@@ -11,22 +11,22 @@ class CalendarEventPageGridFieldDetailForm extends CalendarEventGridFieldDetailF
 /**
  * extension to the @see CalendarEventGridFieldDetailForm_ItemRequest
  */
-class CalendarEventPageGridFieldDetailForm_ItemRequest extends CalendarEventGridFieldDetailForm_ItemRequest {           
+class CalendarEventPageGridFieldDetailForm_ItemRequest extends CalendarEventGridFieldDetailForm_ItemRequest {
 
 	private static $allowed_actions = array(
 		'edit',
 		'view',
 		'ItemEditForm'
-	);		
-	
-	
-	/**		 
-	 * @return {Form} 	 
+	);
+
+
+	/**
+	 * @return {Form}
 	 */
 	public function ItemEditForm() {
 
 		$form = parent::ItemEditForm();
-		
+
 		if ($form) {
 			$fields = $form->Fields();
 			$fields->removeByName('EventPage');
