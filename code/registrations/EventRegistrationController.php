@@ -13,7 +13,7 @@ class EventRegistrationController extends Controller {
 	);
 
 
-	function init() {
+	public function init() {
 		parent::init();
 	}
 
@@ -51,7 +51,7 @@ class EventRegistrationController extends Controller {
 	 * @param boolean $success
 	 * @return \SS_HTTPResponse
 	 */
-	function handleJsonResponse($success = false, $retVars = null) {
+	public function handleJsonResponse($success = false, $retVars = null) {
 		$result = array();
 		if ($success) {
 			$result = array(

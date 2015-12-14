@@ -12,7 +12,7 @@ class EventRegistrationForm extends Form {
 	 * @param type $controller
 	 * @param type $name
 	 */
-	function __construct($controller, $name) {
+	public function __construct($controller, $name) {
 
 		//Fields
 		$fields = singleton('EventRegistration')->getFrontEndFields();
@@ -38,7 +38,7 @@ class EventRegistrationForm extends Form {
 
 
 
-	function setDone(){
+	public function setDone(){
 		$this->setFields(
 			FieldList::create(
 				LiteralField::create(
@@ -86,7 +86,7 @@ class EventRegistrationForm extends Form {
 
 
 
-	function setFormField($name, $value) {
+	public function setFormField($name, $value) {
 
 		$fields = $this->Fields();
 		foreach ($fields as $field) {

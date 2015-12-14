@@ -12,7 +12,7 @@ class CalendarsForm extends Form {
 	 * @param type $controller
 	 * @param type $name
 	 */
-	function __construct($controller, $name) {
+	public function __construct($controller, $name) {
 
 		//Administering calendars
 		if (CalendarConfig::subpackage_enabled('calendars')) {

@@ -13,7 +13,7 @@ class PaymentRegistrationForm extends Form {
 	 * @param type $controller
 	 * @param type $name
 	 */
-	function __construct($controller, $name) {
+	public function __construct($controller, $name) {
 
 		//Fields
 		$fields = FieldList::create(
@@ -47,7 +47,7 @@ class PaymentRegistrationForm extends Form {
 
 
 
-	function setDone(){
+	public function setDone(){
 		$this->setFields(
 			FieldList::create(
 				LiteralField::create(
@@ -79,7 +79,7 @@ class PaymentRegistrationForm extends Form {
 
 
 
-	function setFormField($name, $value) {
+	public function setFormField($name, $value) {
 
 		$fields = $this->Fields();
 		foreach ($fields as $field) {

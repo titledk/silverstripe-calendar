@@ -21,7 +21,7 @@ class EventCategory extends DataObject {
 	static $default_sort = 'Title';
 
 
-	function getAddNewFields() {
+	public function getAddNewFields() {
 		$fields = FieldList::create(
 			TextField::create('Title')
 		);

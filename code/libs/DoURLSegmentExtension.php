@@ -9,12 +9,12 @@ class DoURLSegmentExtension extends DataExtension {
 		'URLSegment' => 'Varchar(255)'
 	);
 
-	function onBeforeWrite() {
+	public function onBeforeWrite() {
 		$this->owner->URLSegment = singleton('SiteTree')->generateURLSegment($this->owner->Title);
 	}
 
 
-	function getLink(){
+	public function getLink(){
 		$link = $this->owner->URLSegment;
 		if (!$link) {
 			//if no link has been generated, auto generate it

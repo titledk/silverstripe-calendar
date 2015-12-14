@@ -239,7 +239,7 @@ class ICSExport
  */
 class ICSExport_Controller extends Controller {
 
-	function init(){
+	public function init(){
 		parent::init();
 	}
 
@@ -250,7 +250,7 @@ class ICSExport_Controller extends Controller {
 	);
 
 
-	function index(){
+	public function index(){
 		return false;
 	}
 
@@ -261,7 +261,7 @@ class ICSExport_Controller extends Controller {
 	 * For private calendars user email and hash need to be supplied - like this.
 	 * The private calendar hash is created in {@see PrivateCalendarMemberExtension}
 	 */
-	function cal(){
+	public function cal(){
 		//echo 'test';
 
 		$call = null;
@@ -323,7 +323,7 @@ class ICSExport_Controller extends Controller {
 	/**
 	 * All public calendars
 	 */
-	function all(){
+	public function all(){
 		$calendars = PublicCalendar::get();
 		$events = new ArrayList();
 		foreach ($calendars as $cal) {
@@ -343,7 +343,7 @@ class ICSExport_Controller extends Controller {
 	/**
 	 * The currently logged in user's calendar
 	 */
-	function my(){
+	public function my(){
 		$member = Member::currentUser();
 		if (!$member) {
 			return 'please log in';
