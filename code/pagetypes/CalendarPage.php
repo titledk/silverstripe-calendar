@@ -29,7 +29,7 @@ class CalendarPage_Controller extends Page_Controller {
 		'noregistrations'
 	);
 
-	public function init(){
+	public function init() {
 		parent::init();
 		Requirements::javascript('calendar/javascript/pagetypes/CalendarPage.js');
 		Requirements::css('calendar/css/pagetypes/CalendarPage.css');
@@ -44,7 +44,7 @@ class CalendarPage_Controller extends Page_Controller {
 	/**
 	 * Coming events
 	 */
-	public function index(){
+	public function index() {
 		$s = CalendarConfig::subpackage_settings('pagetypes');
 		$indexSetting = $s['calendarpage']['index'];
 		if ($indexSetting == 'eventlist') {
@@ -56,7 +56,7 @@ class CalendarPage_Controller extends Page_Controller {
 
 	}
 
-	public function eventlist(){
+	public function eventlist() {
 		//return $this->returnTemplate();
 		return $this;
 	}
@@ -66,7 +66,7 @@ class CalendarPage_Controller extends Page_Controller {
 		//If you need this, contact Anselm (ac@title.dk)
 
 	}
-	public function eventregistration(){
+	public function eventregistration() {
 		//TODO: filter this so only registerable events are shown
 		//return $this->returnTemplate();
 		return $this;
@@ -78,7 +78,7 @@ class CalendarPage_Controller extends Page_Controller {
 	 * Renders the fullcalendar
 	 *
 	 */
-	public function calendarview(){
+	public function calendarview() {
 		$s = CalendarConfig::subpackage_settings('pagetypes');
 
 		//Debug::dump($s);
@@ -139,7 +139,7 @@ class CalendarPage_Controller extends Page_Controller {
 	 * @param $req
 	 * @return array
 	 */
-	public function detail($req){
+	public function detail($req) {
 		$event = Event::get()->byID($req->param('ID'));
 		if (!$event) return $this->httpError(404);
 		return array(
@@ -160,10 +160,10 @@ class CalendarPage_Controller extends Page_Controller {
 		}
 	}
 
-	public function RegistrationsEnabled(){
+	public function RegistrationsEnabled() {
 		return CalendarConfig::subpackage_enabled('registrations');
 	}
-	public function SearchEnabled(){
+	public function SearchEnabled() {
 		$s = CalendarConfig::subpackage_settings('pagetypes');
 		return $s['calendarpage']['search'];
 	}
@@ -173,7 +173,7 @@ class CalendarPage_Controller extends Page_Controller {
 	 *
 	 * @return type
 	 */
-	public function Events(){
+	public function Events() {
 		$action = $this->request->param('Action');
 		//Debug::dump($this->request->params());
 
@@ -266,7 +266,7 @@ class CalendarPage_Controller extends Page_Controller {
 	}
 
 
-	public function CurrentMonth(){
+	public function CurrentMonth() {
 		if (isset($_GET['month'])) {
 			return $_GET['month'];
 		} else {
@@ -275,7 +275,7 @@ class CalendarPage_Controller extends Page_Controller {
 		}
 	}
 
-	public function CurrentMonthStr(){
+	public function CurrentMonthStr() {
 		$month = $this->CurrentMonth();
 		$t = strtotime($month);
 		$month = date('M Y', $t);
@@ -283,7 +283,7 @@ class CalendarPage_Controller extends Page_Controller {
 		return $month;
 	}
 
-	public function NextMonth(){
+	public function NextMonth() {
 		$month = $this->CurrentMonth();
 		$t = strtotime($month);
 		$next = strtotime( '+1 month', $t);
@@ -291,13 +291,13 @@ class CalendarPage_Controller extends Page_Controller {
 		return $month;
 	}
 
-	public function NextMonthLink(){
+	public function NextMonthLink() {
 		$month = $this->NextMonth();
 		$url = $this->Link() . $this->request->param('Action') . '/?month=' . $month;
 		return $url;
 
 	}
-	public function PrevMonth(){
+	public function PrevMonth() {
 		$month = $this->CurrentMonth();
 		$t = strtotime($month);
 		$prev = strtotime( '-1 month', $t);
@@ -305,14 +305,14 @@ class CalendarPage_Controller extends Page_Controller {
 		return $month;
 	}
 
-	public function PrevMonthLink(){
+	public function PrevMonthLink() {
 		$month = $this->PrevMonth();
 		$url = $this->Link() . $this->request->param('Action') . '/?month=' . $month;
 		return $url;
 	}
 
 
-	public function EventListLink(){
+	public function EventListLink() {
 		$s = CalendarConfig::subpackage_settings('pagetypes');
 		$indexSetting = $s['calendarpage']['index'];
 		$link = $this->Link();
@@ -322,7 +322,7 @@ class CalendarPage_Controller extends Page_Controller {
 			return $link . 'eventlist/';
 		}
 	}
-	public function CalendarViewLink(){
+	public function CalendarViewLink() {
 		$s = CalendarConfig::subpackage_settings('pagetypes');
 		$indexSetting = $s['calendarpage']['index'];
 		$link = $this->Link();
@@ -333,7 +333,7 @@ class CalendarPage_Controller extends Page_Controller {
 		}
 	}
 
-	public function SearchQuery(){
+	public function SearchQuery() {
 		if (isset($_GET['q'])) {
 			$q = $_GET['q'];
 			return $q;
@@ -343,7 +343,7 @@ class CalendarPage_Controller extends Page_Controller {
 	}
 
 
-	public function AllCalendars(){
+	public function AllCalendars() {
 		$calendars = PublicCalendar::get();
 		return $calendars;
 	}

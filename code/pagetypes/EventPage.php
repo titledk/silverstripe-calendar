@@ -18,7 +18,7 @@ class EventPage extends Page {
 	);
 
 
-	public function ComingEvents(){
+	public function ComingEvents() {
 		//Coming events
 		$comingEvents = $this->Events()
 			->filter(array(
@@ -28,7 +28,7 @@ class EventPage extends Page {
 		return $comingEvents;
 	}
 
-	public function PastEvents(){
+	public function PastEvents() {
 		//Past events
 		$pastEvents = $this->Events()
 			->filter(array(
@@ -83,7 +83,7 @@ class EventPage extends Page {
 	 * Title shown in the calendar administration
 	 * @return string
 	 */
-	public function getCalendarTitle(){
+	public function getCalendarTitle() {
 		return $this->Title;
 	}
 
@@ -91,7 +91,7 @@ class EventPage extends Page {
 
 class EventPage_Controller extends Page_Controller {
 
-	public function ComingOrPastEvents(){
+	public function ComingOrPastEvents() {
 		if (isset($_GET['past'])) {
 			return 'past';
 		} else {

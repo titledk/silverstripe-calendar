@@ -53,7 +53,7 @@ class CalendarEventGridFieldDetailForm_ItemRequest extends GridFieldDetailForm_I
 
 		$form->addExtraClass('CalendarEventGridfieldDetailForm');
 
-		if($this->record->ID !== 0){
+		if($this->record->ID !== 0) {
 			$actionFields=$form->Actions();
 			$link = Controller::join_links($this->gridField->Link('item'), 'new');
 

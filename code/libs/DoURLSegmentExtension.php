@@ -14,7 +14,7 @@ class DoURLSegmentExtension extends DataExtension {
 	}
 
 
-	public function getLink(){
+	public function getLink() {
 		$link = $this->owner->URLSegment;
 		if (!$link) {
 			//if no link has been generated, auto generate it
@@ -24,7 +24,7 @@ class DoURLSegmentExtension extends DataExtension {
 		return $link;
 	}
 
-//	function getName(){
+//	function getName() {
 //		$name = $this->owner->Title;
 //		return $name;
 //	}
