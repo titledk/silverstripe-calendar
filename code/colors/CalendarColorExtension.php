@@ -12,7 +12,7 @@ class CalendarColorExtension extends DataExtension {
 		'Color' => 'Varchar',
 	);
 
-	public function TextColor(){
+	public function TextColor() {
 		return $this->owner->calculateTextColor($this->owner->getColorWithHash());
 	}
 
@@ -42,7 +42,7 @@ class CalendarColorExtension extends DataExtension {
 	 * this just makes sure that colors are always returned with a hash - whether they've been
 	 * saved with or without one
 	 */
-	public function getColorWithHash(){
+	public function getColorWithHash() {
 		$color = $this->owner->Color;
 		if (strpos($color, '#') === false) {
 			return '#' . $color;

@@ -20,7 +20,7 @@ class EventHelper {
 	 * @param SS_Datetime $endObj
 	 * @return string
 	 */
-	public static function formatted_dates($startObj, $endObj){
+	public static function formatted_dates($startObj, $endObj) {
 
 		//Checking if end date is set
 		$endDateIsset = true;
@@ -56,7 +56,7 @@ class EventHelper {
 		return $str;
 	}
 
-	public static function formatted_alldates($startObj, $endObj){
+	public static function formatted_alldates($startObj, $endObj) {
 
 		$startDate = date("Y-m-d", strtotime($startObj->value));
 		$endDate = date("Y-m-d", strtotime($endObj->value));

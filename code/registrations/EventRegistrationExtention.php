@@ -85,7 +85,7 @@ class EventRegistrationExtension extends DataExtension {
 	/**
 	 * Getter for registration link
 	 */
-	public function getRegisterLink(){
+	public function getRegisterLink() {
 		$o = $this->owner;
 		//$link = $o->getInternalLink() . "/register";
 		//return $link;
@@ -97,7 +97,7 @@ class EventRegistrationExtension extends DataExtension {
 	}
 
 
-	public function RegistrationForm(){
+	public function RegistrationForm() {
 
 		$c = new EventRegistrationController();
 
@@ -110,7 +110,7 @@ class EventRegistrationExtension extends DataExtension {
 
 	}
 
-	public function RegistrationPaymentForm(){
+	public function RegistrationPaymentForm() {
 
 		$c = new EventRegistrationController();
 

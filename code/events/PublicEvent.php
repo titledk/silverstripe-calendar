@@ -18,7 +18,7 @@ class PublicEvent extends Event {
 	 * NOTE: The current implementation only works properly as long as there's only one
 	 * {@see CalendarPage} in the site
 	 */
-	public function getInternalLink(){
+	public function getInternalLink() {
 		$detailStr = 'detail/' . $this->ID;
 
 		//for now all event details will only have one link - that is the main calendar page
