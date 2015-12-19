@@ -26,13 +26,13 @@ require_once '../Color.php';
 // -50* = 360 - 50
 $radius = 50;
 
-function distance($x, $y)
+	public function distance($x, $y)
 {
     global $radius;
     return sqrt(pow($x - $radius, 2) + pow ($y - $radius, 2));
 }
 
-function getcolorat($x, $y, $dist)
+	public function getcolorat($x, $y, $dist)
 {
     global $radius;
 
