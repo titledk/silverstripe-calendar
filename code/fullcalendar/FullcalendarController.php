@@ -64,7 +64,7 @@ class FullcalendarController extends Controller {
 	 * @param int $timestamp
 	 * return \SS_Datetime
 	 */
-	public function eventlistOffsetDate($type, $timestamp, $offset = 30){
+	public function eventlistOffsetDate($type, $timestamp, $offset = 30) {
 		return self::offset_date($type, $timestamp, $offset);
 	}
 
@@ -99,7 +99,7 @@ class FullcalendarController extends Controller {
 	 * @param SS_HTTPRequest $request
 	 * @return SS_HTTPResponse
 	 */
-	public function publicevents($request, $json=true, $calendars=null, $offset=30){
+	public function publicevents($request, $json=true, $calendars=null, $offset=30) {
 
 		$calendarsSupplied = false;
 		if ($calendars) {
@@ -175,7 +175,7 @@ class FullcalendarController extends Controller {
 	 * Shaded events for the calendar are called once on calendar initialization,
 	 * hence the offset of 3000 days
 	 */
-	public function shadedevents($request, $json=true, $calendars = null, $offset=3000){
+	public function shadedevents($request, $json=true, $calendars = null, $offset=3000) {
 
 		if (!$calendars) {
 			$calendars = PublicCalendar::get();
@@ -191,8 +191,8 @@ class FullcalendarController extends Controller {
 	/**
 	 * Rendering event in popup
 	 */
-	public function eventpopup(){
-		if ($e = $this->event){
+	public function eventpopup() {
+		if ($e = $this->event) {
 			return $e->renderWith('EventPopup');
 		}
 	}

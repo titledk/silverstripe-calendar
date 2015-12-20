@@ -7,7 +7,7 @@
  */
 class PublicEventCategory extends EventCategory {
 
-	public function ComingEvents($from=false){
+	public function ComingEvents($from=false) {
 		$events = $this->Events()
 			->filter(array(
 					'StartDateTime:GreaterThan' => date('Y-m-d', $from ? strtotime($from) : time())

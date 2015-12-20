@@ -30,7 +30,7 @@ class Event extends DataObject {
 		//'Calendar.Title' => 'Calendar'
 	);
 
-	public function summaryFields(){
+	public function summaryFields() {
 		return array(
 			'Title' => 'Title',
 			'Calendar.Title'   => 'Calendar',
@@ -209,7 +209,7 @@ class Event extends DataObject {
 	 * Should only be used in OnBeforeWrite
 	 * @return string
 	 */
-	public function calcEndDateTimeBasedOnDuration(){
+	public function calcEndDateTimeBasedOnDuration() {
 		$duration = $this->Duration;
 		$secs = (substr($duration, 0, 2) * 3600) + (substr($duration, 3, 2) * 60);
 
@@ -225,7 +225,7 @@ class Event extends DataObject {
 	 * Returns false if there's more than 24h between start and end date
 	 * @return string|false
 	 */
-	public function calcDurationBasedOnEndDateTime($end){
+	public function calcDurationBasedOnEndDateTime($end) {
 		$startDate = strtotime($this->StartDateTime);
 		$endDate = strtotime($end);
 
@@ -249,7 +249,7 @@ class Event extends DataObject {
 	 * Beyond that those events marked as all day events will also be displayed as such
 	 * @return boolean
 	 */
-	public function isAllDay(){
+	public function isAllDay() {
 		if ($this->AllDay) {
 			return true;
 		}
@@ -375,9 +375,9 @@ class Event extends DataObject {
 	}
 
 	public function getIsPastEvent() {
-		if(strtotime($this->StartDateTime) < mktime(0, 0, 0, date('m'), date('d'), date('Y'))){
+		if(strtotime($this->StartDateTime) < mktime(0, 0, 0, date('m'), date('d'), date('Y'))) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -388,19 +388,19 @@ class Event extends DataObject {
 	 * Returns either the event's date or both start and end date if the event spans more than
 	 * one date
 	 */
-	public function getFormattedDates(){
+	public function getFormattedDates() {
 		return EventHelper::formatted_dates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
 	}
 
-	public function getFormattedTimeframe(){
+	public function getFormattedTimeframe() {
 		return EventHelper::formatted_timeframe($this->obj('StartDateTime'), $this->obj('EndDateTime'));
 	}
 
-	public function getStartAndEndDates(){
+	public function getStartAndEndDates() {
 		return EventHelper::formatted_alldates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
 	}
 
-	public function getDatesAndTimeframe(){
+	public function getDatesAndTimeframe() {
 
 		$dates = $this->getFormattedDates();
 		$timeframe = $this->getFormattedTimeframe();

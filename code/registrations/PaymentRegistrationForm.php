@@ -47,7 +47,7 @@ class PaymentRegistrationForm extends Form {
 
 
 
-	public function setDone(){
+	public function setDone() {
 		$this->setFields(
 			FieldList::create(
 				LiteralField::create(

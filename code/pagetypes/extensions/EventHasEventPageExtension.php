@@ -12,7 +12,7 @@ class EventHasEventPageExtension extends DataExtension {
 		'EventPage' => 'EventPage',
 	);
 
-	public function getEventPageCalendarTitle(){
+	public function getEventPageCalendarTitle() {
 		$owner = $this->owner;
 		if ($owner->EventPage()->exists()) {
 			return $owner->EventPage()->getCalendarTitle();

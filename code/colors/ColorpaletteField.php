@@ -32,7 +32,7 @@ class ColorpaletteField extends DropdownField {
 	 * this just makes sure that colors are always returned with a hash - whether they've been
 	 * saved with or without one
 	 */
-	public function getColorWithHash(){
+	public function getColorWithHash() {
 		$color = $this->value;
 		if (strpos($color, '#') === false) {
 			return '#' . $color;
