@@ -38,7 +38,7 @@ class EventRegistrationForm extends Form {
 
 
 
-	public function setDone(){
+	public function setDone() {
 		$this->setFields(
 			FieldList::create(
 				LiteralField::create(

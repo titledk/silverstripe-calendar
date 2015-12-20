@@ -8,7 +8,7 @@
 class ComingEventsForm extends Form {
 
 
-	public static function eventConfig(){
+	public static function eventConfig() {
 		$gridEventConfig = GridFieldConfig_RecordEditor::create();
 
 		//Custom detail form

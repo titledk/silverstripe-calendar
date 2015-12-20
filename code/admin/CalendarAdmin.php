@@ -74,33 +74,33 @@ class CalendarAdmin extends LeftAndMain {
 //	}
 
 
-	public function ComingEventsForm(){
+	public function ComingEventsForm() {
 		$form = new ComingEventsForm($this, "ComingEventsForm");
 		$form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
 		return $form;
 	}
-	public function PastEventsForm(){
+	public function PastEventsForm() {
 		$form = new PastEventsForm($this, "PastEventsForm");
 		$form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
 		return $form;
 	}
-	public function CalendarsForm(){
+	public function CalendarsForm() {
 		$form = new CalendarsForm($this, "CalendarsForm");
 		$form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
 		return $form;
 	}
-	public function CategoriesForm(){
+	public function CategoriesForm() {
 		$form = new CategoriesForm($this, "CategoriesForm");
 		$form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
 		return $form;
 	}
-	public function PublicEventImportForm(){
+	public function PublicEventImportForm() {
 		$form = new PublicEventImportForm($this, "PublicEventImportForm");
 		$form->addExtraClass('cms-search-form ' . $this->BaseCSSClasses());
 		return $form;
 	}
 
-	public function SubTitle(){
+	public function SubTitle() {
 		$str = 'Coming Events';
 		$a = $this->Action;
 		if ($a == 'pastevents') {
@@ -115,10 +115,10 @@ class CalendarAdmin extends LeftAndMain {
 		return $str;
 	}
 
-	public function CalendarsEnabled(){
+	public function CalendarsEnabled() {
 		return CalendarConfig::subpackage_enabled('calendars');
 	}
-	public function CategoriesEnabled(){
+	public function CategoriesEnabled() {
 		return CalendarConfig::subpackage_enabled('categories');
 	}
 

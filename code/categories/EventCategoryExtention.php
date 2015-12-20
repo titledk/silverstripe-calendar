@@ -14,7 +14,7 @@ class EventCategoryExtension extends DataExtension {
 
 	public function updateCMSFields(FieldList $fields) {
 
-		$categories = function(){
+		$categories = function() {
 			//TODO: This should only be the case for public events
 			return PublicEventCategory::get()->map()->toArray();
 		};

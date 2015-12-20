@@ -18,7 +18,7 @@ class EventRegistrationController extends Controller {
 	}
 
 
-	public function registerform(){
+	public function registerform() {
 		$form = EventRegistrationForm::create(
 			$this,
 			'registerform'
@@ -31,7 +31,7 @@ class EventRegistrationController extends Controller {
 		return $form;
 	}
 
-	public function paymentregisterform(){
+	public function paymentregisterform() {
 		$form = PaymentRegistrationForm::create(
 			$this,
 			'paymentregisterform'

@@ -13,7 +13,7 @@ class CalendarHelper {
 	/**
 	 * Get all coming public events
 	 */
-	public static function coming_events($from = false){
+	public static function coming_events($from = false) {
 		$time = ($from ? strtotime($from) : mktime(0, 0, 0, date('m'), date('d'), date('Y')));
 		$sql = "(StartDateTime >= '".date('Y-m-d', $time)." 00:00:00')";
 		$events = PublicEvent::get()->where($sql);
@@ -23,7 +23,7 @@ class CalendarHelper {
 	/**
 	 * Get all coming public events - with optional limit
 	 */
-	public static function coming_events_limited($from=false, $limit=30){
+	public static function coming_events_limited($from=false, $limit=30) {
 		$events = self::coming_events($from)->limit($limit);
 		return $events;
 	}
@@ -31,7 +31,7 @@ class CalendarHelper {
 	/**
 	 * Get all past public events
 	 */
-	public static function past_events(){
+	public static function past_events() {
 		$events = PublicEvent::get()
 			->filter(array(
 					'StartDateTime:LessThan' => date('Y-m-d',time())
@@ -44,7 +44,7 @@ class CalendarHelper {
 	/**
 	 * Get all events
 	 */
-	public static function all_events(){
+	public static function all_events() {
 		$events = PublicEvent::get();
 		return $events;
 	}
@@ -52,7 +52,7 @@ class CalendarHelper {
 	/**
 	 * Get all events - with an optional limit
 	 */
-	public static function all_events_limited($limit = 30){
+	public static function all_events_limited($limit = 30) {
 		$events = self::all_events()->limit($limit);
 		return $events;
 	}
@@ -62,7 +62,7 @@ class CalendarHelper {
 	 * Format: 2013-07
 	 * @param type $month
 	 */
-	public static function events_for_month($month){
+	public static function events_for_month($month) {
 		$nextMonth = strtotime('last day of this month', strtotime($month));
 
 		$currMonthStr = date('Y-m-d',strtotime($month));
