@@ -20,21 +20,21 @@ var EventFields = function(form) {
 	var allDayInput = form.find("[name='AllDay']");
 
 	this.init = function(){
-		
+
 		//initialize date pickers
 		startDateInput.ssDatepicker();
 		endDateInput.ssDatepicker();
-		
-		
+
+
 		$this.init_timepicker();
 		$this.init_alldaytoggling();
 		$this.init_noendtoggling();
 		$this.init_sanitychecks();
-		
+
 		if (titleInput.val().length == 0) {
 			$this.addform_init();
 		}
-		
+
 	}
 
 	//Getters
@@ -65,27 +65,27 @@ var EventFields = function(form) {
 			'maxTime': '11:30pm'
 			//'scrollDefaultNow': true
 		});
-		
+
 		startEndTimeInputs.timeEntry({
 			spinnerImage: '',
-			show24Hours: true, 
-			//show24Hours: false, 
+			show24Hours: true,
+			//show24Hours: false,
 			timeSteps: [1, 5, 0]
 		});
 
 		durationTimeInput.timepicker({
 			'timeFormat': 'H:i'
 		});
-		
+
 		durationTimeInput.timeEntry({
 			spinnerImage: '',
-			show24Hours: true, 
+			show24Hours: true,
 			timeSteps: [1, 5, 0]
 		});
 	}
 	/**
 	 * Allday toggling initialization
-	 * Only applicable if the allday checkbox exists - can be disabled through 
+	 * Only applicable if the allday checkbox exists - can be disabled through
 	 * the calendar config
 	 */
 	this.init_alldaytoggling = function() {
@@ -107,7 +107,7 @@ var EventFields = function(form) {
 	 */
 	this.allday_toggle = function(checkbox, effect){
 		var durationLi = durationTimeInput.closest('li');
-		
+
 		if (checkbox.is(':checked')) {
 			//selecting "DateTime" option
 			endTimeInput.closest('li').find('.selector').trigger('click');
@@ -115,18 +115,18 @@ var EventFields = function(form) {
 
 			$this.do_toggle(durationLi,'hide', effect);
 			$this.do_toggle(startEndTimeInputs,'hide', effect);
-			
+
 			//Set end date = start date if no end date has been set yet
 			if (endDateInput.val().length == 0) {
 				endDateInput.datepicker('setDate', startDateInput.datepicker('getDate'));
-			}			
-			
+			}
+
 		} else {
 			$this.do_toggle(durationLi,'show', effect);
 			$this.do_toggle(startEndTimeInputs,'show', effect);
 		}
 	}
-	
+
 	/**
 	 * If no end has been set, this triggers the NoEnd checkbox to appear
 	 * Note that this only applies if end dates are not enforced
@@ -139,26 +139,26 @@ var EventFields = function(form) {
 				$this.noend_toggle(checkbox, 'hide');
 			}
 			checkbox.click(function() {
-				
+
 				//in case allday is clicked make sure to unclick it
 				if (allDayInput.length && allDayInput.is(':checked')) {
 					//console.log('allday is checked');
 					//alldayCheckbox.trigger('click');
-					
+
 					//$this.allday_toggle(checkbox, 'show');
-					
+
 					//$this.allday_toggle(checkbox, 'fade');
-					
+
 					allDayInput.attr('checked', false);
 					$this.do_toggle(durationTimeInput.closest('li'),'show', 'show');
 					$this.do_toggle(startEndTimeInputs,'show', 'show');
 				}
-				
+
 				$this.noend_toggle(checkbox, 'fade');
-				
+
 			});
 		}
-	}	
+	}
 	/**
 	 * Noend toggle
 	 * Run once on init - if the noend checkbox exists and is selected on init - and once every time the
@@ -166,21 +166,21 @@ var EventFields = function(form) {
 	 */
 	this.noend_toggle = function(checkbox, effect){
 		var endInput = form.find(".SelectionGroup, #Form_ItemEditForm_TimeFrameHeader, [name='AllDay']");
-		
+
 		if (checkbox.is(':checked')) {
 			$this.do_toggle(endInput,'hide', effect);
 		} else {
 			$this.do_toggle(endInput,'show', effect);
 		}
 	}
-	
+
 	/**
 	 * Toggle helper
 	 * beyond toggling it takes care to properly attaching hidden attributes
 	 * to items that have a hidden parent - to allow for allday toggle and noend toggle to work in conjunction
 	 */
 	this.do_toggle = function(item, action, effect) {
-		
+
 		if (action == 'hide') {
 			if (effect == 'fade') {
 				item.fadeOut(function(){
@@ -199,28 +199,28 @@ var EventFields = function(form) {
 				item.show();
 			}
 		}
-		
+
 	}
-	
-	
+
+
 	this.init_sanitychecks = function(){
-		
+
 		startDateInput.change(function(){
 			var startDate = startDateInput.datepicker('getDate');
-			
+
 			//Set end date = start date if no end date has been set yet
 			if (endDateInput.val().length == 0) {
 				endDateInput.datepicker('setDate', startDate);
 			}
 		});
-		
-	}	
-	
-	
+
+	}
+
+
 	this.addform_init = function(){
 		//trigger duration time frame on first add
 		durationTimeInput.closest('li').find('.selector').trigger('click');
 		titleInput.focus();
 	}
-	
+
 }
