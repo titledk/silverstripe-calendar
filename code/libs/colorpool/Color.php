@@ -16,7 +16,7 @@ class Color
      * @param string $color The color string hex or rgb
      * @returns null
      */
-    function __construct($color=null)
+    public function __construct($color=null)
     {
         if (!is_string($color)) {
             return;
@@ -49,7 +49,7 @@ class Color
      * @param string $color The hex string
      * @returns Color the color object
      */
-    static function fromHexString($color)
+    public static function fromHexString($color)
     {
         $color = rtrim($color, '#');
         preg_match_all('([0-9a-f][0-9a-f])', $color, $rgb);
@@ -66,7 +66,7 @@ class Color
      * @param string $color The rgb string representing the color
      * @returns Color object with for the rgb string
      */
-    static function fromRGBString($color)
+    public static function fromRGBString($color)
     {
         $color = rtrim($color, "rgb (\t)");
         $rgb = preg_split('\s+,\s+', $color);
@@ -82,7 +82,7 @@ class Color
      *
      * @returns string The hex string
      */
-    function toHexString()
+    public function toHexString()
     {
         return '#' .
             $this->decToHex($this->r) .
@@ -107,7 +107,7 @@ class Color
      *
      * @retuns Color the color object for the HSL values
      */
-    static function fromHSL($h, $s, $l)
+    public static function fromHSL($h, $s, $l)
     {
         // theta plus 360 degrees
         $h -= floor($h);
@@ -177,9 +177,8 @@ class Color
      *
      * @returns Color The color object for the HSV values
      */
-    static function fromHSV($h, $s, $v)
+    public static function fromHSV($h, $s, $v)
     {
-
         $h -= floor($h);
 
         $c = new self();
@@ -243,7 +242,7 @@ class Color
      *
      * @returns Color The darker color object
      */
-    function darken($fraction=0.1)
+    public function darken($fraction=0.1)
     {
         $hsl = $this->toHSL();
         $l = $hsl[2];
@@ -260,7 +259,7 @@ class Color
      *
      * @returns Color The lighter color object
      */
-    function lighten($fraction=0.1)
+    public function lighten($fraction=0.1)
     {
         $hsl = $this->toHSL();
         $l = $hsl[2];
@@ -277,7 +276,7 @@ class Color
      *
      * @returns Color Saturated color
      */
-    function saturate($fraction=0.1)
+    public function saturate($fraction=0.1)
     {
         return $this->changeHSL(0, $fraction, 0);
     }
@@ -289,7 +288,7 @@ class Color
      *        180 degrees
      * @returns Color the contrasting color
      */
-    function contrast($fraction=1.0)
+    public function contrast($fraction=1.0)
     {
         // 1 = fully complementary.
         $dh = (1.0 / 2) * $fraction;
@@ -306,7 +305,7 @@ class Color
      *
      * @returns Color The color object with the required changes
      */
-    function changeHSL($dh=0, $ds=0, $dl=0)
+    public function changeHSL($dh=0, $ds=0, $dl=0)
     {
         list($h, $s, $l) = $this->toHSL();
 
@@ -332,7 +331,7 @@ class Color
      * @param callback $x_callback Callback for Lightness / Value
      * @param string   $type       'hsl' or 'hsv'
      */
-    function apply($h_callback, $s_callback, $l_callback, $type='hsl')
+    public function apply($h_callback, $s_callback, $l_callback, $type='hsl')
     {
         if ($type == 'hsl') {
             $hsx = $this->toHSL();
@@ -364,7 +363,7 @@ class Color
      *
      * @returns array An array with 3 elements: Hue, Saturation and Lightness
      */
-    function toHSL()
+    public function toHSL()
     {
         // r, g, b as fractions of 1
         $r = $this->r / 255.0;
@@ -423,7 +422,7 @@ class Color
      *
      * @returns array An array with three elements: Hue, Saturation and Value.
      */
-    function toHSV()
+    public function toHSV()
     {
         // r, g, b as fractions of 1
         $r = $this->r / 255.0;
@@ -478,7 +477,7 @@ class Color
      *
      * @returns float The Luma
      */
-    function luma()
+    public function luma()
     {
         return (0.30 * $this->r +
                 0.59 * $this->g +
@@ -490,7 +489,7 @@ class Color
      *
      * @returns bool dark marked?
      */
-    function isDark()
+    public function isDark()
     {
         // TODO: Read a paper on this :P
         return $this->luma() < 0.50;

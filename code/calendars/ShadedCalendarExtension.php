@@ -7,9 +7,10 @@
  * @package calendar
  * @subpackage calendars
  */
-class ShadedCalendarExtension extends DataExtension {
+class ShadedCalendarExtension extends DataExtension
+{
 
-	public static $db = array(
-		'Shaded' => 'Boolean',
-	);
+    public static $db = array(
+        'Shaded' => 'Boolean',
+    );
 }
