@@ -5,30 +5,31 @@
  * @package calendar
  * @subpackage categories
  */
-class EventCategoryExtension extends DataExtension {
+class EventCategoryExtension extends DataExtension
+{
 
-	static $belongs_many_many = array(
-		'Categories' => 'EventCategory'
-	);
+    public static $belongs_many_many = array(
+        'Categories' => 'EventCategory'
+    );
 
 
-	public function updateCMSFields(FieldList $fields) {
+    public function updateCMSFields(FieldList $fields)
+    {
+        $categories = function () {
+            //TODO: This should only be the case for public events
+            return PublicEventCategory::get()->map()->toArray();
+        };
+        $categoriesField = ListboxField::create('Categories', 'Categories')
+            ->setMultiple(true)
+            ->setSource($categories()
+        );
 
-		$categories = function() {
-			//TODO: This should only be the case for public events
-			return PublicEventCategory::get()->map()->toArray();
-		};
-		$categoriesField = ListboxField::create('Categories', 'Categories')
-			->setMultiple(true)
-			->setSource($categories()
-		);
+        //If the quickaddnew module is installed, use it to allow
+        //for easy adding of categories
+        if (class_exists('QuickAddNewExtension')) {
+            $categoriesField->useAddNew('PublicEventCategory', $categories);
+        }
 
-		//If the quickaddnew module is installed, use it to allow
-		//for easy adding of categories
-		if (class_exists('QuickAddNewExtension')) {
-			$categoriesField->useAddNew('PublicEventCategory', $categories);
-		}
-
-		$fields->addFieldToTab('Root.Main',$categoriesField);
-	}
+        $fields->addFieldToTab('Root.Main', $categoriesField);
+    }
 }

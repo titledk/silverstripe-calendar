@@ -6,28 +6,29 @@
  * @package calendar
  * @subpackage calendars
  */
-class Calendar extends DataObject {
+class Calendar extends DataObject
+{
 
-	static $db = array(
-		'Title' => 'Varchar',
-	);
+    public static $db = array(
+        'Title' => 'Varchar',
+    );
 
-	static $has_many = array(
-		'Events' => 'Event'
-	);
+    public static $has_many = array(
+        'Events' => 'Event'
+    );
 
-	static $default_sort = 'Title';
+    public static $default_sort = 'Title';
 
-	private static $summary_fields = array(
-		'Title' => 'Title',
-	);
+    private static $summary_fields = array(
+        'Title' => 'Title',
+    );
 
-	public function getCMSFields() {
-		$fields = parent::getCMSFields();
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
 
-		//Events shouldn't be editable from here by default
-		$fields->removeByName('Events');
-		return $fields;
-	}
-
+        //Events shouldn't be editable from here by default
+        $fields->removeByName('Events');
+        return $fields;
+    }
 }

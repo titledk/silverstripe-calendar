@@ -6,19 +6,19 @@
  * @package calendar
  * @subpackage calendars
  */
-class EventCalendarExtension extends DataExtension {
+class EventCalendarExtension extends DataExtension
+{
 
-	public static $has_one = array(
-		'Calendar' => 'Calendar',
-	);
+    public static $has_one = array(
+        'Calendar' => 'Calendar',
+    );
 
-	public function updateFrontEndFields(FieldList $fields) {
+    public function updateFrontEndFields(FieldList $fields)
+    {
+        $calendarDropdown = DropdownField::create('CalendarID', 'Calendar',
+                PublicCalendar::get()->map('ID', 'Title'))
+                ->setEmptyString('Choose calendar...');
 
-		$calendarDropdown = DropdownField::create('CalendarID','Calendar',
-				PublicCalendar::get()->map('ID', 'Title'))
-				->setEmptyString('Choose calendar...');
-
-		$fields->push($calendarDropdown);
-
-	}
+        $fields->push($calendarDropdown);
+    }
 }

@@ -29,7 +29,7 @@ $radius = 50;
 function distance($x, $y)
 {
     global $radius;
-    return sqrt(pow($x - $radius, 2) + pow ($y - $radius, 2));
+    return sqrt(pow($x - $radius, 2) + pow($y - $radius, 2));
 }
 
 function getcolorat($x, $y, $dist)
@@ -49,15 +49,14 @@ function getcolorat($x, $y, $dist)
     return $c;
 }
 
-for($x=1; $x <= 100; $x++) {
+for ($x=1; $x <= 100; $x++) {
     echo "<div>";
-    for($y=1; $y <= 100; $y++) {
+    for ($y=1; $y <= 100; $y++) {
         $dist = distance($x, $y);
         if ($dist < $radius) {
             $c = getcolorat($x, $y, $dist);
             echo "<b style='color:" . $c->toHexString() . "'>&#x25a0;</b>";
         }
-
     }
     echo "</div>";
 }

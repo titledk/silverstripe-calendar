@@ -5,34 +5,33 @@
  * @package calendar
  * @subpackage admin
  */
-class CategoriesForm extends Form {
+class CategoriesForm extends Form
+{
 
-	/**
-	 * Contructor
-	 * @param type $controller
-	 * @param type $name
-	 */
-	public function __construct($controller, $name) {
+    /**
+     * Contructor
+     * @param type $controller
+     * @param type $name
+     */
+    public function __construct($controller, $name)
+    {
 
-		//Administering categories
-		if (CalendarConfig::subpackage_enabled('categories')) {
-			$gridCategoryConfig = GridFieldConfig_RecordEditor::create();
-			$GridFieldCategories = new GridField(
-				'Categories', '',
-				PublicEventCategory::get(),
-				$gridCategoryConfig
-			);
+        //Administering categories
+        if (CalendarConfig::subpackage_enabled('categories')) {
+            $gridCategoryConfig = GridFieldConfig_RecordEditor::create();
+            $GridFieldCategories = new GridField(
+                'Categories', '',
+                PublicEventCategory::get(),
+                $gridCategoryConfig
+            );
 
 
-			$fields = new FieldList(
-				$GridFieldCategories
-			);
-			$actions = new FieldList();
-			$this->addExtraClass('CategoriesForm');
-			parent::__construct($controller, $name, $fields, $actions);
-
-		}
-
-	}
-
+            $fields = new FieldList(
+                $GridFieldCategories
+            );
+            $actions = new FieldList();
+            $this->addExtraClass('CategoriesForm');
+            parent::__construct($controller, $name, $fields, $actions);
+        }
+    }
 }

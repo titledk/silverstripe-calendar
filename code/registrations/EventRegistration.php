@@ -5,46 +5,47 @@
  * @package calendar
  * @subpackage registrations
  */
-class EventRegistration extends DataObject {
+class EventRegistration extends DataObject
+{
 
-	static $singular_name = 'Registration';
-	static $plural_name = 'Registrations';
+    public static $singular_name = 'Registration';
+    public static $plural_name = 'Registrations';
 
-	static $db = array(
-		'Name' => 'Varchar',
-		'PayersName' => 'Varchar',
-		'Email' => 'Varchar',
-		'Status' => "Enum('Unpaid,Paid,Cancelled','Unpaid')",
-		'NumberOfTickets' => 'Int',
-		'AmountPaid' => 'Money',
-		'Notes' => 'HTMLText'
-	);
+    public static $db = array(
+        'Name' => 'Varchar',
+        'PayersName' => 'Varchar',
+        'Email' => 'Varchar',
+        'Status' => "Enum('Unpaid,Paid,Cancelled','Unpaid')",
+        'NumberOfTickets' => 'Int',
+        'AmountPaid' => 'Money',
+        'Notes' => 'HTMLText'
+    );
 
-	static $has_one = array(
-		'Event' => 'Event'
-	);
+    public static $has_one = array(
+        'Event' => 'Event'
+    );
 
-	static $default_sort = 'Name';
+    public static $default_sort = 'Name';
 
-	static $summary_fields = array(
-		'Name' => 'Name',
-		'Status' => 'Payment Status',
-		'NumberOfTickets' => 'Tickets',
-		'AmountPaid' => 'Amount Paid'
-	);
+    public static $summary_fields = array(
+        'Name' => 'Name',
+        'Status' => 'Payment Status',
+        'NumberOfTickets' => 'Tickets',
+        'AmountPaid' => 'Amount Paid'
+    );
 
-	/**
-	 * Frontend fields
-	 */
-	public function getFrontEndFields($param = null) {
+    /**
+     * Frontend fields
+     */
+    public function getFrontEndFields($param = null)
+    {
+        $fields = FieldList::create(
+            TextField::create('Name'),
+            TextField::create('Email'),
+            HiddenField::create('EventID')
+        );
 
-		$fields = FieldList::create(
-			TextField::create('Name'),
-			TextField::create('Email'),
-			HiddenField::create('EventID')
-		);
-
-		$this->extend('updateFrontEndFields', $fields);
-		return $fields;
-	}
+        $this->extend('updateFrontEndFields', $fields);
+        return $fields;
+    }
 }

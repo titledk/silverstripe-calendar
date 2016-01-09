@@ -4,35 +4,35 @@
  * @package calendar
  * @subpackage admin
  */
-class CalendarEventPageGridFieldDetailForm extends CalendarEventGridFieldDetailForm {
-
+class CalendarEventPageGridFieldDetailForm extends CalendarEventGridFieldDetailForm
+{
 }
 
 /**
  * extension to the @see CalendarEventGridFieldDetailForm_ItemRequest
  */
-class CalendarEventPageGridFieldDetailForm_ItemRequest extends CalendarEventGridFieldDetailForm_ItemRequest {
+class CalendarEventPageGridFieldDetailForm_ItemRequest extends CalendarEventGridFieldDetailForm_ItemRequest
+{
 
-	private static $allowed_actions = array(
-		'edit',
-		'view',
-		'ItemEditForm'
-	);
+    private static $allowed_actions = array(
+        'edit',
+        'view',
+        'ItemEditForm'
+    );
 
 
-	/**
-	 * @return {Form}
-	 */
-	public function ItemEditForm() {
+    /**
+     * @return {Form}
+     */
+    public function ItemEditForm()
+    {
+        $form = parent::ItemEditForm();
 
-		$form = parent::ItemEditForm();
+        if ($form) {
+            $fields = $form->Fields();
+            $fields->removeByName('EventPage');
+        }
 
-		if ($form) {
-			$fields = $form->Fields();
-			$fields->removeByName('EventPage');
-		}
-
-		return $form;
-	}
-
+        return $form;
+    }
 }
