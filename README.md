@@ -48,7 +48,7 @@ The module is used on the following sites:
 
 * <http://texasbeefcheckoff.com/resources/calendar/>
 * <http://v2.bartonvilletc.com/events/>
-* <http://justin.cultivateapps.com/community/calendar/>
+* <http://cityofjustin.com/community/calendar/>
 
 _Are you using this module on your site? Let us know!_
 
