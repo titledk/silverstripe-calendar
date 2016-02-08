@@ -19,16 +19,18 @@
             "email": "ccburns@gmail.com"
         }
     ],
-    	"require":
-	{
-	    "php": ">=5.4",
-		"silverstripe/framework": "~3.1"
-	},
+    "require": {
+        "php": ">=5.4",
+        "silverstripe/framework": "~3.1"
+    },
     "extra": {
         "installer-name": "calendar",
         "screenshots": [
             "docs/img/preview.png",
             "docs/img/screenshots/frontend-fullcalendar.png"
         ]
+    },
+    "support": {
+        "issues": "https://github.com/titledk/silverstripe-calendar/issues"
     }
 }
