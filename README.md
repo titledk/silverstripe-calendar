@@ -2,8 +2,8 @@
 
 _by Title Web Solutions_
 
-The calendar for SilverStripe 3.1 is a solid base for all your calendaring needs, 
-it's built to be flexible and configurable so that it fits to most scenarios - both for 
+The calendar for SilverStripe 3.1 is a solid base for all your calendaring needs,
+it's built to be flexible and configurable so that it fits to most scenarios - both for
 web sites with public events, and web apps with private events - or a combination hereof.
 
 
@@ -15,23 +15,23 @@ web sites with public events, and web apps with private events - or a combinatio
 This was meant to be a premium module, but as of November 2014 we decided to open source it.
 
 If you like it, and need help setting it up, we can do that for you.
-[You can contact us here](http://title.dk/contact/).   
+[You can contact us here](http://title.dk/contact/).
 Below you'll find a wish list of features/amendmends we'd like to implement. If you miss a feature and/or
-would like to sponsor development, we're happy to do so at a discounted rate - if so, 
+would like to sponsor development, we're happy to do so at a discounted rate - if so,
 please [contact us](http://title.dk/contact/).
 
 **Pull requests are very welcome!** But please, get in touch with us if you're planning
 to develop a feature.
 
-You can also join the conversation about this module on Gitter: 
+You can also join the conversation about this module on Gitter:
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/titledk/silverstripe-calendar?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Demo
 
-There's a demo site available on <http://calendar.demo.title.dk>.    
+There's a demo site available on <http://calendar.demo.title.dk>.
 _On the demo site you can read more about the features, with practical examples._
 
-The code for the demo is available at <https://github.com/titledk/silverstripe-calendar-demo>.    
+The code for the demo is available at <https://github.com/titledk/silverstripe-calendar-demo>.
 If you plan to use the calendar, start out installing this!
 
 ## Compatibility
@@ -60,12 +60,12 @@ _Are you using this module on your site? Let us know!_
 * Public/Private events.
 * All features are configurable, so if you only need the basics, you can turn the rest off.
 * Comprehensive calendar/event administration.
-* JavaScript enhanced edit event form, usable both on frontend and backend, with date picker, 
+* JavaScript enhanced edit event form, usable both on frontend and backend, with date picker,
 time picker and dropdown, and duration dropdown, still allowing manual inputs
 * Listing of events on the frontend through the CalendarPage
 * Frontend calendar view, using the fullcalendar jQuery plugin
 * Event Registrations (this might be moved to an external module)
-* Calendar colors with configurable color options, and JS color palette field 
+* Calendar colors with configurable color options, and JS color palette field
 (works on both frontend and backend) - shading calendars allow for holiday calendars etc. to appear in the background
 * No default frontend styling.
 * Composer based workflow. You’ll be able to add and update the module using Composer.
@@ -126,7 +126,7 @@ See `CalendarConfig` on how to configure the module.
 
 ## Illustrations
 
-Illustrations for the calendar structure are done in Omnigraffle.    
+Illustrations for the calendar structure are done in Omnigraffle.
 The Omnigraffle document is part of this repository, under `docs/img/silverstripe-calendar.graffle`.
 
 
@@ -192,10 +192,10 @@ to work on this.
 ## Versioning
 
 We're trying to stick to the [Semantic Versioning](http://semver.org)
-paradigm. That is: 
+paradigm. That is:
 
-> Consider a version format of X.Y.Z (Major.Minor.Patch). Bug fixes not affecting the API increment the patch version, 
-backwards compatible API additions/changes increment the minor version, and backwards incompatible API changes 
+> Consider a version format of X.Y.Z (Major.Minor.Patch). Bug fixes not affecting the API increment the patch version,
+backwards compatible API additions/changes increment the minor version, and backwards incompatible API changes
 increment the major version.
 
 So:

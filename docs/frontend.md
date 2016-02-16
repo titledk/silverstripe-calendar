@@ -2,7 +2,7 @@
 
 Gulp is used for frontend compilation.
 
-_This has been ported from Compass so we're still working on the specifics._ 
+_This has been ported from Compass so we're still working on the specifics._
 
 
 Install dependencies:
