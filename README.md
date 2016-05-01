@@ -2,9 +2,11 @@
 
 _by Title Web Solutions_
 
-The calendar for SilverStripe 3.1 is a solid base for all your calendaring needs, 
+The calendar for SilverStripe 3.x is a solid base for all your calendaring needs, 
 it's built to be flexible and configurable so that it fits to most scenarios - both for 
 web sites with public events, and web apps with private events - or a combination hereof.
+
+ [Read the blog post about this module on silverstripe.org](http://www.silverstripe.org/blog/managing-events-with-silverstripe-a-new-calendar-module/)
 
 
 ![Preview](docs/img/preview.png)
