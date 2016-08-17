@@ -98,6 +98,7 @@ var PublicFullcalendarView;
 			var y = date.getFullYear();
 
 			holder.fullCalendar({
+                lang: $this.options.fullcalendar.lang,
 				header: $this.options.fullcalendar.header,
 				weekMode: 'variable',
 				columnFormat: {
