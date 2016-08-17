@@ -100,7 +100,7 @@ var PublicFullcalendarView;
 			holder.fullCalendar({
                 lang: $this.options.fullcalendar.lang,
 				header: $this.options.fullcalendar.header,
-				weekMode: 'variable',
+                fixedWeekCount: 'variable',
 				columnFormat: {
 						month: 'ddd',    // Mon
 						week: 'ddd d/M', // Mon 9/7
