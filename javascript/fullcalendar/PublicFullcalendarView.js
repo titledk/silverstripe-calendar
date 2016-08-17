@@ -101,19 +101,9 @@ var PublicFullcalendarView;
                 lang: $this.options.fullcalendar.lang,
 				header: $this.options.fullcalendar.header,
                 fixedWeekCount: 'variable',
-				columnFormat: {
-						month: 'ddd',    // Mon
-						week: 'ddd d/M', // Mon 9/7
-						day: 'dddd d/M'  // Monday 9/7
-				},
-				firstDay: 1, //Start week on monday
-				//time formatting - see more here: http://arshaw.com/fullcalendar/docs/text/timeFormat/
-				timeFormat: {
-					// for agendaWeek and agendaDay
-					agenda: 'h:mm{ - h:mm}', // 5:00 - 6:30
-					// for all other views
-					'': 'h(:mm)tt'            // 7pm
-				},
+                columnFormat: $this.options.fullcalendar.columnFormat,
+                firstDay: $this.options.fullcalendar.firstDay,
+                timeFormat: $this.options.fullcalendar.timeFormat,
 				dayRender: function(date, cell) {
 					$this.dayRender(date, cell);
 				},
