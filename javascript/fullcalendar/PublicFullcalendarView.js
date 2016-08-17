@@ -92,32 +92,58 @@ var PublicFullcalendarView;
 
 
 		this.init_calendar = function(){
-			var date = new Date();
-			var d = date.getDate();
-			var m = date.getMonth();
-			var y = date.getFullYear();
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
 
-			holder.fullCalendar({
+            var options = {
                 lang: $this.options.fullcalendar.lang,
-				header: $this.options.fullcalendar.header,
+                header: $this.options.fullcalendar.header,
                 fixedWeekCount: 'variable',
                 columnFormat: $this.options.fullcalendar.columnFormat,
                 firstDay: $this.options.fullcalendar.firstDay,
                 timeFormat: $this.options.fullcalendar.timeFormat,
-				dayRender: function(date, cell) {
-					$this.dayRender(date, cell);
-				},
-				eventRender: function (event, element) {
-				},
-				eventClick: function(calEvent, jsEvent, view) {
-					location.href = $this.buildCalendarUrl('detail') + calEvent.id;
-				},
-				eventSources: $this.eventSources
-			});
-		}
+                dayRender: function(date, cell) {
+                    $this.dayRender(date, cell);
+                },
+                eventRender: function (event, element) {
+                },
+                eventClick: function(calEvent, jsEvent, view) {
+                    location.href = $this.buildCalendarUrl('detail') + calEvent.id;
+                },
+                eventSources: $this.eventSources
+            };
+
+            // apply the callbacks
+            $this.applyCallback(options, "eventClick");
+            $this.applyCallback(options, "eventMouseover");
+            $this.applyCallback(options, "eventMouseout");
+
+            holder.fullCalendar(options);
+        };
 
 
-		/**
+        /**
+         * Applies an callback function possibly defined
+         * via another extension.
+         *
+         * @param options   The options hash to update
+         * @param type      The type of callback to apply (eventClick, eventMouseover, ...)
+         * @returns {*}
+         */
+        this.applyCallback = function(options, type) {
+            if($.fn.sscal !== undefined &&
+                $.fn.sscal.hasOwnProperty(type) &&
+                $.isFunction($.fn.sscal[type])) {
+                options[type] = $.fn.sscal[type];
+            }
+
+            return options;
+        }
+
+
+        /**
 		 * Day Render (private method - only to be called from within fullcalendar init)
 		 */
 		this.dayRender = function(date, cell) {
