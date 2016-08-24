@@ -90,19 +90,13 @@ class CalendarPage_Controller extends Page_Controller
 
         if (isset($s['calendarpage']['calendarview']) && $s['calendarpage']['calendarview']) {
 
-            //we're not using the jquery version bundled with fullcalendar, as we're expecting the site to
-            //be using jquery already
-            //Requirements::javascript('calendar/thirdparty/fullcalendar/1.6.1/jquery/jquery-1.9.1.min.js');
-            Requirements::javascript('calendar/thirdparty/fullcalendar/1.6.1/jquery/jquery-ui-1.10.2.custom.min.js');
-            Requirements::javascript('calendar/thirdparty/fullcalendar/1.6.1/fullcalendar/fullcalendar.min.js');
+            Requirements::javascript('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/lib/moment.min.js');
+            Requirements::javascript('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.js');
+            Requirements::css('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.css');
+            Requirements::css('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.print.css', 'print');
 
             //xdate - needed for some custom code - e.g. shading
             Requirements::javascript('calendar/thirdparty/xdate/xdate.js');
-
-            Requirements::css('calendar/thirdparty/fullcalendar/1.6.1/fullcalendar/fullcalendar.css');
-            Requirements::css('calendar/thirdparty/fullcalendar/1.6.1/fullcalendar/fullcalendar.print.css', 'print');
-
-
 
             Requirements::javascript('calendar/javascript/fullcalendar/PublicFullcalendarView.js');
 

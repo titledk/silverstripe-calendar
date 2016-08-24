@@ -81,6 +81,12 @@ class FullcalendarController extends Controller
             $timestamp = time();
         }
 
+        // check whether the timestamp was
+        // given as a date string (2016-09-05)
+        if(strpos($timestamp, "-") > 0) {
+            $timestamp = strtotime($timestamp);
+        }
+
         $offsetCalc = $offset * 24 * 60 * 60; //days in secs
 
         $offsetTime = null;
