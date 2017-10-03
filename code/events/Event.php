@@ -141,7 +141,7 @@ class Event extends DataObject
 
         if (isset($this->EndDateTime)) {
             if (strtotime($this->EndDateTime) < strtotime($this->StartDateTime)) {
-                $this->EndDateTime = $this->StarDateTime;
+                $this->EndDateTime = $this->StartDateTime;
                 $this->AllDay = true;
                 $msg = "Sanity check 2: Setting end date = start date and setting all day \n"
                 . "as {$this->EndDateTime} was lower than {$this->StartDateTime} \n"
