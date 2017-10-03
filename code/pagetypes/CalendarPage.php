@@ -100,8 +100,9 @@ class CalendarPage_Controller extends Page_Controller
 
             Requirements::javascript('calendar/javascript/fullcalendar/PublicFullcalendarView.js');
 
-            $url = $this->Link();
+            $url = CalendarHelper::add_preview_params($this->Link(),$this->data());
             $fullcalendarjs = $s['calendarpage']['fullcalendar_js_settings'];
+			$controllerUrl = CalendarHelper::add_preview_params($s['calendarpage']['controllerUrl'],$this->data());
 
             //shaded events
             $shadedEvents = 'false';
@@ -109,13 +110,14 @@ class CalendarPage_Controller extends Page_Controller
             if ($sC['shading']) {
                 $shadedEvents = 'true';
             }
-
+			
             //Calendar initialization (and possibility for later configuration options)
             Requirements::customScript("
 				(function($) {
 					$(function () {
 						//Initializing fullcalendar
 						var cal = new PublicFullcalendarView($('#calendar'), '$url', {
+							controllerUrl: '$controllerUrl',
 							fullcalendar: {
 								$fullcalendarjs
 							},
@@ -303,8 +305,9 @@ class CalendarPage_Controller extends Page_Controller
     public function NextMonthLink()
     {
         $month = $this->NextMonth();
-        $url = $this->Link() . $this->request->param('Action') . '/?month=' . $month;
-        return $url;
+        $url = $this->Link($this->request->param('Action'));
+		$url = HTTP::setGetVar('month',$month,$url);
+        return CalendarHelper::add_preview_params($url,$this->data());
     }
     public function PrevMonth()
     {
@@ -318,8 +321,9 @@ class CalendarPage_Controller extends Page_Controller
     public function PrevMonthLink()
     {
         $month = $this->PrevMonth();
-        $url = $this->Link() . $this->request->param('Action') . '/?month=' . $month;
-        return $url;
+		$url = $this->Link($this->request->param('Action'));
+		$url = HTTP::setGetVar('month',$month,$url);
+		return CalendarHelper::add_preview_params($url,$this->data());
     }
 
 
@@ -327,22 +331,20 @@ class CalendarPage_Controller extends Page_Controller
     {
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
-        $link = $this->Link();
         if ($indexSetting == 'eventlist') {
-            return $link;
+            return CalendarHelper::add_preview_params($this->Link(),$this->data());
         } elseif ($indexSetting == 'calendarview') {
-            return $link . 'eventlist/';
+            return CalendarHelper::add_preview_params($this->Link('eventlist'),$this->data());
         }
     }
     public function CalendarViewLink()
     {
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
-        $link = $this->Link();
         if ($indexSetting == 'eventlist') {
-            return $link . 'calendarview/';
+            return CalendarHelper::add_preview_params($this->Link('calendarview'),$this->data());
         } elseif ($indexSetting == 'calendarview') {
-            return $link;
+            return CalendarHelper::add_preview_params($this->Link(),$this->data());
         }
     }
 
@@ -362,4 +364,11 @@ class CalendarPage_Controller extends Page_Controller
         $calendars = PublicCalendar::get();
         return $calendars;
     }
+	
+	public function FeedLink($calendarID)
+	{
+		$calendar = Calendar::get()->byID(intval($calendarID));
+		$url = Controller::join_links($this->Link(),'calendar',($calendar) ? $calendar->Link : '');
+		return CalendarHelper::add_preview_params($url,$this->data());
+	}
 }

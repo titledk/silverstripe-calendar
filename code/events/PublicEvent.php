@@ -21,8 +21,6 @@ class PublicEvent extends Event
      */
     public function getInternalLink()
     {
-        $detailStr = 'detail/' . $this->ID;
-
         //for now all event details will only have one link - that is the main calendar page
         //NOTE: this could be amended by calling that link via AJAX, and thus could be shown as an overlay
         //everywhere on the site
@@ -38,7 +36,7 @@ class PublicEvent extends Event
 //			}
 //		} else {
             $calendarPage = CalendarPage::get()->First();
-        return $calendarPage->Link(). $detailStr;
+        return CalendarHelper::add_preview_params(Controller::join_links($calendarPage->Link('detail'),$this->ID),$this);
 //		}
     }
 }

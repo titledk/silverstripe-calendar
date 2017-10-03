@@ -53,6 +53,7 @@ class CalendarConfig
                 'calendarview' => true, //fullcalendar
                 'search' => true,
                 'index' => 'eventlist',
+				'controllerUrl' => '/fullcalendar/',
                 'fullcalendar_js_settings' => "
 					header: {
 						left: 'prev, next',
