@@ -1,0 +1,6 @@
+en:
+  CalendarAdmin:
+    CALENDAR_PERMISSION_CATEGORY: 'Calendar'
+    CALENDAR_MANAGE: 'Manage calendars'
+    EVENTCATEGORY_MANAGE: 'Manage event categories'
+    EVENT_MANAGE: 'Manage events'

@@ -17,4 +17,54 @@ class PublicEventCategory extends EventCategory
             );
         return $events;
     }
+	
+	/**
+	 * Anyone can view public event categories
+	 * @param Member $member
+	 * @return boolean
+	 */
+	public function canView($member = null)
+	{
+		return true;
+	}
+
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+	public function canCreate($member = null)
+    {
+        return $this->canManage($member);
+    }
+	
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+	public function canEdit($member = null)
+    {
+        return $this->canManage($member);
+    }
+
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+    public function canDelete($member = null)
+    {
+        return $this->canManage($member);
+    }
+
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+	protected function canManage($member)
+	{
+		return Permission::check('ADMIN','any',$member) || Permission::check('EVENTCATEGORY_MANAGE','any',$member);
+	}
 }
