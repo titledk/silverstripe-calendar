@@ -41,4 +41,54 @@ class PublicEvent extends Event
         return $calendarPage->Link(). $detailStr;
 //		}
     }
+
+	/**
+	 * Anyone can view public events
+	 * @param Member $member
+	 * @return boolean
+	 */
+	public function canView($member = null)
+	{
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+	public function canCreate($member = null)
+    {
+        return $this->canManage($member);
+    }
+	
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+	public function canEdit($member = null)
+    {
+        return $this->canManage($member);
+    }
+
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+    public function canDelete($member = null)
+    {
+        return $this->canManage($member);
+    }
+
+	/**
+	 * 
+	 * @param Member $member
+	 * @return boolean
+	 */
+	protected function canManage($member)
+	{
+		return Permission::check('ADMIN','any',$member) || Permission::check('EVENT_MANAGE','any',$member);
+	}
 }
