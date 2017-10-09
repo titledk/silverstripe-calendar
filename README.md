@@ -71,7 +71,7 @@ time picker and dropdown, and duration dropdown, still allowing manual inputs
 (works on both frontend and backend) - shading calendars allow for holiday calendars etc. to appear in the background
 * No default frontend styling.
 * Composer based workflow. You’ll be able to add and update the module using Composer.
-
+* Define callback functions to override the custom behavior of an event in the frontend (mouseover, mouseout, click)
 
 ## Weak points at the moment
 
@@ -109,6 +109,25 @@ CalendarConfig::init();
 
 See `CalendarConfig` on how to configure the module.
 
+### Event Callbacks
+
+As mentioned above, you're able to add custom behavior for the mouseover, mouseout and click events of an event in the frontend. First you should create a custom theme for the calendar module in your themes folder (`/themes/<your-theme-name>_calendar/`). Now add a 'fullcalendar.js' file under `/themes/<your-theme-name>_calendar/js/`, with the following structure:
+
+```javascript
+;(function($) {
+    // namespacing
+    if($.fn.sscal === undefined) $.fn.sscal = {};
+    
+    // click callback
+    $.fn.sscal.eventClick = function(event, jsEvent, view) {
+        // your code
+    }
+    
+    //
+    //$.fn.sscal.eventMouseover = function(event, jsEvent, view);
+    //$.fn.sscal.eventMouseout = function(event, jsEvent, view);
+})($);
+```
 
 ## Screenshots
 

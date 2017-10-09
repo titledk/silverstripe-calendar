@@ -92,6 +92,8 @@ class CalendarPage_Controller extends Page_Controller
 
             Requirements::javascript('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/lib/moment.min.js');
             Requirements::javascript('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.js');
+            Requirements::javascript('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/lang-all.js');
+            Requirements::javascript(SSViewer::get_theme_folder() . "_calendar/js/fullcalendar.js");
             Requirements::css('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.css');
             Requirements::css('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.print.css', 'print');
 
