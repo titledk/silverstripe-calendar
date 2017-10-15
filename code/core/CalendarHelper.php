@@ -92,27 +92,27 @@ class CalendarHelper
 	 * @param type $link
 	 * @return type
 	 */
-	public static function add_preview_params($link,$object)
-	{
-		// Pass through if not logged in
-		if(!Member::currentUserID()) {
-			return $link;
-		}
-		$modifiedLink = '';
-		$request = Controller::curr()->getRequest();
-		if ($request && $request->getVar('CMSPreview')) {
-			// Preserve the preview param for further links
-			$modifiedLink = HTTP::setGetVar('CMSPreview', 1, $link);
-			// Quick fix - multiple uses of setGetVar method double escape the ampersands
-			$modifiedLink = str_replace('&amp;','&',$modifiedLink); 
-			// Add SubsiteID, if applicable
-			if (!empty($object->SubsiteID)) {
-				$modifiedLink = HTTP::setGetVar('SubsiteID', $object->SubsiteID, $modifiedLink);
-				// Quick fix - multiple uses of setGetVar method double escape the ampersands
-				$modifiedLink = str_replace('&amp;','&',$modifiedLink); 
-			}
-		} 
-   
-		return ($modifiedLink) ? $modifiedLink : $link;
-	}
+    public static function add_preview_params($link,$object)
+    {
+        // Pass through if not logged in
+        if(!Member::currentUserID()) {
+            return $link;
+        }
+        $modifiedLink = '';
+        $request = Controller::curr()->getRequest();
+        if ($request && $request->getVar('CMSPreview')) {
+            // Preserve the preview param for further links
+            $modifiedLink = HTTP::setGetVar('CMSPreview', 1, $link);
+            // Quick fix - multiple uses of setGetVar method double escape the ampersands
+            $modifiedLink = str_replace('&amp;','&',$modifiedLink); 
+            // Add SubsiteID, if applicable
+            if (!empty($object->SubsiteID)) {
+                $modifiedLink = HTTP::setGetVar('SubsiteID', $object->SubsiteID, $modifiedLink);
+                // Quick fix - multiple uses of setGetVar method double escape the ampersands
+                $modifiedLink = str_replace('&amp;','&',$modifiedLink); 
+            }
+        } 
+
+        return ($modifiedLink) ? $modifiedLink : $link;
+    }
 }

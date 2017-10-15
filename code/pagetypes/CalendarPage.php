@@ -306,7 +306,7 @@ class CalendarPage_Controller extends Page_Controller
     {
         $month = $this->NextMonth();
         $url = $this->Link($this->request->param('Action'));
-		$url = HTTP::setGetVar('month',$month,$url);
+        $url = HTTP::setGetVar('month',$month,$url);
         return CalendarHelper::add_preview_params($url,$this->data());
     }
     public function PrevMonth()
@@ -322,7 +322,7 @@ class CalendarPage_Controller extends Page_Controller
     {
         $month = $this->PrevMonth();
 		$url = $this->Link($this->request->param('Action'));
-		$url = HTTP::setGetVar('month',$month,$url);
+        $url = HTTP::setGetVar('month',$month,$url);
 		return CalendarHelper::add_preview_params($url,$this->data());
     }
 
@@ -365,10 +365,10 @@ class CalendarPage_Controller extends Page_Controller
         return $calendars;
     }
 	
-	public function FeedLink($calendarID)
-	{
-		$calendar = Calendar::get()->byID(intval($calendarID));
-		$url = Controller::join_links($this->Link(),'calendar',($calendar) ? $calendar->Link : '');
-		return CalendarHelper::add_preview_params($url,$this->data());
-	}
+    public function FeedLink($calendarID)
+    {
+        $calendar = Calendar::get()->byID(intval($calendarID));
+        $url = Controller::join_links($this->Link(),'calendar',($calendar) ? $calendar->Link : '');
+        return CalendarHelper::add_preview_params($url,$this->data());
+    }
 }
