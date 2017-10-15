@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Public Event
  * Event shown to the public.
@@ -13,7 +14,6 @@ class PublicEvent extends Event
     public static $singular_name = 'Event';
     public static $plural_name = 'Events';
 
-
     /**
      * Getter for internal event link
      * NOTE: The current implementation only works properly as long as there's only one
@@ -26,7 +26,6 @@ class PublicEvent extends Event
         //for now all event details will only have one link - that is the main calendar page
         //NOTE: this could be amended by calling that link via AJAX, and thus could be shown as an overlay
         //everywhere on the site
-
 //		//if the event page is enabled, we provide for links to event pages
 //		if (CalendarConfig::subpackage_setting('pagetypes','enable_eventpage')) {
 //			$eventPage = $this->EventPage();
@@ -37,58 +36,58 @@ class PublicEvent extends Event
 //				return $calendarPage->Link() .  $detailStr;
 //			}
 //		} else {
-            $calendarPage = CalendarPage::get()->First();
-        return $calendarPage->Link(). $detailStr;
+        $calendarPage = CalendarPage::get()->First();
+        return $calendarPage->Link() . $detailStr;
 //		}
     }
 
-	/**
-	 * Anyone can view public events
-	 * @param Member $member
-	 * @return boolean
-	 */
-	public function canView($member = null)
-	{
-		return true;
-	}
-	
-	/**
-	 * 
-	 * @param Member $member
-	 * @return boolean
-	 */
-	public function canCreate($member = null)
+    /**
+     * Anyone can view public events
+     * @param Member $member
+     * @return boolean
+     */
+    public function canView($member = null)
     {
-        return $this->canManage($member);
+        return true;
     }
-	
-	/**
-	 * 
-	 * @param Member $member
-	 * @return boolean
-	 */
-	public function canEdit($member = null)
+
+    /**
+     * 
+     * @param Member $member
+     * @return boolean
+     */
+    public function canCreate($member = null)
     {
         return $this->canManage($member);
     }
 
-	/**
-	 * 
-	 * @param Member $member
-	 * @return boolean
-	 */
+    /**
+     * 
+     * @param Member $member
+     * @return boolean
+     */
+    public function canEdit($member = null)
+    {
+        return $this->canManage($member);
+    }
+
+    /**
+     * 
+     * @param Member $member
+     * @return boolean
+     */
     public function canDelete($member = null)
     {
         return $this->canManage($member);
     }
 
-	/**
-	 * 
-	 * @param Member $member
-	 * @return boolean
-	 */
-	protected function canManage($member)
-	{
-		return Permission::check('ADMIN','any',$member) || Permission::check('EVENT_MANAGE','any',$member);
-	}
+    /**
+     * 
+     * @param Member $member
+     * @return boolean
+     */
+    protected function canManage($member)
+    {
+        return Permission::check('ADMIN', 'any', $member) || Permission::check('EVENT_MANAGE', 'any', $member);
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Calendar Admin
  *
@@ -10,12 +11,10 @@ class CalendarAdmin extends LeftAndMain implements PermissionProvider
 
     public static $menu_title = "Calendar";
     public static $url_segment = "calendar";
-
     //static $menu_priority = 100;
     //static $url_priority = 30;
 
     public static $menu_icon = "calendar/images/icons/calendar.png";
-
     private static $allowed_actions = array(
         'pastevents',
         'calendars',
@@ -26,7 +25,6 @@ class CalendarAdmin extends LeftAndMain implements PermissionProvider
         'categories',
         'PublicEventImportForm'
     );
-
 
 //	static $url_handlers = array (
 //
@@ -45,7 +43,6 @@ class CalendarAdmin extends LeftAndMain implements PermissionProvider
         Requirements::css("calendar/css/admin/CalendarAdmin.css");
         Requirements::javascript("calendar/javascript/admin/CalendarAdmin.js");
     }
-
 
 //	public function getEditForm($id = null, $fields = null) {
 //
@@ -82,24 +79,28 @@ class CalendarAdmin extends LeftAndMain implements PermissionProvider
         $form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
         return $form;
     }
+
     public function PastEventsForm()
     {
         $form = new PastEventsForm($this, "PastEventsForm");
         $form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
         return $form;
     }
+
     public function CalendarsForm()
     {
         $form = new CalendarsForm($this, "CalendarsForm");
         $form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
         return $form;
     }
+
     public function CategoriesForm()
     {
         $form = new CategoriesForm($this, "CategoriesForm");
         $form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
         return $form;
     }
+
     public function PublicEventImportForm()
     {
         $form = new PublicEventImportForm($this, "PublicEventImportForm");
@@ -127,12 +128,11 @@ class CalendarAdmin extends LeftAndMain implements PermissionProvider
     {
         return CalendarConfig::subpackage_enabled('calendars');
     }
+
     public function CategoriesEnabled()
     {
         return CalendarConfig::subpackage_enabled('categories');
     }
-
-
 
     /**
      * Action "pastevents"
@@ -167,31 +167,31 @@ class CalendarAdmin extends LeftAndMain implements PermissionProvider
             return $this->getResponseNegotiator()->respond($request);
         }
     }
-	
-	
-	public function providePermissions() {
-		$title = LeftAndMain::menu_title_for_class($this->class);
-		return array(
-			"CMS_ACCESS_CalendarAdmin" => array(
-				'name' => _t('CMSMain.ACCESS', "Access to '{title}' section", array('title' => $title)),
-				'category' => _t('Permission.CMS_ACCESS_CATEGORY', 'CMS Access'),
-				'help' => 'Allow access to calendar management module.'
-			),
-			"CALENDAR_MANAGE" => array(
-				'name' => _t('CalendarAdmin.CALENDAR_MANAGE', 'Manage calendars'),
-				'category' => _t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
-				'help' => 'Allow creating, editing, and deleting calendars.'
-			),
-			"EVENTCATEGORY_MANAGE" => array(
-				'name' => _t('CalendarAdmin.EVENTCATEGORY_MANAGE', 'Manage event categories'),
-				'category' => _t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
-				'help' => 'Allow creating, editing, and deleting event categories.'
-			),
-			"EVENT_MANAGE" => array(
-				'name' => _t('CalendarAdmin.EVENT_MANAGE', 'Manage events'),
-				'category' => _t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
-				'help' => 'Allow creating, editing, and deleting events.'
-			)
-		);
-	}
+
+    public function providePermissions()
+    {
+        $title = LeftAndMain::menu_title_for_class($this->class);
+        return array(
+            "CMS_ACCESS_CalendarAdmin" => array(
+                'name' => _t('CMSMain.ACCESS', "Access to '{title}' section", array('title' => $title)),
+                'category' => _t('Permission.CMS_ACCESS_CATEGORY', 'CMS Access'),
+                'help' => 'Allow access to calendar management module.'
+            ),
+            "CALENDAR_MANAGE" => array(
+                'name' => _t('CalendarAdmin.CALENDAR_MANAGE', 'Manage calendars'),
+                'category' => _t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
+                'help' => 'Allow creating, editing, and deleting calendars.'
+            ),
+            "EVENTCATEGORY_MANAGE" => array(
+                'name' => _t('CalendarAdmin.EVENTCATEGORY_MANAGE', 'Manage event categories'),
+                'category' => _t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
+                'help' => 'Allow creating, editing, and deleting event categories.'
+            ),
+            "EVENT_MANAGE" => array(
+                'name' => _t('CalendarAdmin.EVENT_MANAGE', 'Manage events'),
+                'category' => _t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
+                'help' => 'Allow creating, editing, and deleting events.'
+            )
+        );
+    }
 }
