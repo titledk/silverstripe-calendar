@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Public Event Category
  *
@@ -8,63 +9,63 @@
 class PublicEventCategory extends EventCategory
 {
 
-    public function ComingEvents($from=false)
+    public function ComingEvents($from = false)
     {
         $events = $this->Events()
             ->filter(array(
-                    'StartDateTime:GreaterThan' => date('Y-m-d', $from ? strtotime($from) : time())
-                )
-            );
+                'StartDateTime:GreaterThan' => date('Y-m-d', $from ? strtotime($from) : time())
+            )
+        );
         return $events;
     }
-	
-	/**
-	 * Anyone can view public event categories
-	 * @param Member $member
-	 * @return boolean
-	 */
-	public function canView($member = null)
-	{
-		return true;
-	}
 
-	/**
-	 * 
-	 * @param Member $member
-	 * @return boolean
-	 */
-	public function canCreate($member = null)
+    /**
+     * Anyone can view public event categories
+     * @param Member $member
+     * @return boolean
+     */
+    public function canView($member = null)
     {
-        return $this->canManage($member);
+        return true;
     }
-	
-	/**
-	 * 
-	 * @param Member $member
-	 * @return boolean
-	 */
-	public function canEdit($member = null)
+
+    /**
+     * 
+     * @param Member $member
+     * @return boolean
+     */
+    public function canCreate($member = null)
     {
         return $this->canManage($member);
     }
 
-	/**
-	 * 
-	 * @param Member $member
-	 * @return boolean
-	 */
+    /**
+     * 
+     * @param Member $member
+     * @return boolean
+     */
+    public function canEdit($member = null)
+    {
+        return $this->canManage($member);
+    }
+
+    /**
+     * 
+     * @param Member $member
+     * @return boolean
+     */
     public function canDelete($member = null)
     {
         return $this->canManage($member);
     }
 
-	/**
-	 * 
-	 * @param Member $member
-	 * @return boolean
-	 */
-	protected function canManage($member)
-	{
-		return Permission::check('ADMIN','any',$member) || Permission::check('EVENTCATEGORY_MANAGE','any',$member);
-	}
+    /**
+     * 
+     * @param Member $member
+     * @return boolean
+     */
+    protected function canManage($member)
+    {
+        return Permission::check('ADMIN', 'any', $member) || Permission::check('EVENTCATEGORY_MANAGE', 'any', $member);
+    }
 }
