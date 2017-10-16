@@ -17,12 +17,25 @@ var PublicFullcalendarView;
 					//center: 'title'
 					right: 'title'
 				},
-				shadedevents: false
+				shadedevents: false,
+				weekMode: 'variable',
+				columnFormat: {
+						month: 'ddd',    // Mon
+						week: 'ddd d/M', // Mon 9/7
+						day: 'dddd d/M'  // Monday 9/7
+				},
+				firstDay: 1, //Start week on monday
+				//time formatting - see more here: http://arshaw.com/fullcalendar/docs/text/timeFormat/
+				timeFormat: {
+					// for agendaWeek and agendaDay
+					agenda: 'h:mm{ - h:mm}', // 5:00 - 6:30
+					// for all other views
+					'': 'h(:mm)tt'            // 7pm
+				}
 			}
 		}
-
-
-		$this.controllerUrl = $this.options.controllerUrl;
+		
+		$this.controllerUrl = null; //will be initialized
 		$this.eventSources = null; //will be initialized
 		$this.shadedEvents = null; //will be initialized if shaded events are enabled
 
@@ -33,6 +46,7 @@ var PublicFullcalendarView;
 			//extending options
 			$this.options = $.extend( {}, $this.options, options );
 
+			$this.controllerUrl = $this.options.controllerUrl;
 			$this.init_eventsources();
 
 			//If shaded events are enabled, these are found via AJAX, and saved in a variable
@@ -66,12 +80,51 @@ var PublicFullcalendarView;
 		 * Building url for a specific action
 		 */
 		this.buildControllerUrl = function(action) {
-			return $this.controllerUrl + action + '/';
+			return this.addSegmentsToUrl($this.controllerUrl,[action]);
 		}
-		this.buildCalendarUrl = function(action) {
-			return $this.calendarUrl + action + '/';
+		
+		this.buildCalendarUrl = function(action,id) {
+			return this.addSegmentsToUrl($this.calendarUrl,[action,id]);
 		}
-
+		
+		/**
+		 * Adds extra segments to existing URL, preserving query parameters
+		 * @param string url
+		 * @param Array segments
+		 * @returns string
+		 */
+		this.addSegmentsToUrl = function(url,segments) {
+			// Check segments
+			if(!segments.length) return url;
+			// Find URL parts
+			var urlParts = this.findUrlParts(url);
+			// Add segments
+			if(segments.constructor === Array) {
+				// Add trailing slash to base URL if necessary
+				if(urlParts['base'].substr(-1) !== '/') {
+					urlParts['base'] += '/';
+				}
+				url = encodeURI(urlParts['base'] + segments.join('/') + '/');
+				if(urlParts['query']) {
+					url += '?' + urlParts['query'];
+				}
+			}
+			return url;			
+		}
+		
+		/**
+		 * Separates URL into base and query parts
+		 * @param string url
+		 * @returns object
+		 */
+		this.findUrlParts = function(url) {
+			var parts = url.split('?');
+			return {
+				base: parts[0],
+				query: parts[1] || ''
+			};
+		}
+			
 		/**
 		 * Event source initialization
 		 * For now we're only getting public events,
@@ -93,36 +146,20 @@ var PublicFullcalendarView;
 
 		this.init_calendar = function(){
 			var date = new Date();
-			var d = date.getDate();
-			var m = date.getMonth();
-			var y = date.getFullYear();
-
-			holder.fullCalendar({
-				header: $this.options.fullcalendar.header,
-				weekMode: 'variable',
-				columnFormat: {
-						month: 'ddd',    // Mon
-						week: 'ddd d/M', // Mon 9/7
-						day: 'dddd d/M'  // Monday 9/7
-				},
-				firstDay: 1, //Start week on monday
-				//time formatting - see more here: http://arshaw.com/fullcalendar/docs/text/timeFormat/
-				timeFormat: {
-					// for agendaWeek and agendaDay
-					agenda: 'h:mm{ - h:mm}', // 5:00 - 6:30
-					// for all other views
-					'': 'h(:mm)tt'            // 7pm
-				},
+			
+			var calOptions = $.extend( {}, $this.options.fullcalendar,{
 				dayRender: function(date, cell) {
 					$this.dayRender(date, cell);
 				},
 				eventRender: function (event, element) {
 				},
 				eventClick: function(calEvent, jsEvent, view) {
-					location.href = $this.buildCalendarUrl('detail') + calEvent.id;
+					location.href = $this.buildCalendarUrl('detail',calEvent.id);
 				},
 				eventSources: $this.eventSources
 			});
+			
+			holder.fullCalendar(calOptions);
 		}
 
 
