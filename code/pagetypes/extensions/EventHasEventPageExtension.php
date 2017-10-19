@@ -27,7 +27,7 @@ class EventHasEventPageExtension extends DataExtension
     {
         $fields->addFieldToTab('Root.RelatedPage',
             DropdownField::create('EventPageID', 'EventPage',
-                EventPage::get()->map('ID', 'Title'))
+                EventPage::get()->sort('Title')->map('ID', 'Title'))
                 ->setEmptyString('Choose event page...')
         );
     }
