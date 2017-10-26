@@ -25,7 +25,6 @@ class Event extends DataObject
 
     public static $summary_fields = array(
         'Title' => 'Title',
-        'Calendar.Title' => 'Calendar',
         'StartDateTime' => 'Date and Time',
         'DatesAndTimeframe' => 'Presentation String',
         //'Calendar.Title' => 'Calendar'
@@ -33,12 +32,12 @@ class Event extends DataObject
 
     public function summaryFields()
     {
-        return array(
-            'Title' => 'Title',
-            'Calendar.Title'   => 'Calendar',
-            'StartDateTime' => 'Date and Time',
-            'DatesAndTimeframe' => 'Presentation String'
-        );
+        $fields = parent::summaryFields();
+        // Add Calendar Title field if calendars are enabled
+        if (CalendarConfig::subpackage_enabled('calendars')) {
+            $fields['Calendar.Title'] = 'Calendar';
+        }
+        return $fields;
     }
 
     public static $default_sort = 'StartDateTime';

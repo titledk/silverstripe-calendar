@@ -1,13 +1,12 @@
 <?php
 /**
- * Coming Events Form
+ * Events Form
  *
  * @package calendar
  * @subpackage admin
  */
-class ComingEventsForm extends Form
+class EventsForm extends CMSForm
 {
-
 
     public static function eventConfig()
     {
@@ -44,19 +43,41 @@ class ComingEventsForm extends Form
      */
     public function __construct($controller, $name)
     {
-        $gridEventConfig = self::eventConfig();
-
-
-        $GridFieldComing = new GridField('Events', '',
-            CalendarHelper::coming_events(),
-            $gridEventConfig);
-
-
-        $fields = new FieldList(
-            $GridFieldComing
+        $fields = FieldList::create();
+        $fields->push(TabSet::create("Root"));
+        $gridConfig = self::eventConfig();
+        
+        /*
+         * Coming events 
+         */
+        $comingTab = $fields->findOrMakeTab(
+            'Root.Coming', _t('Event.COMING_EVENT_PLURAL','Coming events')
         );
-        $actions = new FieldList();
-        $this->addExtraClass('ComingEventsForm');
+    
+        $comingGridField = GridField::create('ComingEvents', '',
+            CalendarHelper::coming_events(),
+            $gridConfig);
+        
+        $fields->addFieldToTab('Root.Coming',$comingGridField);
+        
+        /*
+         * Past events 
+         */
+        
+        $pastTab = $fields->findOrMakeTab(
+            'Root.Past', _t('Event.PAST_EVENT_PLURAL','Past events')
+        );
+
+        $pastGridField = GridField::create('PastEvents', '',
+            CalendarHelper::past_events()->sort('StartDateTime DESC'),
+            $gridConfig);
+        
+        $fields->addFieldToTab('Root.Past',$pastGridField);
+        
+        /*
+         * Actions / init
+         */
+        $actions = FieldList::create();
         parent::__construct($controller, $name, $fields, $actions);
     }
 }

@@ -6,33 +6,31 @@
  * @package calendar
  * @subpackage admin
  */
-class CalendarAdmin extends LeftAndMain implements PermissionProvider
+class CalendarAdmin extends ModelAdmin implements PermissionProvider
 {
 
     public static $menu_title = "Calendar";
     public static $url_segment = "calendar";
-    //static $menu_priority = 100;
-    //static $url_priority = 30;
 
-    public static $menu_icon = "calendar/images/icons/calendar.png";
     private static $allowed_actions = array(
-        'pastevents',
-        'calendars',
-        'ComingEventsForm',
-        'PastEventsForm',
-        'CalendarsForm',
-        'CategoriesForm',
-        'categories',
-        'PublicEventImportForm'
+		'CalendarsForm',
+		'CategoriesForm',
+        'EventsForm'
+	);
+    
+    private static $managed_models = array(
+        'PublicEvent',
+        'PublicEventCategory',
+        'PublicCalendar'
     );
-
-//	static $url_handlers = array (
-//
-//		//'panel/$ID' => 'handlePanel',
-//		'$Action!' => '$Action',
-//		'' => 'index'
-//	);
-
+    
+    private static $model_importers = array(
+        'PublicEvent' => 'EventCsvBulkLoader',
+        'PublicEventCategory' => 'CsvBulkLoader',
+        'PublicCalendar' => 'CsvBulkLoader'
+    );
+    
+    public static $menu_icon = "calendar/images/icons/calendar.png";
 
     public function init()
     {
@@ -44,128 +42,93 @@ class CalendarAdmin extends LeftAndMain implements PermissionProvider
         Requirements::javascript("calendar/javascript/admin/CalendarAdmin.js");
     }
 
-//	public function getEditForm($id = null, $fields = null) {
-//
-//		$form = null;
-//
-//		switch ($this->Action) {
-//			case 'index':
-//				$form = new ComingEventsForm($this, "EditForm");
-//				break;
-//			case 'pastevents':
-//				$form = new PastEventsForm($this, "EditForm");
-//				break;
-//			case 'calendars':
-//				$form = new CalendarsForm($this, "EditForm");
-//				break;
-//			case 'index':
-//				$form = new CategoriesForm($this, "EditForm");
-//				break;
-//		}
-//
-//
-//		$form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
-//		$form->loadDataFrom($this->request->getVars());
-//
-//		$this->extend('updateEditForm', $form);
-//
-//		return $form;
-//	}
-
-
-    public function ComingEventsForm()
+    public function getModelClass()
     {
-        $form = new ComingEventsForm($this, "ComingEventsForm");
-        $form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
-        return $form;
+        return $this->sanitiseClassName($this->modelClass);
     }
-
-    public function PastEventsForm()
+    
+    public function getManagedModels()
     {
-        $form = new PastEventsForm($this, "PastEventsForm");
-        $form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
-        return $form;
-    }
-
-    public function CalendarsForm()
-    {
-        $form = new CalendarsForm($this, "CalendarsForm");
-        $form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
-        return $form;
-    }
-
-    public function CategoriesForm()
-    {
-        $form = new CategoriesForm($this, "CategoriesForm");
-        $form->addExtraClass('cms-edit-form cms-panel-padded center ' . $this->BaseCSSClasses());
-        return $form;
-    }
-
-    public function PublicEventImportForm()
-    {
-        $form = new PublicEventImportForm($this, "PublicEventImportForm");
-        $form->addExtraClass('cms-search-form ' . $this->BaseCSSClasses());
-        return $form;
-    }
-
-    public function SubTitle()
-    {
-        $str = 'Coming Events';
-        $a = $this->Action;
-        if ($a == 'pastevents') {
-            $str = 'Past Events';
+        // Unset managed models according to config
+        /** @todo change to use config API */
+        $models = parent::getManagedModels();
+        if (!$this->calendarsEnabled() 
+            && isset($models['PublicCalendar'])) {
+            unset($models['PublicCalendar']);
         }
-        if ($a == 'calendars') {
-            $str = 'Calendars';
+        if (!$this->categoriesEnabled()
+            && isset($models['PublicCalendar'])) {
+            unset($models['PublicEventCategory']);
         }
-        if ($a == 'categories') {
-            $str = 'Categories';
-        }
-        return $str;
+        return $models;
     }
+    
+	protected function determineFormClass()
+    {
+		switch ($this->modelClass) {
+			case 'PublicCalendar':
+				$class = 'CalendarsForm';
+				break;
+			case 'PublicEventCategory':
+                $class = 'CategoriesForm';
+				break;
+            case 'PublicEvent':
+            default:
+                $class = 'EventsForm';
+				break;
+		}
+        
+        return $class;
+	}
+    
+    public function getEditForm($id = null, $fields = null) {
+		$list = $this->getList();
+		$exportButton = new GridFieldExportButton('buttons-before-left');
+		$exportButton->setExportColumns($this->getExportFields());
+		$listField = GridField::create(
+			$this->sanitiseClassName($this->modelClass),
+			false,
+			$list,
+			$fieldConfig = GridFieldConfig_RecordEditor::create($this->stat('page_length'))
+				->addComponent($exportButton)
+				->removeComponentsByType('GridFieldFilterHeader')
+				->addComponents(new GridFieldPrintButton('buttons-before-left'))
+		);
 
-    public function CalendarsEnabled()
+		// Validation
+		if(singleton($this->modelClass)->hasMethod('getCMSValidator')) {
+			$detailValidator = singleton($this->modelClass)->getCMSValidator();
+			$listField->getConfig()->getComponentByType('GridFieldDetailForm')->setValidator($detailValidator);
+		}
+        
+        $formClass = $this->determineFormClass();
+        
+		$form = $formClass::create(
+			$this,
+			'EditForm',
+			new FieldList($listField),
+			new FieldList()
+		)->setHTMLID('Form_EditForm');
+		$form->setResponseNegotiator($this->getResponseNegotiator());
+		$form->addExtraClass('cms-edit-form cms-panel-padded center');
+		$form->setTemplate($this->getTemplatesWithSuffix('_EditForm'));
+		$editFormAction = Controller::join_links($this->Link($this->sanitiseClassName($this->modelClass)), 'EditForm');
+		$form->setFormAction($editFormAction);
+		$form->setAttribute('data-pjax-fragment', 'CurrentForm');
+
+		$this->extend('updateEditForm', $form);
+
+		return $form;
+	}
+
+    protected function calendarsEnabled()
     {
         return CalendarConfig::subpackage_enabled('calendars');
     }
 
-    public function CategoriesEnabled()
+    protected function categoriesEnabled()
     {
         return CalendarConfig::subpackage_enabled('categories');
-    }
-
-    /**
-     * Action "pastevents"
-     * @param type $request
-     * @return SS_HTTPResponse
-     */
-    public function pastevents($request)
-    {
-        return $this->getResponseNegotiator()->respond($request);
-    }
-
-    /**
-     * Action "calendars"
-     * @param type $request
-     * @return SS_HTTPResponse
-     */
-    public function calendars($request)
-    {
-        if ($this->CalendarsEnabled()) {
-            return $this->getResponseNegotiator()->respond($request);
-        }
-    }
-
-    /**
-     * Action "categories"
-     * @param type $request
-     * @return SS_HTTPResponse
-     */
-    public function categories($request)
-    {
-        if ($this->CategoriesEnabled()) {
-            return $this->getResponseNegotiator()->respond($request);
-        }
     }
 
     public function providePermissions()

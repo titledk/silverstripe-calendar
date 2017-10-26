@@ -5,7 +5,7 @@
  * @package calendar
  * @subpackage admin
  */
-class CategoriesForm extends Form
+class CategoriesForm extends CMSForm
 {
 
     /**
