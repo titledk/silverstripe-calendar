@@ -73,8 +73,10 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
                 $class = 'CategoriesForm';
 				break;
             case 'PublicEvent':
-            default:
                 $class = 'EventsForm';
+				break;
+            default:
+                $class = 'CMSForm';
 				break;
 		}
         
