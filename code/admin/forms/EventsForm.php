@@ -68,8 +68,14 @@ class EventsForm extends CMSForm
             'Root.Past', _t('Event.PAST_EVENT_PLURAL','Past events')
         );
 
+        // Find all past events, including those with null start time
+        $time = date('Y-m-d', time());
+        $pastEvents = PublicEvent::get()
+            ->where("\"StartDateTime\" < '$time' OR \"StartDateTime\" IS NULL")
+            ->sort('StartDateTime DESC');
+        
         $pastGridField = GridField::create('PastEvents', '',
-            CalendarHelper::past_events()->sort('StartDateTime DESC'),
+            $pastEvents,
             $gridConfig);
         
         $fields->addFieldToTab('Root.Past',$pastGridField);
