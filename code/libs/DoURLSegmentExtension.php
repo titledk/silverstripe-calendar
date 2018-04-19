@@ -1,4 +1,7 @@
 <?php
+
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\ORM\DataExtension;
 /**
  * DataObject URL Segment Extension
  * inspired by https://github.com/dospuntocero/doarticles/blob/master/code/utils/DOArticleURLSegmentDecorator.php
@@ -12,7 +15,7 @@ class DoURLSegmentExtension extends DataExtension
 
     public function onBeforeWrite()
     {
-        $this->owner->URLSegment = singleton('SiteTree')->generateURLSegment($this->owner->Title);
+        $this->owner->URLSegment = singleton(SiteTree::class)->generateURLSegment($this->owner->Title);
     }
 
 

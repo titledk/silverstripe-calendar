@@ -1,4 +1,9 @@
 <?php
+
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridField;
+use PageController;
 /**
  * Event Page
  * A page that can serve as a permanent url for recurring events like festivals, monthly shopping events etc.
@@ -47,7 +52,7 @@ class EventPage extends Page
         $fields = parent::getCMSFields();
 
         $gridEventConfig = GridFieldConfig_RecordEditor::create();
-        $gridEventConfig->removeComponentsByType('GridFieldDetailForm');
+        $gridEventConfig->removeComponentsByType(GridFieldDetailForm::class);
         $gridEventConfig->addComponent(new CalendarEventPageGridFieldDetailForm());
 
         //Coming events
@@ -92,7 +97,7 @@ class EventPage extends Page
     }
 }
 
-class EventPage_Controller extends Page_Controller
+class EventPage_Controller extends PageController
 {
 
     public function ComingOrPastEvents()

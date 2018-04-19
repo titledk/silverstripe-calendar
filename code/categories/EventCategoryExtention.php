@@ -1,4 +1,8 @@
 <?php
+
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\ListboxField;
+use SilverStripe\ORM\DataExtension;
 /**
  * Allowing events to have many-many categories
  *

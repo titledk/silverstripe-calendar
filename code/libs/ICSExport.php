@@ -1,4 +1,11 @@
 <?php
+
+use SilverStripe\Dev\Debug;
+use SilverStripe\Core\Convert;
+use SilverStripe\Security\Member;
+use SilverStripe\Control\Email\Email;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\Control\Controller;
 //from https://gist.github.com/dominikzogg/1578524
 //Se in the bottom of this file for the SilverStripe Calendar ICSExport_Controller
 
@@ -291,7 +298,7 @@ class ICSExport_Controller extends Controller
         if (!$cal) {
             echo $idOrURL;
             $member = Member::get()
-                ->filter('Email', $idOrURL)
+                ->filter(Email::class, $idOrURL)
                 ->filter('PrivateCalendarKey', $request->param('OtherID'))
                 ->First();
             if ($member && $member->exists()) {

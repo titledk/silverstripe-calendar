@@ -1,4 +1,8 @@
 <?php
+
+use SilverStripe\Security\Member;
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTP;
 /**
  * Calendar Helper
  * Helper class for calendar related calculations

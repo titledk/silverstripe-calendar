@@ -1,5 +1,19 @@
 <?php
 
+use SilverStripe\Dev\CsvBulkLoader;
+use SilverStripe\View\Requirements;
+use SilverStripe\Forms\GridField\GridFieldExportButton;
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
+use SilverStripe\Forms\GridField\GridFieldPrintButton;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Control\Controller;
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Admin\ModelAdmin;
+use SilverStripe\Security\PermissionProvider;
+
 /**
  * Calendar Admin
  *
@@ -26,8 +40,8 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     
     private static $model_importers = array(
         'PublicEvent' => 'EventCsvBulkLoader',
-        'PublicEventCategory' => 'CsvBulkLoader',
-        'PublicCalendar' => 'CsvBulkLoader'
+        'PublicEventCategory' => CsvBulkLoader::class,
+        'PublicCalendar' => CsvBulkLoader::class
     );
     
     public static $menu_icon = "calendar/images/icons/calendar.png";
@@ -93,14 +107,14 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
 			$list,
 			$fieldConfig = GridFieldConfig_RecordEditor::create($this->stat('page_length'))
 				->addComponent($exportButton)
-				->removeComponentsByType('GridFieldFilterHeader')
+				->removeComponentsByType(GridFieldFilterHeader::class)
 				->addComponents(new GridFieldPrintButton('buttons-before-left'))
 		);
 
 		// Validation
 		if(singleton($this->modelClass)->hasMethod('getCMSValidator')) {
 			$detailValidator = singleton($this->modelClass)->getCMSValidator();
-			$listField->getConfig()->getComponentByType('GridFieldDetailForm')->setValidator($detailValidator);
+			$listField->getConfig()->getComponentByType(GridFieldDetailForm::class)->setValidator($detailValidator);
 		}
         
         $formClass = $this->determineFormClass();

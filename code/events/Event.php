@@ -1,4 +1,18 @@
 <?php
+
+use SilverStripe\ORM\FieldType\DBBoolean;
+use SilverStripe\ORM\FieldType\DBDatetime;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\DatetimeField;
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\TimeField;
+use SilverStripe\Forms\SelectionGroup;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\Tab;
+use SilverStripe\Forms\TabSet;
+use SilverStripe\ORM\DataObject;
 /**
  * Event Model
  * Events can have calendars, but don't necessary have to.
@@ -10,16 +24,16 @@ class Event extends DataObject
 
     public static $db = array(
         'Title' => 'Varchar(200)',
-        'AllDay' => 'Boolean',
+        'AllDay' => DBBoolean::class,
         //When no end date/time is set, neither directly nor through duration, this should appear as a checkbox
         //This should only apply when not enforcing end dates
         //Furthermore, events with no EndDateTime should be treated as if they end on the day that they occur,
         //with the exception that this is not being displayed
-        'NoEnd' => 'Boolean',
-        'StartDateTime' => 'SS_Datetime',
+        'NoEnd' => DBBoolean::class,
+        'StartDateTime' => DBDatetime::class,
         'TimeFrameType' => "Enum('Duration,DateTime','Duration')", //The type of time frame that has been entered
         'Duration' => 'Time', //Only applicable for TimeFrameType "Duration"
-        'EndDateTime' => 'SS_Datetime', //Only applicable for TimeFrameType "DateTime"
+        'EndDateTime' => DBDatetime::class, //Only applicable for TimeFrameType "DateTime"
         'Details' => 'HTMLText',
     );
 

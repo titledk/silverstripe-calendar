@@ -1,4 +1,10 @@
 <?php
+
+use SilverStripe\Forms\TextField;
+use SilverStripe\Control\Email\Email;
+use SilverStripe\Forms\HiddenField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\ORM\DataObject;
 /**
  * Event Registration
  *
@@ -41,7 +47,7 @@ class EventRegistration extends DataObject
     {
         $fields = FieldList::create(
             TextField::create('Name'),
-            TextField::create('Email'),
+            TextField::create(Email::class),
             HiddenField::create('EventID')
         );
 

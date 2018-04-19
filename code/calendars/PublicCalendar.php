@@ -1,5 +1,7 @@
 <?php
 
+use SilverStripe\Security\Permission;
+
 /**
  * Public Calendar
  *

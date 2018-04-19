@@ -1,4 +1,9 @@
 <?php
+
+use SilverStripe\Security\Member;
+use SilverStripe\Core\Convert;
+use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Control\Controller;
 /**
  * Fullcalendar controller
  * Controller/API, used for interacting with the fullcalendar js plugin
@@ -172,7 +177,7 @@ class FullcalendarController extends Controller
         }
 
         if ($json) {
-            $response = new SS_HTTPResponse(Convert::array2json($result));
+            $response = new HTTPResponse(Convert::array2json($result));
             $response->addHeader('Content-Type', 'application/json');
             return $response;
         } else {
@@ -227,7 +232,7 @@ class FullcalendarController extends Controller
             $result = array_merge($retVars, $result);
         }
 
-        $response = new SS_HTTPResponse(json_encode($result));
+        $response = new HTTPResponse(json_encode($result));
         $response->addHeader('Content-Type', 'application/json');
         return $response;
     }

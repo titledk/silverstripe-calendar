@@ -1,4 +1,11 @@
 <?php
+
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\View\Requirements;
+use SilverStripe\Forms\Form;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
 /**
  * CalendarEvent Gridfield DetailForm
  * Add additional features to the gridfield detail form:

@@ -1,4 +1,6 @@
 <?php
+
+use SilverStripe\ORM\DataObject;
 /**
  * Calendar Model
  * The calendar serves as a holder for events, but events can exist as instances on their own.

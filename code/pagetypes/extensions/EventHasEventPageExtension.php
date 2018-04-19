@@ -1,4 +1,8 @@
 <?php
+
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\ORM\DataExtension;
 /**
  * Event Has EventPage Extension
  * Allowing events to belong to an EventPage.

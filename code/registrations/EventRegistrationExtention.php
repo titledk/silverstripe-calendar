@@ -1,4 +1,16 @@
 <?php
+
+use SilverStripe\ORM\FieldType\DBBoolean;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Control\Email\Email;
+use SilverStripe\Forms\EmailField;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\MoneyField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\ORM\DataExtension;
 /**
  * Allowing events to have registrations
  *
@@ -9,10 +21,10 @@ class EventRegistrationExtension extends DataExtension
 {
 
     public static $db = array(
-        'Registerable' => 'Boolean',
+        'Registerable' => DBBoolean::class,
         'Cost' => 'Money',
-        'TicketsRequired' => 'Boolean',
-        'PaymentRequired' => 'Boolean',
+        'TicketsRequired' => DBBoolean::class,
+        'PaymentRequired' => DBBoolean::class,
         'RSVPEmail' => 'Varchar(255)'
     );
 
@@ -34,7 +46,7 @@ class EventRegistrationExtension extends DataExtension
             new HeaderField('Header2', 'Who should the website send registration notifications to?', 4)
         );
         $fields->addFieldToTab('Root.Registrations',
-            new EmailField('RSVPEmail', 'Email')
+            new EmailField('RSVPEmail', Email::class)
         );
 
         $fields->addFieldToTab('Root.Registrations',

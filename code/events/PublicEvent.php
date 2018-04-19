@@ -1,5 +1,8 @@
 <?php
 
+use SilverStripe\Control\Controller;
+use SilverStripe\Security\Permission;
+
 /**
  * Public Event
  * Event shown to the public.

@@ -1,4 +1,7 @@
 <?php
+
+use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Control\Controller;
 /**
  * Event Registration Controller
  *
@@ -67,7 +70,7 @@ class EventRegistrationController extends Controller
             $result = array_merge($retVars, $result);
         }
 
-        $response = new SS_HTTPResponse(json_encode($result));
+        $response = new HTTPResponse(json_encode($result));
         $response->addHeader('Content-Type', 'application/json');
         return $response;
     }

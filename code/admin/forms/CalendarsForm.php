@@ -1,4 +1,10 @@
 <?php
+
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\FieldList;
 /**
  * CalendarsForm
  *
@@ -21,8 +27,8 @@ class CalendarsForm extends CMSForm
 
             //Configuration for calendar grid field
             $gridCalendarConfig = GridFieldConfig_RecordEditor::create();
-            $gridCalendarConfig->removeComponentsByType('GridFieldDataColumns');
-            $gridCalendarConfig->addComponent($dataColumns = new GridFieldDataColumns(), 'GridFieldEditButton');
+            $gridCalendarConfig->removeComponentsByType(GridFieldDataColumns::class);
+            $gridCalendarConfig->addComponent($dataColumns = new GridFieldDataColumns(), GridFieldEditButton::class);
 
             $c = singleton('Calendar');
             $summaryFields = $c->summaryFields();

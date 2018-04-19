@@ -1,4 +1,8 @@
 <?php
+
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\ORM\DataObject;
 /**
  * Event Category
  *

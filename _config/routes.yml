@@ -1,9 +1,9 @@
 ---
 Name: calendaroutes
 ---
-Director:
+SilverStripe\Control\Director:
   rules:
-    'fullcalendar//$Action/$ID/$OtherID': 'FullcalendarController'
-    'calregistrations//$Action/$ID/$OtherID': 'EventRegistrationController'
-    'ics//$Action/$ID/$OtherID': 'ICSExport_Controller'
-    'EventRegistrationController//$Action/$ID/$OtherID': 'EventRegistrationController'
+    fullcalendar//$Action/$ID/$OtherID: FullcalendarController
+    calregistrations//$Action/$ID/$OtherID: EventRegistrationController
+    ics//$Action/$ID/$OtherID: ICSExport_Controller
+    EventRegistrationController//$Action/$ID/$OtherID: EventRegistrationController

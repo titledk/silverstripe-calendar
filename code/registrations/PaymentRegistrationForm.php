@@ -1,4 +1,15 @@
 <?php
+
+use SilverStripe\Forms\TextField;
+use SilverStripe\Control\Email\Email;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\TextareaField;
+use SilverStripe\Forms\HiddenField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Forms\RequiredFields;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\Form;
 /**
  * Event Registration Form
  *
@@ -21,7 +32,7 @@ class PaymentRegistrationForm extends Form
         $fields = FieldList::create(
             TextField::create('Name', 'Name'),
             TextField::create('PayersName', "Payer's Name"),
-            TextField::create('Email', 'Email'),
+            TextField::create(Email::class, Email::class),
             DropdownField::create('NumberOfTickets', 'Number of Tickets', array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10')),
             TextareaField::create("Notes"),
             HiddenField::create('EventID')
@@ -37,7 +48,7 @@ class PaymentRegistrationForm extends Form
         $validator = RequiredFields::create(
             array(
                 'Name',
-                'Email',
+                Email::class,
             )
         );
         $this->addExtraClass('PaymentRegistrationForm');

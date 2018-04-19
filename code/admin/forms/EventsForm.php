@@ -1,4 +1,12 @@
 <?php
+
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TabSet;
+use SilverStripe\Forms\GridField\GridField;
 /**
  * Events Form
  *
@@ -13,11 +21,11 @@ class EventsForm extends CMSForm
         $gridEventConfig = GridFieldConfig_RecordEditor::create();
 
         //Custom detail form
-        $gridEventConfig->removeComponentsByType('GridFieldDetailForm');
+        $gridEventConfig->removeComponentsByType(GridFieldDetailForm::class);
         $gridEventConfig->addComponent(new CalendarEventGridFieldDetailForm());
 
         //Custom columns
-        $gridEventConfig->removeComponentsByType('GridFieldDataColumns');
+        $gridEventConfig->removeComponentsByType(GridFieldDataColumns::class);
         $dataColumns = new GridFieldDataColumns();
 
         $summaryFields = Event::$summary_fields;
@@ -31,7 +39,7 @@ class EventsForm extends CMSForm
 
         $dataColumns->setDisplayFields($summaryFields);
 
-        $gridEventConfig->addComponent($dataColumns, 'GridFieldEditButton');
+        $gridEventConfig->addComponent($dataColumns, GridFieldEditButton::class);
 
         return $gridEventConfig;
     }

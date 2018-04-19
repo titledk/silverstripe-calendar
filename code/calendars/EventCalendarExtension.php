@@ -1,4 +1,8 @@
 <?php
+
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\ORM\DataExtension;
 /**
  * Event Calendar Extension
  * Allowing events to have calendars

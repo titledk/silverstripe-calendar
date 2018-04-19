@@ -1,5 +1,11 @@
 <?php
 
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\HiddenField;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\ORM\DataExtension;
+
 abstract class AbstractSubsiteExtension extends DataExtension
 {
 
@@ -21,7 +27,7 @@ abstract class AbstractSubsiteExtension extends DataExtension
         $ids = array((int) Subsite::currentSubsiteID());
 
         // If configured to treat subsite 0 as global, include ID 0.
-        if (Config::inst()->get('LeftAndMain', 'treats_subsite_0_as_global')) {
+        if (Config::inst()->get(LeftAndMain::class, 'treats_subsite_0_as_global')) {
             $ids[] = 0;
         }
         $ids = implode(',', $ids);

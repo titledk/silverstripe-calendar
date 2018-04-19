@@ -1,4 +1,10 @@
 <?php
+
+use SilverStripe\View\Requirements;
+use SilverStripe\Core\Convert;
+use SilverStripe\Control\HTTP;
+use SilverStripe\Control\Controller;
+use PageController;
 /**
  * Calendar Page
  * Listing of public events.
@@ -13,7 +19,7 @@ class CalendarPage extends Page
     public static $description = 'Listing of public events';
 }
 
-class CalendarPage_Controller extends Page_Controller
+class CalendarPage_Controller extends PageController
 {
 
     public static $allowed_actions = array(

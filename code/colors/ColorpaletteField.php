@@ -1,4 +1,7 @@
 <?php
+
+use SilverStripe\View\Requirements;
+use SilverStripe\Forms\DropdownField;
 class ColorpaletteField extends DropdownField
 {
 

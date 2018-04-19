@@ -1,5 +1,8 @@
 <?php
 
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Dev\CsvBulkLoader;
+
 /**
  * PlayerCsvBulkLoader
  *

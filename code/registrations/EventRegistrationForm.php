@@ -1,4 +1,11 @@
 <?php
+
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Control\Email\Email;
+use SilverStripe\Forms\RequiredFields;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\Form;
 /**
  * Event Registration Form
  **
@@ -29,7 +36,7 @@ class EventRegistrationForm extends Form
         $validator = RequiredFields::create(
             array(
                 'Name',
-                'Email',
+                Email::class,
             )
         );
         $this->addExtraClass('EventRegistrationForm');
