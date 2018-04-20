@@ -8,6 +8,7 @@ use SilverStripe\Control\Controller;
 use PageController;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
+use TitleDK\Calendar\Events\Event;
 
 /**
  * Calendar Page
@@ -103,7 +104,7 @@ class CalendarPage_Controller extends PageController
         if (isset($s['calendarpage']['calendarview']) && $s['calendarpage']['calendarview']) {
 
             Requirements::javascript('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/lib/moment.min.js');
-            Requirements::javascript('ctitledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.js');
+            Requirements::javascript('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.js');
             Requirements::css('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.css');
             Requirements::css('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.print.css', 'print');
 

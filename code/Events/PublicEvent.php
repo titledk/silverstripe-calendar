@@ -3,6 +3,8 @@ namespace TitleDK\Calendar\Events;
 
 use SilverStripe\Control\Controller;
 use SilverStripe\Security\Permission;
+use TitleDK\Calendar\Core\CalendarHelper;
+use TitleDK\Calendar\PageTypes\CalendarPage;
 
 /**
  * Public Event

@@ -4,7 +4,6 @@ namespace TitleDK\Calendar\PageTypes;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridField;
-use PageController;
 use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
 
 /**
@@ -22,11 +21,8 @@ class EventPage extends \Page
     private static $description = 'Provides for a permanent URL for recurring events like festivals, monthly shopping events etc.';
 
     private static $has_many = array(
-        //The other side of this relationship is defined in @ee EventHasEventPageExtension
-        // @todo ^^ fails in SS4
         'Events' => 'TitleDK\Calendar\Events\Event',
     );
-
 
     public function ComingEvents()
     {
@@ -49,7 +45,6 @@ class EventPage extends \Page
         );
         return $pastEvents;
     }
-
 
     public function getCMSFields()
     {

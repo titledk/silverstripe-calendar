@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Events;
 
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\ORM\FieldType\DBDatetime;
@@ -16,6 +17,7 @@ use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\ORM\DataObject;
 use TitleDK\Calendar\Core\CalendarConfig;
+use TitleDK\Calendar\PageTypes\EventPage;
 
 /**
  * Event Model
@@ -74,7 +76,7 @@ class Event extends DataObject
 
 
 
-    /* ---- from event has event page extension ----
+    /* ---- from event has event page extension ---- */
 
       public function getEventPageCalendarTitle()
     {
@@ -86,15 +88,7 @@ class Event extends DataObject
         }
     }
 
-    public function updateCMSFields(FieldList $fields)
-    {
-        $fields->addFieldToTab('Root.RelatedPage',
-            DropdownField::create('EventPageID', 'EventPage',
-                EventPage::get()->sort('Title')->map('ID', 'Title'))
-                ->setEmptyString('Choose event page...')
-        );
-    }
-    */
+
 
     public function DetailsSummary()
     {
@@ -353,11 +347,19 @@ class Event extends DataObject
         }
 
 
+        /** @var DatetimeField $startDateTime */
+        $startDateTime = DatetimeField::create('StartDateTime', 'Start');
+
+
+
+        /** @var DatetimeField $endDateTime */
+        $endDateTime = DatetimeField::create('EndDateTime', '');
+
         $fields = FieldList::create(
             TextField::create('Title')
                 ->setAttribute('placeholder', 'Enter a title'),
             CheckboxField::create('AllDay', 'All-day'),
-            $startDateTime = DatetimeField::create('StartDateTime', 'Start'),
+            $startDateTime,
             //NoEnd field - will only be shown if end dates are not enforced - see below
             CheckboxField::create('NoEnd', 'Open End'),
             HeaderField::create('TimeFrameHeader', $timeFrameHeaderText, 5),
@@ -365,7 +367,7 @@ class Event extends DataObject
             SelectionGroup::create('TimeFrameType', array(
                 "Duration//Duration" => TimeField::create('Duration', '')->setRightTitle('up to 24h')
                     ->setAttribute('placeholder', 'Enter duration'),
-                "DateTime//Date/Time" => $endDateTime = DateTimeField::create('EndDateTime', '')
+                "DateTime//Date/Time" => $endDateTime = DatetimeField::create('EndDateTime', '')
                 )
             ),
             LiteralField::create('Clear', '<div class="clear"></div>')
@@ -445,6 +447,12 @@ class Event extends DataObject
 
         $fields->addFieldToTab('Root.Details', $details = HTMLEditorField::create('Details', ''));
         $details->addExtraClass('stacked');
+
+        $fields->addFieldToTab('Root.RelatedPage',
+            DropdownField::create('EventPageID', 'EventPage',
+                EventPage::get()->sort('Title')->map('ID', 'Title'))
+                ->setEmptyString('Choose event page...')
+        );
 
         $this->extend('updateCMSFields', $fields);
         return $fields;
