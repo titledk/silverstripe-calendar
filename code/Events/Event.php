@@ -25,8 +25,11 @@ use TitleDK\Calendar\Core\CalendarConfig;
  */
 class Event extends DataObject
 {
-
     private static $table_name = 'Event';
+
+    private static $has_one = array(
+        'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage',
+    );
 
     private static $db = array(
         'Title' => 'Varchar(200)',
@@ -42,6 +45,8 @@ class Event extends DataObject
         'EndDateTime' => DBDatetime::class, //Only applicable for TimeFrameType "DateTime"
         'Details' => 'HTMLText',
     );
+
+
 
     private static $summary_fields = array(
         'Title' => 'Title',
@@ -66,6 +71,30 @@ class Event extends DataObject
     //Countering problem with onbefore write being called more than once
     //See http://www.silverstripe.org/data-model-questions/show/6805
     protected $hasWritten = false;
+
+
+
+    /* ---- from event has event page extension ----
+
+      public function getEventPageCalendarTitle()
+    {
+        $owner = $this->owner;
+        if ($owner->EventPage()->exists()) {
+            return $owner->EventPage()->getCalendarTitle();
+        } else {
+            return '-';
+        }
+    }
+
+    public function updateCMSFields(FieldList $fields)
+    {
+        $fields->addFieldToTab('Root.RelatedPage',
+            DropdownField::create('EventPageID', 'EventPage',
+                EventPage::get()->sort('Title')->map('ID', 'Title'))
+                ->setEmptyString('Choose event page...')
+        );
+    }
+    */
 
     public function DetailsSummary()
     {

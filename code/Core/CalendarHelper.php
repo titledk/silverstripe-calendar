@@ -4,6 +4,8 @@ namespace TitleDK\Calendar\Core;
 use SilverStripe\Security\Member;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
+use TitleDK\Calendar\Events\PublicEvent;
+
 /**
  * Calendar Helper
  * Helper class for calendar related calculations

@@ -18,7 +18,7 @@ class ColorpaletteField extends DropdownField
     {
         $this->addExtraClass('ColorpaletteInput');
         ColorpaletteHelper::requirements();
-        Requirements::javascript("calendar/javascript/admin/ColorpaletteField.js");
+        Requirements::javascript("titledk/silverstripe-calendar:javascript/admin/ColorpaletteField.js");
 
         $source = $this->getSource();
 

@@ -19,12 +19,12 @@ class ColorpaletteHelper
     public static function requirements($dev = false)
     {
         //		if ($dev) {
-            //Requirements::javascript('calendar/thirdparty/colorpicker/jquery.colourPicker.js');
-            Requirements::javascript('calendar/thirdparty/colorpicker/jquery.colourPicker.mod.js');
+            //Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.js');
+            Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.mod.js');
 //		} else {
-//			Requirements::javascript('calendar/thirdparty/colorpicker/jquery.colourPicker.min.js');
+//			Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.min.js');
 //		}
-        Requirements::css('calendar/thirdparty/colorpicker/jquery.colourPicker.css');
+        Requirements::css('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.css');
     }
 
     public static function palette_dropdown($name)

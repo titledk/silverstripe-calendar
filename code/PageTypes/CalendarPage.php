@@ -6,6 +6,9 @@ use SilverStripe\Core\Convert;
 use SilverStripe\Control\HTTP;
 use SilverStripe\Control\Controller;
 use PageController;
+use TitleDK\Calendar\Core\CalendarConfig;
+use TitleDK\Calendar\Core\CalendarHelper;
+
 /**
  * Calendar Page
  * Listing of public events.
@@ -40,11 +43,13 @@ class CalendarPage_Controller extends PageController
     public function init()
     {
         parent::init();
-        Requirements::javascript('calendar/javascript/pagetypes/CalendarPage.js');
-        Requirements::css('calendar/css/pagetypes/CalendarPage.css');
-        Requirements::css('calendar/css/modules.css');
+        Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
+        Requirements::css('titledk/silverstripe-calendar:css/pagetypes/CalendarPage.css');
+        Requirements::css('titledk/silverstripe-calendar:css/modules.css');
+
         //custom stying
-        Requirements::themedCSS('CalendarPage');
+        // @todo this breaks, comment out for now
+        //Requirements::themedCSS('CalendarPage');
 
         //Debug::dump(CalendarConfig::settings());
         //Debug::dump(CalendarConfig::subpackage_enabled('categories'));
@@ -97,15 +102,15 @@ class CalendarPage_Controller extends PageController
 
         if (isset($s['calendarpage']['calendarview']) && $s['calendarpage']['calendarview']) {
 
-            Requirements::javascript('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/lib/moment.min.js');
-            Requirements::javascript('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.js');
-            Requirements::css('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.css');
-            Requirements::css('calendar/thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.print.css', 'print');
+            Requirements::javascript('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/lib/moment.min.js');
+            Requirements::javascript('ctitledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.js');
+            Requirements::css('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.css');
+            Requirements::css('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.print.css', 'print');
 
             //xdate - needed for some custom code - e.g. shading
-            Requirements::javascript('calendar/thirdparty/xdate/xdate.js');
+            Requirements::javascript('titledk/silverstripe-calendar:thirdparty/xdate/xdate.js');
 
-            Requirements::javascript('calendar/javascript/fullcalendar/PublicFullcalendarView.js');
+            Requirements::javascript('titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js');
 
             $url = CalendarHelper::add_preview_params($this->Link(),$this->data());
             $fullcalendarjs = $s['calendarpage']['fullcalendar_js_settings'];

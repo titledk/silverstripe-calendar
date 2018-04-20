@@ -5,6 +5,8 @@ use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridField;
 use PageController;
+use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
+
 /**
  * Event Page
  * A page that can serve as a permanent url for recurring events like festivals, monthly shopping events etc.
@@ -21,6 +23,7 @@ class EventPage extends \Page
 
     private static $has_many = array(
         //The other side of this relationship is defined in @ee EventHasEventPageExtension
+        // @todo ^^ fails in SS4
         'Events' => 'TitleDK\Calendar\Events\Event',
     );
 
@@ -54,7 +57,7 @@ class EventPage extends \Page
 
         $gridEventConfig = GridFieldConfig_RecordEditor::create();
         $gridEventConfig->removeComponentsByType(GridFieldDetailForm::class);
-        $gridEventConfig->addComponent(new CalendarEventPageGridFieldDetailForm());
+        $gridEventConfig->addComponent(new   CalendarEventGridFieldDetailForm());
 
         //Coming events
         $comingEvents = $this->ComingEvents();
@@ -63,7 +66,7 @@ class EventPage extends \Page
             $comingEvents,
             $gridEventConfig
         );
-        $GridFieldComing->setModelClass('PublicEvent');
+        $GridFieldComing->setModelClass('TitleDK\Calendar\Events\PublicEvent');
 
         $fields->addFieldToTab(
             'Root.ComingEvents',
@@ -76,7 +79,7 @@ class EventPage extends \Page
             $pastEvents,
             $gridEventConfig
         );
-        $GridFieldPast->setModelClass('PublicEvent');
+        $GridFieldPast->setModelClass('TitleDK\Calendar\Events\PublicEvent');
 
         $fields->addFieldToTab(
             'Root.PastEvents',
@@ -95,27 +98,5 @@ class EventPage extends \Page
     public function getCalendarTitle()
     {
         return $this->Title;
-    }
-}
-
-class EventPage_Controller extends PageController
-{
-
-    public function ComingOrPastEvents()
-    {
-        if (isset($_GET['past'])) {
-            return 'past';
-        } else {
-            return 'coming';
-        }
-    }
-    public function Events()
-    {
-        if ($this->ComingOrPastEvents() == 'past') {
-            //return $this->model->PastEvents();
-            return $this->PastEvents();
-        } else {
-            return $this->ComingEvents();
-        }
     }
 }
