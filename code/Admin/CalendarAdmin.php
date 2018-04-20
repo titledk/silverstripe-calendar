@@ -54,8 +54,8 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
 
 
         //CSS/JS Dependencies - currently not much there
-        Requirements::css("titledk/silverstripe-calendar:/css/admin/CalendarAdmin.css");
-        Requirements::javascript("titledk/silverstripe-calendar:/javascript/admin/CalendarAdmin.js");
+        Requirements::css("titledk/silverstripe-calendar:css/admin/CalendarAdmin.css");
+        Requirements::javascript("titledk/silverstripe-calendar:javascript/admin/CalendarAdmin.js");
     }
 
     public function getModelClass()

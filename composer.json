@@ -33,6 +33,12 @@
         "screenshots": [
             "docs/img/preview.png",
             "docs/img/screenshots/frontend-fullcalendar.png"
+        ],
+        "expose": [
+            "icons",
+            "css",
+            "javascript",
+            "thirdparty"
         ]
     },
     "support": {
