@@ -1,0 +1,2 @@
+SilverStripe\Forms\FormField:
+  calendar_datepicker_class: 'hasDatepicker'

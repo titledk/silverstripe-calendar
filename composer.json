@@ -21,7 +21,8 @@
     ],
     "require": {
         "php": ">=5.4",
-        "silverstripe/framework": "~3.1"
+        "silverstripe/framework": "~4",
+        "silverware/calendar": "~1"
     },
     "autoload": {
         "psr-4": {
