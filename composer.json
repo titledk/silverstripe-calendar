@@ -1,7 +1,7 @@
 {
     "name": "titledk/silverstripe-calendar",
     "description": "Highly flexible calendar system for SilverStripe",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "homepage": "https://github.com/titledk/silverstripe-calendar",
     "keywords": [
         "silverstripe",
