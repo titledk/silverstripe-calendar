@@ -22,14 +22,17 @@ console.log('calendar admin');
             if (allDay == true) {
                 console.log('all day is yes');
                 $('#Form_ItemEditForm_Duration_Holder').hide();
+                $('#Form_ItemEditForm_TimeFrameType_1').hide();
+                $('#Form_ItemEditForm_TimeFrameType_1').parent().hide();
+                $("#Form_ItemEditForm_TimeFrameType_2").prop("checked", true);
 
 
 
                 //  $('#Form_ItemEditForm_DurationGroup_Holder').hide();
-                $('#Form_ItemEditForm_EndDateTime_Holder').click();
             } else {
                 $('#Form_ItemEditForm_Duration_Holder').show();
-
+                $('#Form_ItemEditForm_TimeFrameType_1').show();
+                $('#Form_ItemEditForm_TimeFrameType_1').parent().show();
                 // $('Form_ItemEditForm_DurationGroup_Holder').attr('style', 'display:block;');
             }
 
