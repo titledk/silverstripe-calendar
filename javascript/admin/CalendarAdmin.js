@@ -25,18 +25,11 @@ console.log('calendar admin');
                 $('#Form_ItemEditForm_TimeFrameType_1').hide();
                 $('#Form_ItemEditForm_TimeFrameType_1').parent().hide();
                 $("#Form_ItemEditForm_TimeFrameType_2").prop("checked", true);
-
-
-
-                //  $('#Form_ItemEditForm_DurationGroup_Holder').hide();
             } else {
                 $('#Form_ItemEditForm_Duration_Holder').show();
                 $('#Form_ItemEditForm_TimeFrameType_1').show();
                 $('#Form_ItemEditForm_TimeFrameType_1').parent().show();
-                // $('Form_ItemEditForm_DurationGroup_Holder').attr('style', 'display:block;');
             }
-
-
         }
     })
 })(jQuery);
