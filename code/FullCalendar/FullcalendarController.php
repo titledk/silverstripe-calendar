@@ -5,6 +5,9 @@ use SilverStripe\Security\Member;
 use SilverStripe\Core\Convert;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\Controller;
+use TitleDK\Calendar\Core\CalendarConfig;
+use TitleDK\Calendar\Events\PublicEvent;
+
 /**
  * Fullcalendar controller
  * Controller/API, used for interacting with the fullcalendar js plugin
