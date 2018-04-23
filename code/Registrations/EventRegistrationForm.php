@@ -23,6 +23,7 @@ class EventRegistrationForm extends Form
      */
     public function __construct($controller, $name)
     {
+        echo '**** CREATE EVENT REG FORM ****';
 
         //Fields
         $fields = singleton('EventRegistration')->getFrontEndFields();
@@ -42,6 +43,9 @@ class EventRegistrationForm extends Form
         );
         $this->addExtraClass('EventRegistrationForm');
         $this->addExtraClass($name);
+
+        echo 'About to update event reg form';
+        $this->extend('updateEventRegistrationForm', $this);
 
         parent::__construct($controller, $name, $fields, $actions, $validator);
     }

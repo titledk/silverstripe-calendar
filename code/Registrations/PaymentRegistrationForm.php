@@ -56,6 +56,7 @@ class PaymentRegistrationForm extends Form
         $this->addExtraClass($name);
 
         parent::__construct($controller, $name, $fields, $actions, $validator);
+        $this->extend('updateEventRegistrationForm', $this);
     }
 
 

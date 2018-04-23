@@ -49,7 +49,7 @@ class EventRegistration extends DataObject
     {
         $fields = FieldList::create(
             TextField::create('Name'),
-            TextField::create(Email::class),
+            TextField::create('Email'),
             HiddenField::create('EventID')
         );
 
