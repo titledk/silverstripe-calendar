@@ -31,6 +31,7 @@ class Event extends DataObject
 
     private static $has_one = array(
         'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage',
+        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar'
     );
 
     private static $db = array(
@@ -47,8 +48,6 @@ class Event extends DataObject
         'EndDateTime' => DBDatetime::class, //Only applicable for TimeFrameType "DateTime"
         'Details' => 'HTMLText',
     );
-
-
 
     private static $summary_fields = array(
         'Title' => 'Title',
