@@ -30,7 +30,7 @@ class EventRegistration extends DataObject
     );
 
     private static $has_one = array(
-        'Event' => 'Event'
+        'Event' => 'TitleDK\Calendar\Events\Event'
     );
 
     private static $default_sort = 'Name';

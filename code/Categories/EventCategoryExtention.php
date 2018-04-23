@@ -13,7 +13,7 @@ use SilverStripe\ORM\DataExtension;
 class EventCategoryExtension extends DataExtension
 {
 
-    public static $belongs_many_many = array(
+    private static $belongs_many_many = array(
         'Categories' => 'EventCategory'
     );
 

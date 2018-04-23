@@ -14,8 +14,8 @@ use SilverStripe\ORM\DataExtension;
 class EventCalendarExtension extends DataExtension
 {
 
-    public static $has_one = array(
-        'Calendar' => 'Calendar',
+    private static $has_one = array(
+        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar',
     );
 
     public function updateFrontEndFields(FieldList $fields)

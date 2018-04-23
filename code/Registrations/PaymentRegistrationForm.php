@@ -91,7 +91,6 @@ class PaymentRegistrationForm extends Form
     }
 
 
-
     public function setFormField($name, $value)
     {
         $fields = $this->Fields();

@@ -17,6 +17,9 @@ class EventRegistrationController extends Controller
         'paymentregisterform'
     );
 
+    /* This is in the routes file */
+    private static $url_segment  = 'calregistrations';
+
 
     public function init()
     {

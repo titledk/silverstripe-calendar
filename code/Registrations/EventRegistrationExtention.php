@@ -21,7 +21,7 @@ use SilverStripe\ORM\DataExtension;
 class EventRegistrationExtension extends DataExtension
 {
 
-    public static $db = array(
+    private static $db = array(
         'Registerable' => DBBoolean::class,
         'Cost' => 'Money',
         'TicketsRequired' => DBBoolean::class,
@@ -29,8 +29,8 @@ class EventRegistrationExtension extends DataExtension
         'RSVPEmail' => 'Varchar(255)'
     );
 
-    public static $has_many = array(
-        'Registrations' => 'EventRegistration'
+    private static $has_many = array(
+        'Registrations' => 'TitleDK\Calendar\Registrations\EventRegistration'
     );
 
     public function updateCMSFields(FieldList $fields)
@@ -75,7 +75,7 @@ class EventRegistrationExtension extends DataExtension
         $mf = new MoneyField('Cost');
 
         //TODO this should be configurable
-        $mf->setAllowedCurrencies(array('NZD', 'AUD', 'USD'));
+        $mf->setAllowedCurrencies(array('USD'));
 
         $fields->addFieldToTab('Root.Registrations',
             $mf

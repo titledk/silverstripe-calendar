@@ -14,7 +14,7 @@ use SilverStripe\ORM\DataExtension;
 class ShadedCalendarExtension extends DataExtension
 {
 
-    public static $db = array(
+    private static $db = array(
         'Shaded' => DBBoolean::class,
     );
 }
