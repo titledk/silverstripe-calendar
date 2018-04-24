@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Registrations;
 
+use SilverStripe\Forms\EmailField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Forms\DropdownField;
@@ -33,7 +34,7 @@ class PaymentRegistrationForm extends Form
         $fields = FieldList::create(
             TextField::create('Name', 'Name'),
             TextField::create('PayersName', "Payer's Name"),
-            TextField::create(Email::class, Email::class),
+            EmailField::create('Email', 'Email'),
             DropdownField::create('NumberOfTickets', 'Number of Tickets', array('1' => '1', '2' => '2',
                 '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10')),
             TextareaField::create("Notes"),
