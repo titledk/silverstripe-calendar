@@ -3,6 +3,8 @@ namespace TitleDK\Calendar\Colors;
 
 use SilverStripe\View\Requirements;
 use SilverStripe\Forms\DropdownField;
+use TitleDK\Calendar\Core\CalendarConfig;
+
 /**
  * Color palette helper
  * Helper for working with and configuring color palettes
