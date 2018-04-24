@@ -44,9 +44,6 @@ class EventRegistrationForm extends Form
         $this->addExtraClass('EventRegistrationForm');
         $this->addExtraClass($name);
 
-        echo 'About to update event reg form';
-        $this->extend('updateEventRegistrationForm', $this);
-
         parent::__construct($controller, $name, $fields, $actions, $validator);
     }
 
@@ -75,6 +72,8 @@ class EventRegistrationForm extends Form
      */
     public function doRegister($data, $form)
     {
+        echo '**** THIS IS THE DO EVENT REGISTER METHOD ****';
+
         $r = new EventRegistration();
         $form->saveInto($r);
 

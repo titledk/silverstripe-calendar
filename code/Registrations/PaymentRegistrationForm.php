@@ -82,13 +82,17 @@ class PaymentRegistrationForm extends Form
      * @param type $form
      * @return \SS_HTTPResponse
      */
-    public function doRegister($data, $form)
+    public function doRegisterAndPay($data, $form)
     {
+        echo "---- doRegister ----\n";
+        print_r($data);
+        echo '**** THIS IS THE DO PAYMENT EVENT REGISTER METHOD ****';
+
         $registration = new EventRegistration();
         $form->saveInto($registration);
         $registration->write();
 
-        return "Thanks. We've received your registration.";
+        return "Thanks. We've received your registration!!";
     }
 
 

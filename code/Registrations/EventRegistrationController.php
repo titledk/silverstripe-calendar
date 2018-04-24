@@ -42,6 +42,11 @@ class EventRegistrationController extends Controller
         return $form;
     }
 
+    /**
+     * This method is called both during GET viewing the form and POST submitting the form
+     *
+     * @return PaymentRegistrationForm
+     */
     public function paymentregisterform()
     {
         $form = PaymentRegistrationForm::create(
@@ -49,9 +54,11 @@ class EventRegistrationController extends Controller
             'paymentregisterform'
         );
 
+        // @todo Check where this flag gets set
         if (isset($_GET['complete'])) {
             $form->setDone();
         }
+
         $this->extend('updateEventRegistrationForm', $form);
 
         return $form;
