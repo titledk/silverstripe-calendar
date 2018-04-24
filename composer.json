@@ -36,7 +36,7 @@
             "docs/img/screenshots/frontend-fullcalendar.png"
         ],
         "expose": [
-            "icons",
+            "images",
             "css",
             "javascript",
             "thirdparty"
