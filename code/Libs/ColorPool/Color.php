@@ -91,6 +91,9 @@ class Color
             $this->decToHex($this->b);
     }
 
+    /**
+     * @param double $d
+     */
     private function decToHex($d)
     {
         $h = dechex(round($d));
@@ -302,9 +305,9 @@ class Color
     /**
      * Change HSL values by given deltas
      *
-     * @param float $dh Change in Hue
-     * @param float $ds Change in Saturation
-     * @param float $dl Change in Lightness
+     * @param integer $dh Change in Hue
+     * @param integer $ds Change in Saturation
+     * @param integer $dl Change in Lightness
      *
      * @returns Color The color object with the required changes
      */
@@ -331,7 +334,7 @@ class Color
      *
      * @param callback $h_callback Callback for Hue
      * @param callback $s_callback Callback for Saturation
-     * @param callback $x_callback Callback for Lightness / Value
+     * @param callback $l_callback Callback for Lightness / Value
      * @param string   $type       'hsl' or 'hsv'
      */
     public function apply($h_callback, $s_callback, $l_callback, $type = 'hsl')

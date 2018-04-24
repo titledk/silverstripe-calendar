@@ -289,6 +289,7 @@ class Event extends DataObject
     /**
      * Calculation of duration based on end datetime
      * Returns false if there's more than 24h between start and end date
+     * @param string $end
      * @return string|false
      */
     public function calcDurationBasedOnEndDateTime($end)
@@ -314,7 +315,7 @@ class Event extends DataObject
      * All Day getter
      * Any events that spans more than 24h will be displayed as allday events
      * Beyond that those events marked as all day events will also be displayed as such
-     * @return boolean
+     * @return boolean|null
      */
     public function isAllDay()
     {

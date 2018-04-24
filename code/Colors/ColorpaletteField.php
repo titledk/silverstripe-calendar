@@ -7,6 +7,10 @@ use SilverStripe\Forms\DropdownField;
 class ColorpaletteField extends DropdownField
 {
 
+    /**
+     * @param string $name
+     * @param string $title
+     */
     public function __construct($name, $title = null, $source = null, $value = "", $form = null)
     {
         if (!is_array($source)) {
