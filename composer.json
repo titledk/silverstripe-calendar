@@ -48,5 +48,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^0.9.2"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
