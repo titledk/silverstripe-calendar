@@ -44,6 +44,7 @@ jobs:
       - run: composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
       - run: find . | grep Test
+      - run: find vendor/silverstripe/framework
       - run: ls -lh vendor
       - run: ls -lh vendor/silverstripe
 
