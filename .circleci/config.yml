@@ -39,16 +39,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: pwd
-      - run: ls -lh
-      - run: cat /etc/issue
-      - run: apt-get update && apt-get install -y wget libmysqlclient18 libodbc1 libpq5 mysql-client
-      - run: wget http://sphinxsearch.com/files/sphinxsearch_2.3.2-beta-1~jessie_amd64.deb && dpkg -i sphinxsearch_2.3.2-beta-1~jessie_amd64.deb && rm sphinxsearch_2.3.2-beta-1~jessie_amd64.deb
-      #- run: service sphinxsearch start
-      - run: cp /etc/sphinxsearch/sphinx.conf ~/sphinxdefault.conf
       - run: composer validate
-      - run: composer require --prefer-dist --no-update silverstripe/recipe-cms:1.1.x-dev
-      - run: composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
+      - run: composer require --prefer-source --no-update silverstripe/recipe-cms:1.1.x-dev
+      - run: composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
       - save_cache:
           paths:
