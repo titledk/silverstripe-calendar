@@ -27,7 +27,7 @@ jobs:
       only:
         - master
         - develop
-        - travis
+        - upgradess4
 
     steps:
       - checkout
