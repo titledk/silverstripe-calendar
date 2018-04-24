@@ -10,6 +10,7 @@ use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\Registrations\EventRegistration;
 
 /**
  * Calendar Page
@@ -151,17 +152,24 @@ class CalendarPage_Controller extends PageController
 
     /**
      * Displays details of an event
-     * @param $req
+     * @param \HttpRequest $req
      * @return array
      */
     public function detail($req)
     {
+        $session = $req->getSession();
+
+        // @todo extension?
+        $successfullyRegistered = $session->get(EventRegistration::EVENT_REGISTRATION_SUCCESS_SESSION_KEY);
+        $session->clear(EventRegistration::EVENT_REGISTRATION_SUCCESS_SESSION_KEY);
+
         $event = Event::get()->byID($req->param('ID'));
         if (!$event) {
             return $this->httpError(404);
         }
         return array(
             'Event'    => $event,
+            'SuccessfullyRegistered' => $successfullyRegistered
         );
     }
 
