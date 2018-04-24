@@ -377,6 +377,9 @@ class ICSExport_Controller extends Controller
     }
 
 
+    /**
+     * @param ICSExport|null $ics
+     */
     protected function output($ics, $name)
     {
         if ($ics) {

@@ -83,6 +83,8 @@ class FullcalendarController extends Controller
     /**
      * Calculate start/end date for event list
      * TODO this should go in a helper class
+     * @param string $type
+     * @param integer $timestamp
      */
     public static function offset_date($type, $timestamp, $offset = 30)
     {
