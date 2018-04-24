@@ -19,7 +19,7 @@ class Calendar extends DataObject
     );
 
     private static $has_many = array(
-        'Events' => 'Event'
+        'Events' => 'TitleDK\Calendar\Events\Event'
     );
 
     private static $default_sort = 'Title';

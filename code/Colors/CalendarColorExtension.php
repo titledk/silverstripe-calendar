@@ -1,4 +1,5 @@
 <?php
+namespace TitleDK\Calendar\Colors;
 
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;

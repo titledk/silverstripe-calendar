@@ -6,6 +6,7 @@ use SilverStripe\Core\Convert;
 use SilverStripe\Control\HTTP;
 use SilverStripe\Control\Controller;
 use PageController;
+use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\Events\Event;

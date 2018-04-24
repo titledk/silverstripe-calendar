@@ -34,7 +34,8 @@ class PaymentRegistrationForm extends Form
             TextField::create('Name', 'Name'),
             TextField::create('PayersName', "Payer's Name"),
             TextField::create(Email::class, Email::class),
-            DropdownField::create('NumberOfTickets', 'Number of Tickets', array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10')),
+            DropdownField::create('NumberOfTickets', 'Number of Tickets', array('1' => '1', '2' => '2',
+                '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10')),
             TextareaField::create("Notes"),
             HiddenField::create('EventID')
         );
@@ -56,7 +57,6 @@ class PaymentRegistrationForm extends Form
         $this->addExtraClass($name);
 
         parent::__construct($controller, $name, $fields, $actions, $validator);
-        $this->extend('updateEventRegistrationForm', $this);
     }
 
 
@@ -84,9 +84,9 @@ class PaymentRegistrationForm extends Form
      */
     public function doRegister($data, $form)
     {
-        $r = new EventRegistration();
-        $form->saveInto($r);
-        $r->write();
+        $registration = new EventRegistration();
+        $form->saveInto($registration);
+        $registration->write();
 
         return "Thanks. We've received your registration.";
     }

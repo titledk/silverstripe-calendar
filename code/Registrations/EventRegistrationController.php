@@ -37,6 +37,7 @@ class EventRegistrationController extends Controller
         if (isset($_GET['complete'])) {
             $form->setDone();
         }
+        $this->extend('updateEventRegistrationForm', $form);
 
         return $form;
     }
@@ -51,6 +52,8 @@ class EventRegistrationController extends Controller
         if (isset($_GET['complete'])) {
             $form->setDone();
         }
+        $this->extend('updateEventRegistrationForm', $form);
+
         return $form;
     }
 
