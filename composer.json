@@ -45,5 +45,8 @@
     },
     "support": {
         "issues": "https://github.com/titledk/silverstripe-calendar/issues"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.9.2"
     }
 }
