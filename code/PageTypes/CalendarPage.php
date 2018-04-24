@@ -104,7 +104,6 @@ class CalendarPage_Controller extends PageController
         //Debug::dump($s);
 
         if (isset($s['calendarpage']['calendarview']) && $s['calendarpage']['calendarview']) {
-
             Requirements::javascript('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/lib/moment.min.js');
             Requirements::javascript('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.js');
             Requirements::css('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.css');
@@ -115,9 +114,9 @@ class CalendarPage_Controller extends PageController
 
             Requirements::javascript('titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js');
 
-            $url = CalendarHelper::add_preview_params($this->Link(),$this->data());
+            $url = CalendarHelper::add_preview_params($this->Link(), $this->data());
             $fullcalendarjs = $s['calendarpage']['fullcalendar_js_settings'];
-			$controllerUrl = CalendarHelper::add_preview_params($s['calendarpage']['controllerUrl'],$this->data());
+            $controllerUrl = CalendarHelper::add_preview_params($s['calendarpage']['controllerUrl'], $this->data());
 
             //shaded events
             $shadedEvents = 'false';
@@ -257,29 +256,29 @@ class CalendarPage_Controller extends PageController
 
 
         //TODO below doesn't need to be that complicated...
-//		$events = null;
-//		if ($action == 'past') {
-//			$events = CalendarHelper::past_events();
-//		} else {
-//			if ($this->CurrentCategoryID()) {
-//				$events = PublicEventCategory::get()
-//					->ByID($this->CurrentCategoryID())
-//					->ComingEvents($this->CurrentDisplayDate());
-//			} else {
-//				$events = CalendarHelper::coming_events($this->CurrentDisplayDate());
-//			}
-//		}
+//      $events = null;
+//      if ($action == 'past') {
+//          $events = CalendarHelper::past_events();
+//      } else {
+//          if ($this->CurrentCategoryID()) {
+//              $events = PublicEventCategory::get()
+//                  ->ByID($this->CurrentCategoryID())
+//                  ->ComingEvents($this->CurrentDisplayDate());
+//          } else {
+//              $events = CalendarHelper::coming_events($this->CurrentDisplayDate());
+//          }
+//      }
 //
-//		if ($this->CurrentCalendarID()) {
-//			$events = $events->filter(array(
-//				'CalendarID' => $this->CurrentCalendarID()
-//			));
-//		}
+//      if ($this->CurrentCalendarID()) {
+//          $events = $events->filter(array(
+//              'CalendarID' => $this->CurrentCalendarID()
+//          ));
+//      }
 //
-//		$list = new PaginatedList($events, $this->request);
-//		$list->setPageLength(10);
+//      $list = new PaginatedList($events, $this->request);
+//      $list->setPageLength(10);
 //
-//		return $list;
+//      return $list;
     }
 
     /**
@@ -328,8 +327,8 @@ class CalendarPage_Controller extends PageController
     {
         $month = $this->NextMonth();
         $url = $this->Link($this->request->param('Action'));
-        $url = HTTP::setGetVar('month',$month,$url);
-        return CalendarHelper::add_preview_params($url,$this->data());
+        $url = HTTP::setGetVar('month', $month, $url);
+        return CalendarHelper::add_preview_params($url, $this->data());
     }
     public function PrevMonth()
     {
@@ -343,9 +342,9 @@ class CalendarPage_Controller extends PageController
     public function PrevMonthLink()
     {
         $month = $this->PrevMonth();
-		$url = $this->Link($this->request->param('Action'));
-        $url = HTTP::setGetVar('month',$month,$url);
-		return CalendarHelper::add_preview_params($url,$this->data());
+        $url = $this->Link($this->request->param('Action'));
+        $url = HTTP::setGetVar('month', $month, $url);
+        return CalendarHelper::add_preview_params($url, $this->data());
     }
 
 
@@ -354,9 +353,9 @@ class CalendarPage_Controller extends PageController
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
         if ($indexSetting == 'eventlist') {
-            return CalendarHelper::add_preview_params($this->Link(),$this->data());
+            return CalendarHelper::add_preview_params($this->Link(), $this->data());
         } elseif ($indexSetting == 'calendarview') {
-            return CalendarHelper::add_preview_params($this->Link('eventlist'),$this->data());
+            return CalendarHelper::add_preview_params($this->Link('eventlist'), $this->data());
         }
     }
     public function CalendarViewLink()
@@ -364,9 +363,9 @@ class CalendarPage_Controller extends PageController
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
         if ($indexSetting == 'eventlist') {
-            return CalendarHelper::add_preview_params($this->Link('calendarview'),$this->data());
+            return CalendarHelper::add_preview_params($this->Link('calendarview'), $this->data());
         } elseif ($indexSetting == 'calendarview') {
-            return CalendarHelper::add_preview_params($this->Link(),$this->data());
+            return CalendarHelper::add_preview_params($this->Link(), $this->data());
         }
     }
 
@@ -390,7 +389,7 @@ class CalendarPage_Controller extends PageController
     public function FeedLink($calendarID)
     {
         $calendar = Calendar::get()->byID(intval($calendarID));
-        $url = Controller::join_links($this->Link(),'calendar',($calendar) ? $calendar->Link : '');
-        return CalendarHelper::add_preview_params($url,$this->data());
+        $url = Controller::join_links($this->Link(), 'calendar', ($calendar) ? $calendar->Link : '');
+        return CalendarHelper::add_preview_params($url, $this->data());
     }
 }

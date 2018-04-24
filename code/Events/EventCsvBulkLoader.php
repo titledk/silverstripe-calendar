@@ -36,19 +36,20 @@ class EventCsvBulkLoader extends CsvBulkLoader
     );
 
 
-    public function getImportSpec() {
-		$spec = array();
+    public function getImportSpec()
+    {
+        $spec = array();
         $dateFormat = Config::inst()->get('EventCsvBulkLoader', 'dateFormat');
 
         /*
          * Fields
          */
-		$spec['fields'] = array(
-            'Title' => _t('Event.Title','Title'),
-            'Start Date' => _t('Event.StartDateSpec','Start date in format {dateformat}','',array('dateformat' => $dateFormat)),
-            'Start Time' => _t('Event.StartTime','Start Time'),
-            'End Date' => _t('Event.EndDateSpec','End date in format {dateformat}'.'',array('dateformat' => $dateFormat)),
-            'End Time' => _t('Event.EndTime','End Time')
+        $spec['fields'] = array(
+            'Title' => _t('Event.Title', 'Title'),
+            'Start Date' => _t('Event.StartDateSpec', 'Start date in format {dateformat}', '', array('dateformat' => $dateFormat)),
+            'Start Time' => _t('Event.StartTime', 'Start Time'),
+            'End Date' => _t('Event.EndDateSpec', 'End date in format {dateformat}'.'', array('dateformat' => $dateFormat)),
+            'End Time' => _t('Event.EndTime', 'End Time')
         );
 
         /*
@@ -56,17 +57,17 @@ class EventCsvBulkLoader extends CsvBulkLoader
          */
         $relations = array();
         if (CalendarConfig::subpackage_enabled('calendars')) {
-            $relations['Calendar'] =  _t('Event.CalendarTitle','Calendar title');
+            $relations['Calendar'] =  _t('Event.CalendarTitle', 'Calendar title');
         }
 
         if (CalendarConfig::subpackage_enabled('categories')) {
-            $relations['Categories'] =  _t('Event.CategoryTitles','Category titles');
+            $relations['Categories'] =  _t('Event.CategoryTitles', 'Category titles');
         }
 
-		$spec['relations'] = $relations;
+        $spec['relations'] = $relations;
 
-		return $spec;
-	}
+        return $spec;
+    }
     /**
      * @param $val
      * @return string|DateTime
@@ -156,5 +157,4 @@ class EventCsvBulkLoader extends CsvBulkLoader
             return $c;
         }
     }
-
 }

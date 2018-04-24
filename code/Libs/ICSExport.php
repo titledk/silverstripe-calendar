@@ -7,6 +7,7 @@ use SilverStripe\Security\Member;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\Control\Controller;
+
 //from https://gist.github.com/dominikzogg/1578524
 //Se in the bottom of this file for the SilverStripe Calendar ICSExport_Controller
 
@@ -97,13 +98,13 @@ class ICSExport
 
             //event without time zone - see:
             //http://stackoverflow.com/questions/7626114/ics-timezone-not-working
-            if ($allDay) {
-                //see discussion about allday events here:
-                //http://stackoverflow.com/questions/1716237/single-day-all-day-appointments-in-ics-files
-                $date = strftime("%Y%m%d", $time);
-            } else {
-                $date = strftime("%Y%m%dT%H%M00", $time);
-            }
+        if ($allDay) {
+            //see discussion about allday events here:
+            //http://stackoverflow.com/questions/1716237/single-day-all-day-appointments-in-ics-files
+            $date = strftime("%Y%m%d", $time);
+        } else {
+            $date = strftime("%Y%m%dT%H%M00", $time);
+        }
 
 
             //$date = gmstrftime("%Y%m%dT%H%M00Z", $time);
@@ -161,14 +162,14 @@ class ICSExport
 
                 //setting end date = start date if no end date is present
                 //TODO: warning, or log here
-                if (!isset($arrEventParts['DTEND'])) {
-                    $arrEventParts['DTEND'] = $arrEventParts['DTSTART'];
-                }
+        if (!isset($arrEventParts['DTEND'])) {
+            $arrEventParts['DTEND'] = $arrEventParts['DTSTART'];
+        }
                 //setting start date = end date if no start date is present
                 //TODO: warning, or log here
-                if (!isset($arrEventParts['DTSTART'])) {
-                    $arrEventParts['DTSTART'] = $arrEventParts['DTEND'];
-                }
+        if (!isset($arrEventParts['DTSTART'])) {
+            $arrEventParts['DTSTART'] = $arrEventParts['DTEND'];
+        }
 
 
         // check if all needed values are set if not throw exception
@@ -210,16 +211,16 @@ class ICSExport
          * returns an ICSExport calendar object by supplying a Silverstripe calendar
          * @param type $cal
          */
-        public static function ics_from_sscal($cal)
-        {
-            $events = $cal->Events();
-            $eventsArr = $events->toNestedArray();
+    public static function ics_from_sscal($cal)
+    {
+        $events = $cal->Events();
+        $eventsArr = $events->toNestedArray();
 
-            //Debug::dump($eventsArr);
-            //return false;
-            $ics = new ICSExport($eventsArr);
-            return $ics;
-        }
+        //Debug::dump($eventsArr);
+        //return false;
+        $ics = new ICSExport($eventsArr);
+        return $ics;
+    }
 }
 
 //by Anselm
@@ -310,7 +311,6 @@ class ICSExport_Controller extends Controller
 
 
         if ($cal && $cal->exists()) {
-
             //everybody can access public calendars
             if ($cal->ClassName == 'PublicCalendar') {
                 $ics = ICSExport::ics_from_sscal($cal);

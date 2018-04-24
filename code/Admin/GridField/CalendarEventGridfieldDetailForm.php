@@ -7,6 +7,7 @@ use SilverStripe\Forms\Form;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
+
 /**
  * CalendarEvent Gridfield DetailForm
  * Add additional features to the gridfield detail form:
@@ -74,7 +75,8 @@ class CalendarEventGridFieldDetailForm_ItemRequest extends GridFieldDetailForm_I
                     'addNew',
                     '<a href="' .$link. '" class="action action-detail ss-ui-action-constructive ' .
                     'ss-ui-button ui-button ui-widget ui-state-default ui-corner-all new new-link" data-icon="add">Add new '.
-                    $this->record->i18n_singular_name(). '</a>')
+                    $this->record->i18n_singular_name(). '</a>'
+                )
             );
         }
 

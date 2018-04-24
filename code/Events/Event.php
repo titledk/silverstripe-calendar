@@ -77,7 +77,7 @@ class Event extends DataObject
 
     /* ---- from event has event page extension ---- */
 
-      public function getEventPageCalendarTitle()
+    public function getEventPageCalendarTitle()
     {
         $owner = $this->owner;
         if ($owner->EventPage()->exists()) {
@@ -230,7 +230,7 @@ class Event extends DataObject
      * @param string $end Should be SS_Datetime compatible
      * @param boolean $write If true, write to the db
      */
-    public function setStartEnd($start, $end, $write=true)
+    public function setStartEnd($start, $end, $write = true)
     {
         $e = $this;
 
@@ -246,7 +246,7 @@ class Event extends DataObject
      * @param string $end Should be SS_Datetime compatible
      * @param boolean $write If true, write to the db
      */
-    public function setEnd($end, $write=true)
+    public function setEnd($end, $write = true)
     {
         $e = $this;
 
@@ -367,8 +367,7 @@ class Event extends DataObject
                 "Duration//Duration" => TimeField::create('Duration', '')->setRightTitle('up to 24h')
                     ->setAttribute('placeholder', 'Enter duration'),
                 "DateTime//Date/Time" => $endDateTime = DatetimeField::create('EndDateTime', '')
-                )
-            ),
+                )),
             LiteralField::create('Clear', '<div class="clear"></div>')
         );
 
@@ -441,15 +440,22 @@ class Event extends DataObject
         //moving all day further down for CMS fields
         $allDay = $fields->dataFieldByName('AllDay');
         //$fields->removeByName('AllDay');
-        $fields->addFieldToTab('Root.Main',
-            $allDay, 'TimeFrameHeader');
+        $fields->addFieldToTab(
+            'Root.Main',
+            $allDay,
+            'TimeFrameHeader'
+        );
 
         $fields->addFieldToTab('Root.Details', $details = HTMLEditorField::create('Details', ''));
         $details->addExtraClass('stacked');
 
-        $fields->addFieldToTab('Root.RelatedPage',
-            DropdownField::create('EventPageID', 'EventPage',
-                EventPage::get()->sort('Title')->map('ID', 'Title'))
+        $fields->addFieldToTab(
+            'Root.RelatedPage',
+            DropdownField::create(
+                'EventPageID',
+                'EventPage',
+                EventPage::get()->sort('Title')->map('ID', 'Title')
+            )
                 ->setEmptyString('Choose event page...')
         );
 

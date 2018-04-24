@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\Categories;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\ListboxField;
 use SilverStripe\ORM\DataExtension;
+
 /**
  * Allowing events to have many-many categories
  *
@@ -26,8 +27,7 @@ class EventCategoryExtension extends DataExtension
         };
         $categoriesField = ListboxField::create('Categories', 'Categories')
             ->setMultiple(true)
-            ->setSource($categories()
-        );
+            ->setSource($categories());
 
         //If the quickaddnew module is installed, use it to allow
         //for easy adding of categories

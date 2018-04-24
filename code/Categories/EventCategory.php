@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\Categories;
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataObject;
+
 /**
  * Event Category
  *
@@ -26,7 +27,7 @@ class EventCategory extends DataObject
         'Events' => 'TitleDK\Calendar\Events\Event'
     );
 
-    private  static $default_sort = 'Title';
+    private static $default_sort = 'Title';
 
 
     public function getAddNewFields()

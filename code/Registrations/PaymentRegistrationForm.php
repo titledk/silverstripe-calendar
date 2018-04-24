@@ -12,6 +12,7 @@ use SilverStripe\Forms\FormAction;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\Form;
+
 /**
  * Event Registration Form
  *

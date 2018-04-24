@@ -1,8 +1,8 @@
 <?php
 namespace TitleDK\Calendar\Dev;
 
-
 use SilverStripe\ORM\DataExtension;
+
 /**
  * Event Debug Extension
  *
@@ -16,7 +16,7 @@ class EventDebugExtension extends DataExtension
         'DebugLog' => 'Text',
     );
 
-    public function debugLog($msg, $write=false)
+    public function debugLog($msg, $write = false)
     {
         $e = $this->owner;
         $e->DebugLog = $e->DebugLog . $msg . "\n";

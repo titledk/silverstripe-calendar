@@ -3,6 +3,7 @@ namespace TitleDK\Calendar\Calendars;
 
 use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\ORM\DataExtension;
+
 /**
  * Shaded Calendar Extension
  * Allowing calendars to be shaded

@@ -30,8 +30,7 @@ class EventPage extends \Page
         $comingEvents = $this->Events()
             ->filter(array(
                     'StartDateTime:GreaterThan' => date('Y-m-d', time() - 24*60*60)
-                )
-        );
+                ));
         return $comingEvents;
     }
 
@@ -41,8 +40,7 @@ class EventPage extends \Page
         $pastEvents = $this->Events()
             ->filter(array(
                     'StartDateTime:LessThan' => date('Y-m-d', time())
-                )
-        );
+                ));
         return $pastEvents;
     }
 
@@ -57,7 +55,9 @@ class EventPage extends \Page
         //Coming events
         $comingEvents = $this->ComingEvents();
 
-        $GridFieldComing = new GridField('ComingEvents', '',
+        $GridFieldComing = new GridField(
+            'ComingEvents',
+            '',
             $comingEvents,
             $gridEventConfig
         );
@@ -70,7 +70,9 @@ class EventPage extends \Page
 
         //Past events
         $pastEvents = $this->PastEvents();
-        $GridFieldPast = new GridField('PastEvents', '',
+        $GridFieldPast = new GridField(
+            'PastEvents',
+            '',
             $pastEvents,
             $gridEventConfig
         );

@@ -7,6 +7,7 @@ use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\FieldList;
+
 /**
  * CalendarsForm
  *
@@ -26,7 +27,6 @@ class CalendarsForm extends Form // @todo This was CMSForm
 
         //Administering calendars
         if (CalendarConfig::subpackage_enabled('calendars')) {
-
             //Configuration for calendar grid field
             $gridCalendarConfig = GridFieldConfig_RecordEditor::create();
             $gridCalendarConfig->removeComponentsByType(GridFieldDataColumns::class);
@@ -36,9 +36,9 @@ class CalendarsForm extends Form // @todo This was CMSForm
             $summaryFields = $c->summaryFields();
 
             //$summaryFields = array(
-            //	'Title' => 'Title',
-            //	//'SubscriptionOptIn' => 'Opt In',
-            //	//'Shaded' => 'Shaded'
+            //  'Title' => 'Title',
+            //  //'SubscriptionOptIn' => 'Opt In',
+            //  //'Shaded' => 'Shaded'
             //);
 
 
@@ -62,7 +62,8 @@ class CalendarsForm extends Form // @todo This was CMSForm
 
 
             $GridFieldCalendars = new GridField(
-                'Calendars', '',
+                'Calendars',
+                '',
                 PublicCalendar::get(),
                 $gridCalendarConfig
             );

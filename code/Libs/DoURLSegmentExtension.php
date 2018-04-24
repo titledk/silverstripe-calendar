@@ -3,6 +3,7 @@ namespace TitleDK\Calendar\Libs\ColorPool;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\ORM\DataExtension;
+
 /**
  * DataObject URL Segment Extension
  * inspired by https://github.com/dospuntocero/doarticles/blob/master/code/utils/DOArticleURLSegmentDecorator.php
@@ -31,8 +32,8 @@ class DoURLSegmentExtension extends DataExtension
         return $link;
     }
 
-//	function getName() {
-//		$name = $this->owner->Title;
-//		return $name;
-//	}
+//  function getName() {
+//      $name = $this->owner->Title;
+//      return $name;
+//  }
 }

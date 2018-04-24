@@ -29,10 +29,10 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     private static $url_segment = "calendar";
 
     private static $allowed_actions = array(
-		'CalendarsForm',
-		'CategoriesForm',
+        'CalendarsForm',
+        'CategoriesForm',
         'EventsForm'
-	);
+    );
 
     private static $managed_models = array(
         'TitleDK\Calendar\Events\PublicEvent',
@@ -79,65 +79,66 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
         return $models;
     }
 
-	protected function determineFormClass()
+    protected function determineFormClass()
     {
-		switch ($this->modelClass) {
-			case 'PublicCalendar':
-				$class = 'TitleDK\Calendar\Admin\Forms\CalendarsForm';
-				break;
-			case 'PublicEventCategory':
+        switch ($this->modelClass) {
+            case 'PublicCalendar':
+                $class = 'TitleDK\Calendar\Admin\Forms\CalendarsForm';
+                break;
+            case 'PublicEventCategory':
                 $class = 'TitleDK\Calendar\Admin\Forms\CategoriesForm';
-				break;
+                break;
             case 'PublicEvent':
                 $class = 'TitleDK\Calendar\Admin\Forms\EventsForm';
-				break;
+                break;
             default:
                 $class = 'SilverStripe\Forms\Form'; // @todo was CMSForm
-				break;
-		}
+                break;
+        }
 
         return $class;
-	}
+    }
 
-    public function getEditForm($id = null, $fields = null) {
-		$list = $this->getList();
-		$exportButton = new GridFieldExportButton('buttons-before-left');
-		$exportButton->setExportColumns($this->getExportFields());
-		$listField = GridField::create(
-			$this->sanitiseClassName($this->modelClass),
-			false,
-			$list,
-			$fieldConfig = GridFieldConfig_RecordEditor::create($this->stat('page_length'))
-				->addComponent($exportButton)
-				->removeComponentsByType(GridFieldFilterHeader::class)
-				->addComponents(new GridFieldPrintButton('buttons-before-left'))
-		);
+    public function getEditForm($id = null, $fields = null)
+    {
+        $list = $this->getList();
+        $exportButton = new GridFieldExportButton('buttons-before-left');
+        $exportButton->setExportColumns($this->getExportFields());
+        $listField = GridField::create(
+            $this->sanitiseClassName($this->modelClass),
+            false,
+            $list,
+            $fieldConfig = GridFieldConfig_RecordEditor::create($this->stat('page_length'))
+                ->addComponent($exportButton)
+                ->removeComponentsByType(GridFieldFilterHeader::class)
+                ->addComponents(new GridFieldPrintButton('buttons-before-left'))
+        );
 
-		// Validation
-		if(singleton($this->modelClass)->hasMethod('getCMSValidator')) {
-			$detailValidator = singleton($this->modelClass)->getCMSValidator();
-			$listField->getConfig()->getComponentByType(GridFieldDetailForm::class)->setValidator($detailValidator);
-		}
+        // Validation
+        if (singleton($this->modelClass)->hasMethod('getCMSValidator')) {
+            $detailValidator = singleton($this->modelClass)->getCMSValidator();
+            $listField->getConfig()->getComponentByType(GridFieldDetailForm::class)->setValidator($detailValidator);
+        }
 
         $formClass = $this->determineFormClass();
 
-		$form = $formClass::create(
-			$this,
-			'EditForm',
-			new FieldList($listField),
-			new FieldList()
-		)->setHTMLID('Form_EditForm');
-		// @todo This method does not exist $form->setResponseNegotiator($this->getResponseNegotiator());
-		$form->addExtraClass('cms-edit-form cms-panel-padded center');
-		$form->setTemplate($this->getTemplatesWithSuffix('_EditForm'));
-		$editFormAction = Controller::join_links($this->Link($this->sanitiseClassName($this->modelClass)), 'EditForm');
-		$form->setFormAction($editFormAction);
-		$form->setAttribute('data-pjax-fragment', 'CurrentForm');
+        $form = $formClass::create(
+            $this,
+            'EditForm',
+            new FieldList($listField),
+            new FieldList()
+        )->setHTMLID('Form_EditForm');
+        // @todo This method does not exist $form->setResponseNegotiator($this->getResponseNegotiator());
+        $form->addExtraClass('cms-edit-form cms-panel-padded center');
+        $form->setTemplate($this->getTemplatesWithSuffix('_EditForm'));
+        $editFormAction = Controller::join_links($this->Link($this->sanitiseClassName($this->modelClass)), 'EditForm');
+        $form->setFormAction($editFormAction);
+        $form->setAttribute('data-pjax-fragment', 'CurrentForm');
 
-		$this->extend('updateEditForm', $form);
+        $this->extend('updateEditForm', $form);
 
-		return $form;
-	}
+        return $form;
+    }
 
     protected function calendarsEnabled()
     {

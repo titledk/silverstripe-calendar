@@ -30,19 +30,19 @@ class PublicEvent extends Event
         //for now all event details will only have one link - that is the main calendar page
         //NOTE: this could be amended by calling that link via AJAX, and thus could be shown as an overlay
         //everywhere on the site
-//		//if the event page is enabled, we provide for links to event pages
-//		if (CalendarConfig::subpackage_setting('pagetypes','enable_eventpage')) {
-//			$eventPage = $this->EventPage();
-//			if ($eventPage->exists()) {
-//				return $eventPage->Link();
-//			} else {
-//				$calendarPage = CalendarPage::get()->First();
-//				return $calendarPage->Link() .  $detailStr;
-//			}
-//		} else {
+//      //if the event page is enabled, we provide for links to event pages
+//      if (CalendarConfig::subpackage_setting('pagetypes','enable_eventpage')) {
+//          $eventPage = $this->EventPage();
+//          if ($eventPage->exists()) {
+//              return $eventPage->Link();
+//          } else {
+//              $calendarPage = CalendarPage::get()->First();
+//              return $calendarPage->Link() .  $detailStr;
+//          }
+//      } else {
         $calendarPage = CalendarPage::get()->First();
-        return CalendarHelper::add_preview_params(Controller::join_links($calendarPage->Link('detail'),$this->ID),$this);
-//		}
+        return CalendarHelper::add_preview_params(Controller::join_links($calendarPage->Link('detail'), $this->ID), $this);
+//      }
     }
 
     /**

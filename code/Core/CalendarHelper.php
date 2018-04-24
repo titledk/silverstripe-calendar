@@ -32,7 +32,7 @@ class CalendarHelper
     /**
      * Get all coming public events - with optional limit
      */
-    public static function coming_events_limited($from=false, $limit=30)
+    public static function coming_events_limited($from = false, $limit = 30)
     {
         $events = self::coming_events($from)->limit($limit);
         return $events;
@@ -46,8 +46,7 @@ class CalendarHelper
         $events = PublicEvent::get()
             ->filter(array(
                     'StartDateTime:LessThan' => date('Y-m-d', time())
-                )
-            );
+                ));
 
         return $events;
     }
@@ -94,15 +93,15 @@ class CalendarHelper
     }
 
 
-	/**
-	 * If applicable, adds preview parameters. ie. CMSPreview and SubsiteID.
-	 * @param type $link
-	 * @return type
-	 */
-    public static function add_preview_params($link,$object)
+    /**
+     * If applicable, adds preview parameters. ie. CMSPreview and SubsiteID.
+     * @param type $link
+     * @return type
+     */
+    public static function add_preview_params($link, $object)
     {
         // Pass through if not logged in
-        if(!Member::currentUserID()) {
+        if (!Member::currentUserID()) {
             return $link;
         }
         $modifiedLink = '';
@@ -111,12 +110,12 @@ class CalendarHelper
             // Preserve the preview param for further links
             $modifiedLink = HTTP::setGetVar('CMSPreview', 1, $link);
             // Quick fix - multiple uses of setGetVar method double escape the ampersands
-            $modifiedLink = str_replace('&amp;','&',$modifiedLink);
+            $modifiedLink = str_replace('&amp;', '&', $modifiedLink);
             // Add SubsiteID, if applicable
             if (!empty($object->SubsiteID)) {
                 $modifiedLink = HTTP::setGetVar('SubsiteID', $object->SubsiteID, $modifiedLink);
                 // Quick fix - multiple uses of setGetVar method double escape the ampersands
-                $modifiedLink = str_replace('&amp;','&',$modifiedLink);
+                $modifiedLink = str_replace('&amp;', '&', $modifiedLink);
             }
         }
 

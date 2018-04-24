@@ -9,6 +9,7 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\Forms\GridField\GridField;
+
 /**
  * Events Form
  *
@@ -61,21 +62,26 @@ class EventsForm extends Form
          * Coming events
          */
         $comingTab = $fields->findOrMakeTab(
-            'Root.Coming', _t('Event.COMING_EVENT_PLURAL','Coming events')
+            'Root.Coming',
+            _t('Event.COMING_EVENT_PLURAL', 'Coming events')
         );
 
-        $comingGridField = GridField::create('ComingEvents', '',
+        $comingGridField = GridField::create(
+            'ComingEvents',
+            '',
             CalendarHelper::coming_events(),
-            $gridConfig);
+            $gridConfig
+        );
 
-        $fields->addFieldToTab('Root.Coming',$comingGridField);
+        $fields->addFieldToTab('Root.Coming', $comingGridField);
 
         /*
          * Past events
          */
 
         $pastTab = $fields->findOrMakeTab(
-            'Root.Past', _t('Event.PAST_EVENT_PLURAL','Past events')
+            'Root.Past',
+            _t('Event.PAST_EVENT_PLURAL', 'Past events')
         );
 
         // Find all past events, including those with null start time
@@ -84,11 +90,14 @@ class EventsForm extends Form
             ->where("\"StartDateTime\" < '$time' OR \"StartDateTime\" IS NULL")
             ->sort('StartDateTime DESC');
 
-        $pastGridField = GridField::create('PastEvents', '',
+        $pastGridField = GridField::create(
+            'PastEvents',
+            '',
             $pastEvents,
-            $gridConfig);
+            $gridConfig
+        );
 
-        $fields->addFieldToTab('Root.Past',$pastGridField);
+        $fields->addFieldToTab('Root.Past', $pastGridField);
 
         /*
          * Actions / init

@@ -1,7 +1,6 @@
 <?php
 namespace TitleDK\Calendar\PageTypes;
 
-
 class EventPage_Controller extends \PageController
 {
 

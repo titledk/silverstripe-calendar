@@ -3,10 +3,11 @@ namespace TitleDK\Calendar\Colors;
 
 use SilverStripe\View\Requirements;
 use SilverStripe\Forms\DropdownField;
+
 class ColorpaletteField extends DropdownField
 {
 
-    public function __construct($name, $title = null, $source = null, $value = "", $form=null)
+    public function __construct($name, $title = null, $source = null, $value = "", $form = null)
     {
         if (!is_array($source)) {
             $source = ColorpaletteHelper::get_palette();

@@ -6,6 +6,7 @@ use SilverStripe\Control\Email\Email;
 use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataObject;
+
 /**
  * Event Registration
  *

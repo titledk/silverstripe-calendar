@@ -12,6 +12,7 @@ use SilverStripe\Forms\MoneyField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\ORM\DataExtension;
+
 /**
  * Allowing events to have registrations
  *
@@ -35,40 +36,50 @@ class EventRegistrationExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             new HeaderField('Header1', 'Event Registration', 2)
         );
 
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             new CheckboxField('Registerable', 'Event Registration Required')
         );
 
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             new HeaderField('Header2', 'Who should the website send registration notifications to?', 4)
         );
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             new EmailField('RSVPEmail', Email::class)
         );
 
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             new HeaderField('Header3', 'Event Details', 2)
         );
 
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             new CheckboxField('TicketsRequired', 'Tickets Required')
         );
 
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             new CheckboxField('PaymentRequired', 'Payment Required (must also check "Tickets Required" for this to work)')
         );
 
-        $fields->addFieldToTab('Root.Registrations',
-            new LiteralField('RegistrationCount',
+        $fields->addFieldToTab(
+            'Root.Registrations',
+            new LiteralField(
+                'RegistrationCount',
                 '<strong>Current Registration Count:</strong> ' . $this->owner->Registrations()->Count()
             )
         );
 
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             new HeaderField('Header4', 'Event Costs (if payment required)', 2)
         );
 
@@ -77,20 +88,25 @@ class EventRegistrationExtension extends DataExtension
         //TODO this should be configurable
         $mf->setAllowedCurrencies(array('USD'));
 
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             $mf
         );
 
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             new HeaderField('Header5', 'Current Registrations', 2)
         );
 
-        $registrations = new GridField('Registrations', 'Registrations',
+        $registrations = new GridField(
+            'Registrations',
+            'Registrations',
             $this->owner->Registrations(),
             GridFieldConfig_RelationEditor::create()
         );
 
-        $fields->addFieldToTab('Root.Registrations',
+        $fields->addFieldToTab(
+            'Root.Registrations',
             $registrations
         );
     }

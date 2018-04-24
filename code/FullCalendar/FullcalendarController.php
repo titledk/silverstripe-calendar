@@ -92,7 +92,7 @@ class FullcalendarController extends Controller
 
         // check whether the timestamp was
         // given as a date string (2016-09-05)
-        if(strpos($timestamp, "-") > 0) {
+        if (strpos($timestamp, "-") > 0) {
             $timestamp = strtotime($timestamp);
         }
 
@@ -117,7 +117,7 @@ class FullcalendarController extends Controller
      * @param SS_HTTPRequest $request
      * @return SS_HTTPResponse
      */
-    public function publicevents($request, $json=true, $calendars=null, $offset=30)
+    public function publicevents($request, $json = true, $calendars = null, $offset = 30)
     {
         $calendarsSupplied = false;
         if ($calendars) {
@@ -161,8 +161,8 @@ class FullcalendarController extends Controller
                 $calendar = $event->Calendar();
 
                 $bgColor = '#999'; //default
-            $textColor = '#FFF'; //default
-            $borderColor = '#555';
+                $textColor = '#FFF'; //default
+                $borderColor = '#555';
 
                 if ($calendar->exists()) {
                     $bgColor = $calendar->getColorWithHash();
@@ -175,7 +175,7 @@ class FullcalendarController extends Controller
                 'backgroundColor' => $bgColor,
                 'textColor' => '#FFF',
                 'borderColor' => $borderColor,
-            ));
+                ));
                 $result[] = $resultArr;
             }
         }
@@ -193,7 +193,7 @@ class FullcalendarController extends Controller
      * Shaded events for the calendar are called once on calendar initialization,
      * hence the offset of 3000 days
      */
-    public function shadedevents($request, $json=true, $calendars = null, $offset=3000)
+    public function shadedevents($request, $json = true, $calendars = null, $offset = 3000)
     {
         if (!$calendars) {
             $calendars = PublicCalendar::get();

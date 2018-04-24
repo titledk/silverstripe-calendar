@@ -3,6 +3,7 @@ namespace TitleDK\Calendar\Colors;
 
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
+
 /**
  * Color Extension
  * Allows calendars or categories to have colors

@@ -17,7 +17,7 @@ class Color
      * @param string $color The color string hex or rgb
      * @returns null
      */
-    public function __construct($color=null)
+    public function __construct($color = null)
     {
         if (!is_string($color)) {
             return;
@@ -134,30 +134,31 @@ class Color
         $r = $g = $b = 0.0;
 
         switch ($k) {
-        case 0: case 6:
-            $r = $chroma;
-            $g = $x;
-            break;
-        case 1:
-            $r = $x;
-            $g = $chroma;
-            break;
-        case 2:
-            $g = $chroma;
-            $b = $x;
-            break;
-        case 3:
-            $g = $x;
-            $b = $chroma;
-            break;
-        case 4:
-            $r = $x;
-            $b = $chroma;
-            break;
-        case 5:
-            $r = $chroma;
-            $b = $x;
-            break;
+            case 0:
+            case 6:
+                $r = $chroma;
+                $g = $x;
+                break;
+            case 1:
+                $r = $x;
+                $g = $chroma;
+                break;
+            case 2:
+                $g = $chroma;
+                $b = $x;
+                break;
+            case 3:
+                $g = $x;
+                $b = $chroma;
+                break;
+            case 4:
+                $r = $x;
+                $b = $chroma;
+                break;
+            case 5:
+                $r = $chroma;
+                $b = $x;
+                break;
         }
 
         $m = $l - 0.5 * $chroma;
@@ -201,30 +202,31 @@ class Color
         $r = $g = $b = 0.0;
 
         switch ($k) {
-        case 0: case 6:
-            $r = $chroma;
-            $g = $x;
-            break;
-        case 1:
-            $r = $x;
-            $g = $chroma;
-            break;
-        case 2:
-            $g = $chroma;
-            $b = $x;
-            break;
-        case 3:
-            $g = $x;
-            $b = $chroma;
-            break;
-        case 4:
-            $r = $x;
-            $b = $chroma;
-            break;
-        case 5:
-            $r = $chroma;
-            $b = $x;
-            break;
+            case 0:
+            case 6:
+                $r = $chroma;
+                $g = $x;
+                break;
+            case 1:
+                $r = $x;
+                $g = $chroma;
+                break;
+            case 2:
+                $g = $chroma;
+                $b = $x;
+                break;
+            case 3:
+                $g = $x;
+                $b = $chroma;
+                break;
+            case 4:
+                $r = $x;
+                $b = $chroma;
+                break;
+            case 5:
+                $r = $chroma;
+                $b = $x;
+                break;
         }
 
         $m = $v - $chroma;
@@ -243,7 +245,7 @@ class Color
      *
      * @returns Color The darker color object
      */
-    public function darken($fraction=0.1)
+    public function darken($fraction = 0.1)
     {
         $hsl = $this->toHSL();
         $l = $hsl[2];
@@ -260,7 +262,7 @@ class Color
      *
      * @returns Color The lighter color object
      */
-    public function lighten($fraction=0.1)
+    public function lighten($fraction = 0.1)
     {
         $hsl = $this->toHSL();
         $l = $hsl[2];
@@ -277,7 +279,7 @@ class Color
      *
      * @returns Color Saturated color
      */
-    public function saturate($fraction=0.1)
+    public function saturate($fraction = 0.1)
     {
         return $this->changeHSL(0, $fraction, 0);
     }
@@ -289,7 +291,7 @@ class Color
      *        180 degrees
      * @returns Color the contrasting color
      */
-    public function contrast($fraction=1.0)
+    public function contrast($fraction = 1.0)
     {
         // 1 = fully complementary.
         $dh = (1.0 / 2) * $fraction;
@@ -306,7 +308,7 @@ class Color
      *
      * @returns Color The color object with the required changes
      */
-    public function changeHSL($dh=0, $ds=0, $dl=0)
+    public function changeHSL($dh = 0, $ds = 0, $dl = 0)
     {
         list($h, $s, $l) = $this->toHSL();
 
@@ -332,7 +334,7 @@ class Color
      * @param callback $x_callback Callback for Lightness / Value
      * @param string   $type       'hsl' or 'hsv'
      */
-    public function apply($h_callback, $s_callback, $l_callback, $type='hsl')
+    public function apply($h_callback, $s_callback, $l_callback, $type = 'hsl')
     {
         if ($type == 'hsl') {
             $hsx = $this->toHSL();
@@ -340,8 +342,8 @@ class Color
             $hsx = $this->toHSV();
         } else {
             throw new Exception(
-                    "Invalid type for filter; use 'hsl' or 'hsv'"
-                 );
+                "Invalid type for filter; use 'hsl' or 'hsv'"
+            );
         }
 
         $h = call_user_func($h_callback, array($hsx[0]));

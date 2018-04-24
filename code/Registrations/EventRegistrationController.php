@@ -3,6 +3,7 @@ namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\Controller;
+
 /**
  * Event Registration Controller
  *

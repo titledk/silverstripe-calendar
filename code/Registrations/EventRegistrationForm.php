@@ -7,6 +7,7 @@ use SilverStripe\Control\Email\Email;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\Form;
+
 /**
  * Event Registration Form
  **

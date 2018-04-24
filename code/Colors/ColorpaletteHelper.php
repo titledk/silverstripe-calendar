@@ -20,12 +20,12 @@ class ColorpaletteHelper
 
     public static function requirements($dev = false)
     {
-        //		if ($dev) {
+        //      if ($dev) {
             //Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.js');
             Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.mod.js');
-//		} else {
-//			Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.min.js');
-//		}
+//      } else {
+//          Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.min.js');
+//      }
         Requirements::css('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.css');
     }
 
@@ -56,7 +56,7 @@ class ColorpaletteHelper
      * @param int $numColors Number of colors - default: 30
      * @return null
      */
-    public static function get_palette($numColors = 50, $type='hsv')
+    public static function get_palette($numColors = 50, $type = 'hsv')
     {
 
         //overwriting with the palette from the calendar settings
@@ -80,7 +80,6 @@ class ColorpaletteHelper
 
             return $arr;
         } elseif ($type == 'websafe') {
-
             //websafe colors
             $cs = array('00', '33', '66', '99', 'CC', 'FF');
 
