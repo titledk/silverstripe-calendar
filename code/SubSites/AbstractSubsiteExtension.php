@@ -6,6 +6,8 @@ use SilverStripe\Forms\HiddenField;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\DataQuery;
+use SilverStripe\ORM\Queries\SQLSelect;
 
 abstract class AbstractSubsiteExtension extends DataExtension
 {
