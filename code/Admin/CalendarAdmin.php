@@ -35,13 +35,13 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     );
 
     private static $managed_models = array(
-        'TitleDK\Calendar\Events\PublicEvent',
+        'TitleDK\Calendar\Events\Event',
         'TitleDK\Calendar\Categories\PublicEventCategory',
         'TitleDK\Calendar\Calendars\PublicCalendar'
     );
 
     private static $model_importers = array(
-        'PublicEvent' => 'EventCsvBulkLoader',
+        'Event' => 'EventCsvBulkLoader',
         'PublicEventCategory' => CsvBulkLoader::class,
         'PublicCalendar' => CsvBulkLoader::class
     );
@@ -85,10 +85,10 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
             case 'PublicCalendar':
                 $class = 'TitleDK\Calendar\Admin\Forms\CalendarsForm';
                 break;
-            case 'PublicEventCategory':
+            case 'EventCategory':
                 $class = 'TitleDK\Calendar\Admin\Forms\CategoriesForm';
                 break;
-            case 'PublicEvent':
+            case 'Event':
                 $class = 'TitleDK\Calendar\Admin\Forms\EventsForm';
                 break;
             default:

@@ -5,8 +5,10 @@ use SilverStripe\Security\Member;
 use SilverStripe\Core\Convert;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\Controller;
+use SilverStripe\Security\Security;
+use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;
-use TitleDK\Calendar\Events\PublicEvent;
+use TitleDK\Calendar\Events\Event;
 
 /**
  * Fullcalendar controller
@@ -27,7 +29,7 @@ class FullcalendarController extends Controller
 
     private static $allowed_actions = array(
         'shadedevents',
-        'publicevents',
+        'events',
     );
 
 
@@ -35,8 +37,7 @@ class FullcalendarController extends Controller
     {
         parent::init();
 
-        $member = Member::currentUser();
-        $this->member = $member;
+        $this->member = Security::getCurrentUser();
 
         $request = $this->getRequest();
         //echo $request->getVar('test');
@@ -119,14 +120,14 @@ class FullcalendarController extends Controller
      * @param SS_HTTPRequest $request
      * @return SS_HTTPResponse
      */
-    public function publicevents($request, $json = true, $calendars = null, $offset = 30)
+    public function events($request, $json = true, $calendars = null, $offset = 30)
     {
         $calendarsSupplied = false;
         if ($calendars) {
             $calendarsSupplied = true;
         }
 
-        $events = PublicEvent::get()
+        $events = Event::get()
             ->filter(array(
                 'StartDateTime:GreaterThan' => $this->eventlistOffsetDate('start', $request->postVar('start'), $offset),
                 'EndDateTime:LessThan' => $this->eventlistOffsetDate('end', $request->postVar('end'), $offset),
@@ -138,7 +139,7 @@ class FullcalendarController extends Controller
         $sC = CalendarConfig::subpackage_settings('calendars');
         if ($sC['shading']) {
             if (!$calendars) {
-                $calendars = PublicCalendar::get();
+                $calendars = Calendar::get();
                 $calendars = $calendars->filter(array(
                     'shaded' => false
                 ));

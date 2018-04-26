@@ -4,7 +4,7 @@ namespace TitleDK\Calendar\Core;
 use SilverStripe\Security\Member;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
-use TitleDK\Calendar\Events\PublicEvent;
+use TitleDK\Calendar\Events\Event;
 
 /**
  * Calendar Helper
@@ -25,7 +25,7 @@ class CalendarHelper
     {
         $time = ($from ? strtotime($from) : mktime(0, 0, 0, date('m'), date('d'), date('Y')));
         $sql = "(StartDateTime >= '".date('Y-m-d', $time)." 00:00:00')";
-        $events = PublicEvent::get()->where($sql);
+        $events = Event::get()->where($sql);
         return $events;
     }
 
@@ -43,7 +43,7 @@ class CalendarHelper
      */
     public static function past_events()
     {
-        $events = PublicEvent::get()
+        $events = Event::get()
             ->filter(array(
                     'StartDateTime:LessThan' => date('Y-m-d', time())
                 ));
@@ -56,7 +56,7 @@ class CalendarHelper
      */
     public static function all_events()
     {
-        $events = PublicEvent::get();
+        $events = Event::get();
         return $events;
     }
 
@@ -86,7 +86,7 @@ class CalendarHelper
                         "(EndDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr')";
 
 
-        $events = PublicEvent::get()
+        $events = Event::get()
             ->where($sql);
 
         return $events;

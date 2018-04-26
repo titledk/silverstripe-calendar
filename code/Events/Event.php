@@ -1,8 +1,10 @@
 <?php
 namespace TitleDK\Calendar\Events;
 
+use SilverStripe\Control\Controller;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Forms\TextField;
@@ -16,7 +18,11 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Permission;
+use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;
+use TitleDK\Calendar\Core\CalendarHelper;
+use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\PageTypes\EventPage;
 
 /**
@@ -28,6 +34,11 @@ use TitleDK\Calendar\PageTypes\EventPage;
 class Event extends DataObject
 {
     private static $table_name = 'Event';
+
+    //Public events are simply called 'Event'
+    private static $singular_name = 'Event';
+    private static $plural_name = 'Events';
+
 
     private static $has_one = array(
         'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage',
@@ -59,11 +70,9 @@ class Event extends DataObject
     public function summaryFields()
     {
         $fields = parent::summaryFields();
+
         // Add Calendar Title field if calendars are enabled
-        if (CalendarConfig::subpackage_enabled('calendars')) {
-            // @todo This breaks
-            //$fields['Calendar.Title'] = 'Calendar';
-        }
+        $fields['Calendar.Title'] = 'Calendar';
         return $fields;
     }
 
@@ -460,8 +469,25 @@ class Event extends DataObject
                 ->setEmptyString('Choose event page...')
         );
 
+        $fields->addFieldToTab(
+            'Root.Main',
+            DropdownField::create(
+                'CalendarID',
+                'Calendar',
+                Calendar::get()->sort('Title')->map('ID', 'Title')
+            )
+                ->setEmptyString('Choose calendar...')
+        );
+
         $this->extend('updateCMSFields', $fields);
         return $fields;
+    }
+
+    public function getCMSValidator()
+    {
+        return new RequiredFields([
+            'Title', 'CalendarID'
+        ]);
     }
 
 
@@ -512,5 +538,82 @@ class Event extends DataObject
         }
 
         return $str;
+    }
+
+
+
+    /**
+     * Getter for internal event link
+     * NOTE: The current implementation only works properly as long as there's only one
+     * {@see CalendarPage} in the site
+     */
+    public function getInternalLink()
+    {
+        //for now all event details will only have one link - that is the main calendar page
+        //NOTE: this could be amended by calling that link via AJAX, and thus could be shown as an overlay
+        //everywhere on the site
+//      //if the event page is enabled, we provide for links to event pages
+//      if (CalendarConfig::subpackage_setting('pagetypes','enable_eventpage')) {
+//          $eventPage = $this->EventPage();
+//          if ($eventPage->exists()) {
+//              return $eventPage->Link();
+//          } else {
+//              $calendarPage = CalendarPage::get()->First();
+//              return $calendarPage->Link() .  $detailStr;
+//          }
+//      } else {
+        $calendarPage = CalendarPage::get()->First();
+        return CalendarHelper::add_preview_params(Controller::join_links($calendarPage->Link('detail'), $this->ID), $this);
+//      }
+    }
+
+    /**
+     * Anyone can view public events
+     * @param Member $member
+     * @return boolean
+     */
+    public function canView($member = null)
+    {
+        return true;
+    }
+
+    /**
+     *
+     * @param Member $member
+     * @return boolean
+     */
+    public function canCreate($member = null, $context = array())
+    {
+        return $this->canManage($member);
+    }
+
+    /**
+     *
+     * @param Member $member
+     * @return boolean
+     */
+    public function canEdit($member = null)
+    {
+        return $this->canManage($member);
+    }
+
+    /**
+     *
+     * @param Member $member
+     * @return boolean
+     */
+    public function canDelete($member = null)
+    {
+        return $this->canManage($member);
+    }
+
+    /**
+     *
+     * @param Member $member
+     * @return boolean
+     */
+    protected function canManage($member)
+    {
+        return Permission::check('ADMIN', 'any', $member) || Permission::check('EVENT_MANAGE', 'any', $member);
     }
 }

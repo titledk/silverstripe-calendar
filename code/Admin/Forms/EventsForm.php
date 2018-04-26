@@ -9,6 +9,7 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\Forms\GridField\GridField;
+use TitleDK\Calendar\Events\Event;
 
 /**
  * Events Form
@@ -86,7 +87,7 @@ class EventsForm extends Form
 
         // Find all past events, including those with null start time
         $time = date('Y-m-d', time());
-        $pastEvents = PublicEvent::get()
+        $pastEvents = Event::get()
             ->where("\"StartDateTime\" < '$time' OR \"StartDateTime\" IS NULL")
             ->sort('StartDateTime DESC');
 

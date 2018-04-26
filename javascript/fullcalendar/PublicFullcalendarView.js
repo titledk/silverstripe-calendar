@@ -34,7 +34,7 @@ var PublicFullcalendarView;
 				}
 			}
 		}
-		
+
 		$this.controllerUrl = null; //will be initialized
 		$this.eventSources = null; //will be initialized
 		$this.shadedEvents = null; //will be initialized if shaded events are enabled
@@ -82,11 +82,11 @@ var PublicFullcalendarView;
 		this.buildControllerUrl = function(action) {
 			return this.addSegmentsToUrl($this.controllerUrl,[action]);
 		}
-		
+
 		this.buildCalendarUrl = function(action,id) {
 			return this.addSegmentsToUrl($this.calendarUrl,[action,id]);
 		}
-		
+
 		/**
 		 * Adds extra segments to existing URL, preserving query parameters
 		 * @param string url
@@ -109,9 +109,9 @@ var PublicFullcalendarView;
 					url += '?' + urlParts['query'];
 				}
 			}
-			return url;			
+			return url;
 		}
-		
+
 		/**
 		 * Separates URL into base and query parts
 		 * @param string url
@@ -124,7 +124,7 @@ var PublicFullcalendarView;
 				query: parts[1] || ''
 			};
 		}
-			
+
 		/**
 		 * Event source initialization
 		 * For now we're only getting public events,
@@ -134,7 +134,7 @@ var PublicFullcalendarView;
 			$this.eventSources = 	[
 				//public events
 				{
-					url: $this.buildControllerUrl('publicevents'),
+					url: $this.buildControllerUrl('events'),
 					type: 'POST',
 					error: function() {
 					},
@@ -146,7 +146,7 @@ var PublicFullcalendarView;
 
 		this.init_calendar = function(){
 			var date = new Date();
-			
+
 			var calOptions = $.extend( {}, $this.options.fullcalendar,{
 				dayRender: function(date, cell) {
 					$this.dayRender(date, cell);
@@ -158,7 +158,7 @@ var PublicFullcalendarView;
 				},
 				eventSources: $this.eventSources
 			});
-			
+
 			holder.fullCalendar(calOptions);
 		}
 

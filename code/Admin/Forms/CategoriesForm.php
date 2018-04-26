@@ -5,6 +5,7 @@ use SilverStripe\Forms\Form;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\FieldList;
+use TitleDK\Calendar\Categories\PublicEventCategory;
 
 /**
  * Categories Form

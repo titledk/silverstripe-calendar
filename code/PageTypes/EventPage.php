@@ -61,7 +61,7 @@ class EventPage extends \Page
             $comingEvents,
             $gridEventConfig
         );
-        $GridFieldComing->setModelClass('TitleDK\Calendar\Events\PublicEvent');
+        $GridFieldComing->setModelClass('TitleDK\Calendar\Events\Event');
 
         $fields->addFieldToTab(
             'Root.ComingEvents',
@@ -76,7 +76,7 @@ class EventPage extends \Page
             $pastEvents,
             $gridEventConfig
         );
-        $GridFieldPast->setModelClass('TitleDK\Calendar\Events\PublicEvent');
+        $GridFieldPast->setModelClass('TitleDK\Calendar\Events\Event');
 
         $fields->addFieldToTab(
             'Root.PastEvents',
