@@ -83,25 +83,16 @@ class CalendarHelper
         $currMonthStr = date('Y-m-d', strtotime($month));
         $nextMonthStr = date('Y-m-d', $nextMonth);
 
-        $in = '';
-        // @todo filter does not work with Event::gte()->where($sql), not sure if SS bug
-        echo '$calendarIDs=' . $calendarIDs;
-
-
         $sql = "((StartDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr') OR (EndDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr'))";
-        if (!empty($calendarIDs)) {
-            $sql .= ' AND CalendarID IN (' . $calendarIDs . ')';
-        }
-
-
-
-
-        echo $sql;
-
         $events = Event::get()
             ->where($sql);
 
-        echo $events->sql();
+        // optional filter by calendar id
+        if (!empty($calendarIDs)) {
+            $sql .= ' AND CalendarID IN (' . $calendarIDs . ')';
+            $events = $events->filter('CalendarID', $calendarIDs);
+        }
+        
         return $events;
     }
 
