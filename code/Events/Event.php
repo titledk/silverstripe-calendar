@@ -27,7 +27,8 @@ use TitleDK\Calendar\PageTypes\EventPage;
 
 /**
  * Event Model
- * Events can have calendars, but don't necessary have to.
+ *
+ * Events must be associated with a calendar
  *
  * @package calendar
  */

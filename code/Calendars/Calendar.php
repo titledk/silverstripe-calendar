@@ -2,6 +2,7 @@
 namespace TitleDK\Calendar\Calendars;
 
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Permission;
 
 /**
  * Calendar Model

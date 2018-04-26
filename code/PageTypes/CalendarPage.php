@@ -1,6 +1,8 @@
 <?php
 namespace TitleDK\Calendar\PageTypes;
 
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\View\Requirements;
 use SilverStripe\Core\Convert;
 use SilverStripe\Control\HTTP;
@@ -23,7 +25,35 @@ class CalendarPage extends \Page
 {
 
     private static $singular_name = 'Calendar Page';
-    private static $description = 'Listing of public events';
+    private static $description = 'Listing of events';
+
+    private static $has_one = array(
+        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar'
+    );
+
+    public function getCMSValidator()
+    {
+        return new RequiredFields([
+            'CalendarID'
+        ]);
+    }
+
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+        $fields->addFieldToTab(
+            'Root.Main',
+            DropdownField::create(
+                'CalendarID',
+                'Calendar',
+                Calendar::get()->sort('Title')->map('ID', 'Title')
+            )
+                ->setEmptyString('Choose calendar...'),
+            'Content'
+        );
+        return $fields;
+    }
+
 }
 
 class CalendarPage_Controller extends PageController
@@ -42,6 +72,7 @@ class CalendarPage_Controller extends PageController
         'registered',
         'noregistrations'
     );
+
 
     public function init()
     {
@@ -115,7 +146,10 @@ class CalendarPage_Controller extends PageController
             Requirements::javascript('titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js');
 
             $url = CalendarHelper::add_preview_params($this->Link(), $this->data());
+
+            // @todo SS4 config
             $fullcalendarjs = $s['calendarpage']['fullcalendar_js_settings'];
+
             $controllerUrl = CalendarHelper::add_preview_params($s['calendarpage']['controllerUrl'], $this->data());
 
             //shaded events
@@ -135,7 +169,8 @@ class CalendarPage_Controller extends PageController
 							fullcalendar: {
 								$fullcalendarjs
 							},
-							shadedevents: $shadedEvents
+							shadedevents: $shadedEvents,
+							calendars: {$this->Calendar()->ID}
 						});
 					});
 				})(jQuery);

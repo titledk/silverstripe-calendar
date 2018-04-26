@@ -120,13 +120,17 @@ class FullcalendarController extends Controller
      * @param SS_HTTPRequest $request
      * @return SS_HTTPResponse
      */
-    public function events($request, $json = true, $calendars = null, $offset = 30)
+    public function events($request, $json = true)
     {
-        $calendarsSupplied = false;
-        if ($calendars) {
-            $calendarsSupplied = true;
-        }
+        /** @var string $calendars comma separated list of calendar IDs to show events for */
+        $calendars = $request->getVar('calendars');
 
+        /** @var string $offset days to offset by */
+        $offset = empty($request->getVar('offset')) ? 30 : $request->getVar('offset');
+
+        $calendarsSupplied = !empty($calendars);
+
+        // start a query for events
         $events = Event::get()
             ->filter(array(
                 'StartDateTime:GreaterThan' => $this->eventlistOffsetDate('start', $request->postVar('start'), $offset),
@@ -148,11 +152,12 @@ class FullcalendarController extends Controller
 
 
         if ($calendars) {
-            $calIDList = $calendars->getIdList();
+            $calIDList = explode(',', $calendars);
+            /// @todo Calendar now mandatory, so probably can remove this
             //adding in 0 to allow for showing events without a calendar
-            if (!$calendarsSupplied) {
-                $calIDList[0] = 0;
-            }
+            //if (!$calendarsSupplied) {
+            //    $calIDList[0] = 0;
+            //}
 
             //Debug::dump($calIDList);
             $events = $events->filter('CalendarID', $calIDList);
@@ -205,7 +210,7 @@ class FullcalendarController extends Controller
             'shaded' => true
         ));
 
-        return $this->publicevents($request, $json, $calendars, $offset);
+        return $this->events($request, $json, $calendars, $offset);
     }
 
 
