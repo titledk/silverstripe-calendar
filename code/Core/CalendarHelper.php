@@ -26,6 +26,7 @@ class CalendarHelper
         $time = ($from ? strtotime($from) : mktime(0, 0, 0, date('m'), date('d'), date('Y')));
         $sql = "(StartDateTime >= '".date('Y-m-d', $time)." 00:00:00')";
         $events = Event::get()->where($sql);
+
         return $events;
     }
 
@@ -73,22 +74,34 @@ class CalendarHelper
      * Get events for a specific month
      * Format: 2013-07
      * @param type $month
+     * @param $calendarIDs optional CSV of calendar ID to filter by
      */
-    public static function events_for_month($month)
+    public static function events_for_month($month, $calendarIDs = null)
     {
         $nextMonth = strtotime('last day of this month', strtotime($month));
 
         $currMonthStr = date('Y-m-d', strtotime($month));
         $nextMonthStr = date('Y-m-d', $nextMonth);
 
-        $sql =    "(StartDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr')" .
-                        " OR " .
-                        "(EndDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr')";
+        $in = '';
+        // @todo filter does not work with Event::gte()->where($sql), not sure if SS bug
+        echo '$calendarIDs=' . $calendarIDs;
 
+
+        $sql = "((StartDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr') OR (EndDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr'))";
+        if (!empty($calendarIDs)) {
+            $sql .= ' AND CalendarID IN (' . $calendarIDs . ')';
+        }
+
+
+
+
+        echo $sql;
 
         $events = Event::get()
             ->where($sql);
 
+        echo $events->sql();
         return $events;
     }
 
