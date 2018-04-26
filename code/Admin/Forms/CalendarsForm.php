@@ -64,7 +64,7 @@ class CalendarsForm extends Form // @todo This was CMSForm
             $GridFieldCalendars = new GridField(
                 'Calendars',
                 '',
-                PublicCalendar::get(),
+                Calendar::get(),
                 $gridCalendarConfig
             );
 

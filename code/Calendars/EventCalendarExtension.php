@@ -24,7 +24,7 @@ class EventCalendarExtension extends DataExtension
         $calendarDropdown = DropdownField::create(
             'CalendarID',
             'Calendar',
-            PublicCalendar::get()->map('ID', 'Title')
+            Calendar::get()->map('ID', 'Title')
         )
                 ->setEmptyString('Choose calendar...');
 

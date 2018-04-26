@@ -288,7 +288,7 @@ class CalendarPage_Controller extends PageController
     {
         $url = Convert::raw2url($this->request->param('ID'));
 
-        $cal = PublicCalendar::get()
+        $cal = Calendar::get()
             ->filter('URLSegment', $url)
             ->First();
         return $cal;
@@ -382,7 +382,7 @@ class CalendarPage_Controller extends PageController
 
     public function AllCalendars()
     {
-        $calendars = PublicCalendar::get();
+        $calendars = Calendar::get();
         return $calendars;
     }
 

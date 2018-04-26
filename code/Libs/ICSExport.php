@@ -312,7 +312,7 @@ class ICSExport_Controller extends Controller
 
         if ($cal && $cal->exists()) {
             //everybody can access public calendars
-            if ($cal->ClassName == 'PublicCalendar') {
+            if ($cal->ClassName == 'Calendar') {
                 $ics = ICSExport::ics_from_sscal($cal);
                 $calName = $cal->Title;
             }
@@ -327,7 +327,7 @@ class ICSExport_Controller extends Controller
      */
     public function all()
     {
-        $calendars = PublicCalendar::get();
+        $calendars = Calendar::get();
         $events = new ArrayList();
         foreach ($calendars as $cal) {
             $events->merge($cal->Events());

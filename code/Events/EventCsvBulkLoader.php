@@ -147,11 +147,11 @@ class EventCsvBulkLoader extends CsvBulkLoader
      */
     public static function getCalendarByTitle(&$obj, $val, $record)
     {
-        $c = PublicCalendar::get()->filter('Title', $val)->First();
+        $c = Calendar::get()->filter('Title', $val)->First();
         if ($c && $c->exists()) {
             return $c;
         } else {
-            $c = new PublicCalendar();
+            $c = new Calendar();
             $c->Title = $val;
             $c->write();
             return $c;

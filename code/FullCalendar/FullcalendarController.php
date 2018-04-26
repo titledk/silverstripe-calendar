@@ -199,7 +199,7 @@ class FullcalendarController extends Controller
     public function shadedevents($request, $json = true, $calendars = null, $offset = 3000)
     {
         if (!$calendars) {
-            $calendars = PublicCalendar::get();
+            $calendars = Calendar::get();
         }
         $calendars = $calendars->filter(array(
             'shaded' => true

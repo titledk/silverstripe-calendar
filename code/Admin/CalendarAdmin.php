@@ -37,13 +37,13 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     private static $managed_models = array(
         'TitleDK\Calendar\Events\Event',
         'TitleDK\Calendar\Categories\PublicEventCategory',
-        'TitleDK\Calendar\Calendars\PublicCalendar'
+        'TitleDK\Calendar\Calendars\Calendar'
     );
 
     private static $model_importers = array(
         'Event' => 'EventCsvBulkLoader',
         'PublicEventCategory' => CsvBulkLoader::class,
-        'PublicCalendar' => CsvBulkLoader::class
+        'Calendar' => CsvBulkLoader::class
     );
 
     private static $menu_icon = "titledk/silverstripe-calendar:images/icons/calendar.png";
@@ -69,11 +69,11 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
         /** @todo change to use config API */
         $models = parent::getManagedModels();
         if (!$this->calendarsEnabled()
-            && isset($models['PublicCalendar'])) {
-            unset($models['PublicCalendar']);
+            && isset($models['Calendar'])) {
+            unset($models['Calendar']);
         }
         if (!$this->categoriesEnabled()
-            && isset($models['PublicCalendar'])) {
+            && isset($models['Calendar'])) {
             unset($models['PublicEventCategory']);
         }
         return $models;
@@ -82,7 +82,7 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     protected function determineFormClass()
     {
         switch ($this->modelClass) {
-            case 'PublicCalendar':
+            case 'Calendar':
                 $class = 'TitleDK\Calendar\Admin\Forms\CalendarsForm';
                 break;
             case 'EventCategory':
