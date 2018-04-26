@@ -18,6 +18,7 @@ var PublicFullcalendarView;
 					right: 'title'
 				},
 				shadedevents: false,
+                calendars: 0,
 				weekMode: 'variable',
 				columnFormat: {
 						month: 'ddd',    // Mon
@@ -45,6 +46,8 @@ var PublicFullcalendarView;
 		this.init = function(){
 			//extending options
 			$this.options = $.extend( {}, $this.options, options );
+
+			console.log('OPTIONS: ', $this.options);
 
 			$this.controllerUrl = $this.options.controllerUrl;
 			$this.init_eventsources();
@@ -134,7 +137,7 @@ var PublicFullcalendarView;
 			$this.eventSources = 	[
 				//public events
 				{
-					url: $this.buildControllerUrl('events'),
+					url: $this.buildControllerUrl('events') + '?calendars=' + $this.options.calendars,
 					type: 'POST',
 					error: function() {
 					},
