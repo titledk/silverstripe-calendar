@@ -84,9 +84,6 @@ class CalendarPage_Controller extends PageController
         //custom stying
         // @todo this breaks, comment out for now
         //Requirements::themedCSS('CalendarPage');
-
-        //Debug::dump(CalendarConfig::settings());
-        //Debug::dump(CalendarConfig::subpackage_enabled('categories'));
     }
 
     /**
@@ -225,6 +222,7 @@ class CalendarPage_Controller extends PageController
     {
         return CalendarConfig::subpackage_enabled('registrations');
     }
+
     public function SearchEnabled()
     {
         $s = CalendarConfig::subpackage_settings('pagetypes');
@@ -249,7 +247,7 @@ class CalendarPage_Controller extends PageController
             || ($action == '' && $indexSetting == 'eventlist')
 
         ) {
-            $events = CalendarHelper::events_for_month($this->CurrentMonth());
+            $events = CalendarHelper::events_for_month($this->CurrentMonth(), $this->Calendar()->ID);
 
             if ($action == 'eventregistration') {
                 $events = $events
