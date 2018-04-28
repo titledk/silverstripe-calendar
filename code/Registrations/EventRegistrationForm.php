@@ -27,7 +27,7 @@ class EventRegistrationForm extends Form
         echo '**** CREATE EVENT REG FORM ****';
 
         //Fields
-        $fields = singleton('EventRegistration')->getFrontEndFields();
+        $fields = singleton('TitleDK\Calendar\Registrations\EventRegistration')->getFrontEndFields();
 
         //Actions
         $actions = FieldList::create(
