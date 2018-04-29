@@ -514,6 +514,8 @@ class Event extends DataObject
      */
     public function getFormattedDates()
     {
+        // @todo use standard silverstripe date formatters, otherwise we are looking at 2 different formatting types :(
+
         return EventHelper::formatted_dates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
     }
 
@@ -522,6 +524,11 @@ class Event extends DataObject
         return EventHelper::formatted_timeframe($this->obj('StartDateTime'), $this->obj('EndDateTime'));
     }
 
+    /**
+     * Render this with $StartAndEndDates.RAW
+     *
+     * @return bool|string
+     */
     public function getStartAndEndDates()
     {
         return EventHelper::formatted_alldates($this->obj('StartDateTime'), $this->obj('EndDateTime'));

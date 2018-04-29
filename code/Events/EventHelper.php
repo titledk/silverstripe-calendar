@@ -25,19 +25,18 @@ class EventHelper
      */
     public static function formatted_dates($startObj, $endObj)
     {
-
         //Checking if end date is set
-        $endDateIsset = true;
-        if (isset($endObj->value)) {
-            $endDateIsset = false;
-        }
+        $endDateIsset = isset($endObj);
 
         $startTime = strtotime($startObj->value);
         $endTime = strtotime($endObj->value);
 
         $startMonth = date('M', $startTime);
-        $startDayOfMonth = $startObj->DayOfMonth(true);
-        $str = $startMonth . ' ' . $startDayOfMonth;
+
+        // include ordinal, e.g. 1st, 4th
+        $startDayOfMonth = $startObj->DayOfMonth(true) ;
+
+        $str = $startMonth . ' ' . $startDayOfMonth ;
 
         if (date('Y-m-d', $startTime) == date('Y-m-d', $endTime)) {
             //one date - str. has already been written
@@ -46,6 +45,8 @@ class EventHelper
 
             if ($endDateIsset) {
                 $endMonth = date('M', $endTime);
+
+                // include ordinal, e.g. 1st, 4th
                 $endDayOfMonth = $endObj->DayOfMonth(true);
 
                 if ($startMonth == $endMonth) {
@@ -70,16 +71,19 @@ class EventHelper
         $startTime = strtotime($startObj->value);
         $endTime = strtotime($endObj->value);
 
+        // @todo This should be a separate helper method
+        // @todo Make standard date format configurable
         if (date('g:ia', $startTime) == '12:00am') {
-            $startDate = date('j F, Y', $startTime);
+            $startDate = date('jS M F, Y', $startTime);
         } else {
-            $startDate = date('j F, Y (g:ia)', $startTime);
+            $startDate = date('jS M, Y (g:ia)', $startTime);
         }
 
+        // @todo see note above
         if (date('g:ia', $endTime) == '12:00am') {
-            $endDate = date('j F, Y', $endTime);
+            $endDate = date('jS M, Y', $endTime);
         } else {
-            $endDate = date('j F, Y (g:ia)', $endTime);
+            $endDate = date('jS M, Y (g:ia)', $endTime);
         }
 
         return $startDate." &ndash; ".$endDate;
