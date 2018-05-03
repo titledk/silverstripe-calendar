@@ -3,6 +3,7 @@ namespace TitleDK\Calendar\PageTypes;
 
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\RequiredFields;
+use SilverStripe\ORM\PaginatedList;
 use SilverStripe\View\Requirements;
 use SilverStripe\Core\Convert;
 use SilverStripe\Control\HTTP;
@@ -50,6 +51,7 @@ class CalendarPageController extends PageController
      */
     public function index()
     {
+        // @todo config
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
         if ($indexSetting == 'eventlist') {
@@ -194,12 +196,14 @@ class CalendarPageController extends PageController
     }
 
     /**
-     * Event list for "eventlist" mode
+     * Paginated event list for "eventlist" mode
      *
      * @return type
      */
     public function Events()
     {
+        error_log('EVENTS LISTING');
+
         $action = $this->request->param('Action');
         //Debug::dump($this->request->params());
 
@@ -218,7 +222,14 @@ class CalendarPageController extends PageController
                     ->filter('Registerable', 1);
             }
 
-            return $events;
+            error_log(get_class($events));
+            error_log($events->Count());
+
+error_log('T1');
+            $list = new PaginatedList($events, $this->getRequest());
+
+            error_log($list->MoreThanOnePage());
+            return $list;
         }
 
 
@@ -246,7 +257,9 @@ class CalendarPageController extends PageController
             //Debug::dump($filter);
             $events = CalendarHelper::all_events()
                 ->where($filter);
-            return $events;
+
+
+            return new PaginatedList($events, $this->getRequest());
         }
 
 
