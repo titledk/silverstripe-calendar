@@ -499,6 +499,9 @@ class Event extends DataObject
         return $this->getFrontEndFields();
     }
 
+    /**
+     * @todo unit test
+     */
     public function getIsPastEvent()
     {
         if (strtotime($this->StartDateTime) < mktime(0, 0, 0, date('m'), date('d'), date('Y'))) {
@@ -506,6 +509,14 @@ class Event extends DataObject
         } else {
             return false;
         }
+    }
+
+    /**
+     *
+     */
+    public function getFormattedStartDate()
+    {
+        return EventHelper::formatted_start_date($this->obj('StartDateTime'));
     }
 
 

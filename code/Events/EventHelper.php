@@ -10,6 +10,11 @@ namespace TitleDK\Calendar\Events;
 class EventHelper
 {
 
+    /**
+     * Date format for YMD
+     * @todo move to config
+     */
+    const YMD_DATE_FORMAT='Y-m-d';
 
     /**
      * Formatted Dates
@@ -38,7 +43,7 @@ class EventHelper
 
         $str = $startMonth . ' ' . $startDayOfMonth ;
 
-        if (date('Y-m-d', $startTime) == date('Y-m-d', $endTime)) {
+        if (date(self::YMD_DATE_FORMAT, $startTime) == date(self::YMD_DATE_FORMAT, $endTime)) {
             //one date - str. has already been written
         } else {
             //two dates
@@ -59,10 +64,16 @@ class EventHelper
         return $str;
     }
 
+    public static function formatted_start_date($startObj)
+    {
+        $startTime = strtotime($startObj->value);
+        return date('jS M, Y', $startTime);
+    }
+
     public static function formatted_alldates($startObj, $endObj)
     {
-        $startDate = date("Y-m-d", strtotime($startObj->value));
-        $endDate = date("Y-m-d", strtotime($endObj->value));
+        $startDate = date(self::YMD_DATE_FORMAT, strtotime($startObj->value));
+        $endDate = date(self::YMD_DATE_FORMAT, strtotime($endObj->value));
 
         if ($startDate == $endDate) {
             return false;
