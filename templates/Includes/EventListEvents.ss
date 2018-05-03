@@ -1,4 +1,4 @@
-<% loop $Events %>
+N<% loop $Events %>
 	<div class="event $EvenOdd" data-id="$ID">
 		<div class="feedBox">
 			<% if $Calendar %>

@@ -177,6 +177,11 @@ class CalendarPageController extends PageController
         }
     }
 
+    /**
+     * Returns true if registrations enabled
+     * @todo Fix to SS4 config
+     * @return bool are registrations enabled
+     */
     public function RegistrationsEnabled()
     {
         return CalendarConfig::subpackage_enabled('registrations');
@@ -350,6 +355,8 @@ class CalendarPageController extends PageController
             return CalendarHelper::add_preview_params($this->Link('eventlist'), $this->data());
         }
     }
+
+
     public function CalendarViewLink()
     {
         $s = CalendarConfig::subpackage_settings('pagetypes');

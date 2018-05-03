@@ -65,7 +65,9 @@ class Event extends DataObject
         'Title' => 'Title',
         'StartDateTime' => 'Date and Time',
         'DatesAndTimeframe' => 'Presentation String',
-        //'Calendar.Title' => 'Calendar'
+        'TimeFrameType' => 'TimeFrameType',
+        'Duration' => 'Duration',
+        'Calendar.Title' => 'Calendar'
     );
 
     public function summaryFields()

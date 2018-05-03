@@ -72,7 +72,8 @@ class EventHelper
         $endTime = strtotime($endObj->value);
 
         // @todo This should be a separate helper method
-        // @todo Make standard date format configurable
+        //
+        // Note that the end date time is set when editing, this needs imported also
         if (date('g:ia', $startTime) == '12:00am') {
             $startDate = date('jS M F, Y', $startTime);
         } else {
@@ -80,10 +81,14 @@ class EventHelper
         }
 
         // @todo see note above
-        if (date('g:ia', $endTime) == '12:00am') {
+        // @tod null date passes this test without the addition of empty
+        if (date('g:ia', $endTime) == '12:00am' && !empty($endDate)) {
+
             $endDate = date('jS M, Y', $endTime);
         } else {
-            $endDate = date('jS M, Y (g:ia)', $endTime);
+            // This is the straddling midnight case
+            // @todo Add unit test
+            $endDate = date('jS M, Y (g', $endTime) . 'hrs)';
         }
 
         return $startDate." &ndash; ".$endDate;

@@ -3,6 +3,8 @@ namespace TitleDK\Calendar\Events;
 
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\CsvBulkLoader;
+use TitleDK\Calendar\Calendars\Calendar;
+use TitleDK\Calendar\Core\CalendarConfig;
 
 /**
  * PlayerCsvBulkLoader
@@ -91,7 +93,11 @@ class EventCsvBulkLoader extends CsvBulkLoader
      */
     public static function importStartDate(&$obj, $val, $record)
     {
+        error_log('isd: val=' . $val);
+
         $dateTime = self::importDate($val);
+        error_log('isd: date=' . $dateTime);
+
         $obj->TimeFrameType = 'DateTime';
         $obj->StartDateTime = $dateTime;
         $obj->AllDay = true;
@@ -145,12 +151,16 @@ class EventCsvBulkLoader extends CsvBulkLoader
      * @param $record
      * @return DataObject
      */
-    public static function getCalendarByTitle(&$obj, $val, $record)
+    public static function findOrCreateCalendarByTitle(&$obj, $val, $record)
     {
+        echo 'Find or create calendar:  ' . $val;
+
         $c = Calendar::get()->filter('Title', $val)->First();
         if ($c && $c->exists()) {
+            error_log('FOUND!');
             return $c;
         } else {
+            error_log('CREATE');
             $c = new Calendar();
             $c->Title = $val;
             $c->write();

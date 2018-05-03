@@ -1,7 +1,12 @@
 <?php
 namespace TitleDK\Calendar\Admin;
 
+use SilverShop\Admin\ProductBulkLoader;
+use SilverShop\Model\Variation\AttributeType;
+use SilverShop\Page\Product;
+use SilverShop\Page\ProductCategory;
 use SilverStripe\Dev\CsvBulkLoader;
+use SilverStripe\Forms\GridField\GridFieldImportButton;
 use SilverStripe\View\Requirements;
 use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
@@ -15,6 +20,8 @@ use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Security\PermissionProvider;
 use TitleDK\Calendar\Core\CalendarConfig;
+use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\Events\EventCsvBulkLoader;
 
 /**
  * Calendar Admin
@@ -34,17 +41,21 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
         'EventsForm'
     );
 
-    private static $managed_models = array(
+
+
+
+     private static $managed_models = array(
         'TitleDK\Calendar\Events\Event',
         'TitleDK\Calendar\Categories\PublicEventCategory',
         'TitleDK\Calendar\Calendars\Calendar'
     );
 
     private static $model_importers = array(
-        'Event' => 'EventCsvBulkLoader',
-        'PublicEventCategory' => CsvBulkLoader::class,
-        'Calendar' => CsvBulkLoader::class
+        'TitleDK\Calendar\Events\Event' => 'TitleDK\Calendar\Events\EventCsvBulkLoader',
+        'TitleDK\Calendar\Categories\PublicEventCategory' => 'SilverStripe\Dev\CsvBulkLoader',
+        'TitleDK\Calendar\Calendars\Calendar' => 'SilverStripe\Dev\CsvBulkLoader'
     );
+
 
     private static $menu_icon = "titledk/silverstripe-calendar:images/icons/calendar.png";
 
@@ -101,6 +112,9 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
 
     public function getEditForm($id = null, $fields = null)
     {
+
+        //$form = parent::getEditForm($id, $fields);
+
         $list = $this->getList();
         $exportButton = new GridFieldExportButton('buttons-before-left');
         $exportButton->setExportColumns($this->getExportFields());
@@ -118,6 +132,14 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
         if (singleton($this->modelClass)->hasMethod('getCMSValidator')) {
             $detailValidator = singleton($this->modelClass)->getCMSValidator();
             $listField->getConfig()->getComponentByType(GridFieldDetailForm::class)->setValidator($detailValidator);
+        }
+
+        if ($this->showImportForm) {
+            $fieldConfig->addComponent(
+                GridFieldImportButton::create('buttons-before-left')
+                    ->setImportForm($this->ImportForm())
+                    ->setModalTitle(_t('SilverStripe\\Admin\\ModelAdmin.IMPORT', 'Import from CSV'))
+            );
         }
 
         $formClass = $this->determineFormClass();
