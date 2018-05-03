@@ -53,4 +53,5 @@ class CalendarPage extends \Page
         );
         return $fields;
     }
+
 }

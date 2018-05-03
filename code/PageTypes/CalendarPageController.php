@@ -14,6 +14,7 @@ use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Registrations\EventRegistration;
+use TitleDK\Calendar\Tags\EventTag;
 
 
 class CalendarPageController extends PageController
@@ -30,7 +31,8 @@ class CalendarPageController extends PageController
         'search',
         'calendar',
         'registered',
-        'noregistrations'
+        'noregistrations',
+        'tag'
     );
 
 
@@ -55,6 +57,14 @@ class CalendarPageController extends PageController
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
         if ($indexSetting == 'eventlist') {
+
+            $events = $this->Events(); // already paged
+            $grid = $this->owner->createGridLayout($events, 2);
+
+            return [
+                'Events' => $events,
+                'GridLayout' => $grid
+            ];
             //return $this->returnTemplate();
             return $this;
         } elseif ($indexSetting == 'calendarview') {
@@ -165,6 +175,29 @@ class CalendarPageController extends PageController
         );
     }
 
+
+    /**
+     * Display events for all tags - note no filtering currently
+     *
+     * @param $req
+     * @return array
+     */
+    public function tag($req)
+    {
+        $tagName = $req->param('ID');
+        $tag = EventTag::get()->filter('Title', $tagName)->first();
+        $events = $tag->Events()->sort('StartDateTime DESC');
+
+        $pagedEvents = new PaginatedList($events);
+        $grid = $this->owner->createGridLayout($pagedEvents, 2);
+
+        return [
+            'Events' => $pagedEvents,
+            'TagTitle' => $tag->Title,
+            'GridLayout' => $grid
+        ];
+    }
+
     /**
      * Event registration
      * @param $req
@@ -225,10 +258,8 @@ class CalendarPageController extends PageController
             error_log(get_class($events));
             error_log($events->Count());
 
-error_log('T1');
             $list = new PaginatedList($events, $this->getRequest());
 
-            error_log($list->MoreThanOnePage());
             return $list;
         }
 

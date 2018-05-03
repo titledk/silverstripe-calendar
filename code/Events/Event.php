@@ -505,60 +505,6 @@ class Event extends DataObject
     }
 
 
-    /**
-     * Looks for objects o the same type and the same value by the given Field
-     *
-     * @param  string $field E.g. URLSegment or Title
-     * @return DataList
-     */
-    protected function getDuplicatesByField($field)
-    {
-        $duplicates = DataList::create(self::class)
-            ->filter(
-                [
-                    $field   => $this->$field,
-                    'BlogID' => (int) $this->BlogID
-                ]
-            );
-
-        if ($this->ID) {
-            $duplicates = $duplicates->exclude('ID', $this->ID);
-        }
-
-        return $duplicates;
-    }
-
-
-    /**
-     * Generates a unique URLSegment from the title.
-     *
-     * @param int $increment
-     *
-     * @return string
-     */
-    public function generateURLSegment($increment = 0)
-    {
-        $increment = (int) $increment;
-        $filter = URLSegmentFilter::create();
-
-        // Setting this to on. Because of the UI flow, it would be quite a lot of work
-        // to support turning this off. (ie. the add by title flow would not work).
-        // If this becomes a problem we can approach it then.
-        // @see https://github.com/silverstripe/silverstripe-blog/issues/376
-        $filter->setAllowMultibyte(true);
-
-        $this->URLSegment = $filter->filter($this->Title);
-
-        if ($increment > 0) {
-            $this->URLSegment .= '-' . $increment;
-        }
-
-        if ($this->getDuplicatesByField('URLSegment')->count() > 0) {
-            $this->generateURLSegment($increment + 1);
-        }
-
-        return $this->URLSegment;
-    }
 
     public function getCMSValidator()
     {
