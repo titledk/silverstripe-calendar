@@ -5,6 +5,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\RequiredFields;
+use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Forms\TextField;
@@ -19,11 +20,13 @@ use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Permission;
+use SilverStripe\TagField\TagField;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\PageTypes\EventPage;
+use TitleDK\Calendar\Tags\EventTag;
 
 /**
  * Event Model
@@ -44,6 +47,10 @@ class Event extends DataObject
     private static $has_one = array(
         'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage',
         'Calendar' => 'TitleDK\Calendar\Calendars\Calendar'
+    );
+
+    private static $belongs_many_many = array(
+        'Tags' => EventTag::class
     );
 
     private static $db = array(
@@ -482,8 +489,75 @@ class Event extends DataObject
                 ->setEmptyString('Choose calendar...')
         );
 
+        $tagField = TagField::create(
+            'Tags',
+            _t(__CLASS__ . '.Tags', 'Tags'),
+            EventTag::get(),
+            $this->Tags()
+        )
+            ->setCanCreate($this->canCreateTags())
+            ->setShouldLazyLoad(true);
+
+        $fields->addFieldToTab('Root.Main', $tagField);
+
         $this->extend('updateCMSFields', $fields);
         return $fields;
+    }
+
+
+    /**
+     * Looks for objects o the same type and the same value by the given Field
+     *
+     * @param  string $field E.g. URLSegment or Title
+     * @return DataList
+     */
+    protected function getDuplicatesByField($field)
+    {
+        $duplicates = DataList::create(self::class)
+            ->filter(
+                [
+                    $field   => $this->$field,
+                    'BlogID' => (int) $this->BlogID
+                ]
+            );
+
+        if ($this->ID) {
+            $duplicates = $duplicates->exclude('ID', $this->ID);
+        }
+
+        return $duplicates;
+    }
+
+
+    /**
+     * Generates a unique URLSegment from the title.
+     *
+     * @param int $increment
+     *
+     * @return string
+     */
+    public function generateURLSegment($increment = 0)
+    {
+        $increment = (int) $increment;
+        $filter = URLSegmentFilter::create();
+
+        // Setting this to on. Because of the UI flow, it would be quite a lot of work
+        // to support turning this off. (ie. the add by title flow would not work).
+        // If this becomes a problem we can approach it then.
+        // @see https://github.com/silverstripe/silverstripe-blog/issues/376
+        $filter->setAllowMultibyte(true);
+
+        $this->URLSegment = $filter->filter($this->Title);
+
+        if ($increment > 0) {
+            $this->URLSegment .= '-' . $increment;
+        }
+
+        if ($this->getDuplicatesByField('URLSegment')->count() > 0) {
+            $this->generateURLSegment($increment + 1);
+        }
+
+        return $this->URLSegment;
     }
 
     public function getCMSValidator()
@@ -604,6 +678,20 @@ class Event extends DataObject
      * @return boolean
      */
     public function canCreate($member = null, $context = array())
+    {
+        return $this->canManage($member);
+    }
+
+
+    /*
+    **
+    * Determine whether user can create new tags.
+    *
+    * @param null|int|Member $member
+    *
+    * @return bool
+    */
+    public function canCreateTags($member = null)
     {
         return $this->canManage($member);
     }

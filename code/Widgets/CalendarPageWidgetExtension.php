@@ -4,12 +4,9 @@ namespace TitleDK\Calendar\Widgets;
 
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\NumericField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Widgets\Forms\WidgetAreaEditor;
-use SilverStripe\Widgets\Model\Widget;
 
 /**
  * @method Blog Blog()
