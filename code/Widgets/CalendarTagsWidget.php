@@ -12,6 +12,7 @@ use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DB;
 use SilverStripe\Widgets\Model\Widget;
+use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 
 /**
@@ -74,13 +75,19 @@ class CalendarTagsWidget extends Widget
     {
 
         $tags = [];
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->CalendarPage()->Calendars(), true);
+
         $sql = 'SELECT DISTINCT "EventTag"."URLSegment","EventTag"."Title",Count("EventTagID") AS "TagCount"
 				    from "EventTag_Events"
 				    INNER JOIN "Event"
 				    ON "Event"."ID" = "EventTag_Events"."EventID"
 				    INNER JOIN "EventTag"
-				    ON "EventTag"."ID" = "EventTag_Events"."EventTagID"'
-            . ' GROUP By  "EventTag"."URLSegment","EventTag"."Title"
+				    ON "EventTag"."ID" = "EventTag_Events"."EventTagID"
+				    INNER JOIN "Calendar"
+				    ON "Calendar". "ID" = "Event"."CalendarID"
+				    WHERE "Calendar" . "ID" IN (' . $calendarIDs
+
+                    . ') GROUP By  "EventTag"."URLSegment","EventTag"."Title"
 				    ORDER BY "Title"';
 
         $records = DB::query($sql);
@@ -88,6 +95,7 @@ class CalendarTagsWidget extends Widget
 
         // store the link outside of the loop to avoid re-traversing
         $calendarPageLink = $this->CalendarPage()->Link('tag') . '/';
+
 
         // create DataObjects that can be used to render the tag cloud
         $tags = ArrayList::create();
