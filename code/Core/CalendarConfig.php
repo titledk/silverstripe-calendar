@@ -226,7 +226,7 @@ class CalendarConfig
                     if ($ssversion == '3.0') {
                         Object::add_extension('Calendar', 'CalendarColorExtension');
                     } else {
-                        Calendar::add_extension('CalendarColorExtension');
+                        Calendar::add_extension(CalendarColorExtension::class);
                     }
                 }
                 if ($s['shading']) {
