@@ -238,7 +238,6 @@ class CalendarPageController extends PageController
         error_log('EVENTS LISTING');
 
         $action = $this->request->param('Action');
-        //Debug::dump($this->request->params());
 
         //Normal & Registerable events
         $s = CalendarConfig::subpackage_settings('pagetypes');
@@ -248,7 +247,16 @@ class CalendarPageController extends PageController
             || ($action == '' && $indexSetting == 'eventlist')
 
         ) {
-            $events = CalendarHelper::events_for_month($this->CurrentMonth(), $this->Calendar()->ID);
+            $calendarMap = $this->Calendars()->map('ID', 'ID');
+
+            $calendarIDs = [];
+
+            foreach($calendarMap as $entry) {
+                $calendarIDs[] = $entry;
+            }
+
+            // This method takes a csv of IDs, not an array.  Converted to deal with i for now
+            $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs);
 
             if ($action == 'eventregistration') {
                 $events = $events
