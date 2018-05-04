@@ -70,14 +70,20 @@ class CalendarHelper
         return $events;
     }
 
-    /**
+    /***
      * Get events for a specific month
      * Format: 2013-07
      * @param type $month
-     * @param $calendarIDs optional CSV of calendar ID to filter by
+     * @param $calendarIDs optional CSV or array of calendar ID to filter by
      */
-    public static function events_for_month($month, $calendarIDs = null)
+    public static function events_for_month($month, $calendarIDs = [])
     {
+        // @todo method needs fixed everywhere to pass in an array of IDs, not a CSV
+        if (!is_array($calendarIDs)) {
+            $calendarIDs = implode(',', $calendarIDs);
+            user_error('events for month called with ID instead of array of calendar IDs');
+        }
+
         $nextMonth = strtotime('last day of this month', strtotime($month));
 
         $currMonthStr = date('Y-m-d', strtotime($month));
@@ -89,10 +95,9 @@ class CalendarHelper
 
         // optional filter by calendar id
         if (!empty($calendarIDs)) {
-            $sql .= ' AND CalendarID IN (' . $calendarIDs . ')';
             $events = $events->filter('CalendarID', $calendarIDs);
         }
-        
+
         return $events;
     }
 
