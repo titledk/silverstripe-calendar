@@ -128,6 +128,8 @@ class CalendarPageController extends PageController
                 $shadedEvents = 'true';
             }
 
+            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars(), true);
+
             //Calendar initialization (and possibility for later configuration options)
             Requirements::customScript("
 				(function($) {
@@ -139,12 +141,11 @@ class CalendarPageController extends PageController
 								$fullcalendarjs
 							},
 							shadedevents: $shadedEvents,
-							calendars: \"{$this->getValidCalendarIDsForCurrentUser($this->Calendars(), true)}\"
+							calendars: \"{$calendarIDs}\"
 						});
 					});
 				})(jQuery);
 			");
-
 
             return $this;
         } else {

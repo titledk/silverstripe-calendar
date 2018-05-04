@@ -52,7 +52,7 @@ class EventRegistrationExtension extends DataExtension
         );
         $fields->addFieldToTab(
             'Root.Registrations',
-            new EmailField('RSVPEmail', Email::class)
+            new EmailField('RSVPEmail', 'RSVP Email')
         );
 
         $fields->addFieldToTab(
