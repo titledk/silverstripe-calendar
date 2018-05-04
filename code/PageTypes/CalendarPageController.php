@@ -256,19 +256,12 @@ class CalendarPageController extends PageController
                 }
             }
 
-            echo "---- member groups ----";
-            print_r($memberGroups);
-
             // add calendar if not group restricted
             foreach($this->Calendars() as $calendar) {
-                echo "\n\nT1 checking calendar " . $calendar->Title;
                 $groups = $calendar->Groups();
                 if ($groups->Count() > 0) {
-                    echo "\n  T2, gc>0 for calendar " . $calendar->ID;
                     foreach($groups as $group) {
-                        echo "    Checking group " . $group->ID . ' in mgs ' . print_r($memberGroups, 1);
                         if(in_array($group->ID, $memberGroups)) {
-                            echo "    GROUP MATCH!!";
                             $calendarIDs[] = $calendar->ID;
                         }
                     }
@@ -277,10 +270,6 @@ class CalendarPageController extends PageController
                 }
             }
 
-            echo "\n\nCALENDARS....\n\n";
-            echo print_r($calendarIDs, 1);
-
-
             // This method takes a csv of IDs, not an array.  Converted to deal                            continue; with i for now
             $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs);
 
@@ -288,9 +277,6 @@ class CalendarPageController extends PageController
                 $events = $events
                     ->filter('Registerable', 1);
             }
-
-            error_log(get_class($events));
-            error_log($events->Count());
 
             $list = new PaginatedList($events, $this->getRequest());
 
