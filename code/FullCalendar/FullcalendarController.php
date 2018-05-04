@@ -153,11 +153,6 @@ class FullcalendarController extends Controller
 
         if ($calendars) {
             $calIDList = explode(',', $calendars);
-            /// @todo Calendar now mandatory, so probably can remove this
-            //adding in 0 to allow for showing events without a calendar
-            //if (!$calendarsSupplied) {
-            //    $calIDList[0] = 0;
-            //}
 
             //Debug::dump($calIDList);
             $events = $events->filter('CalendarID', $calIDList);
@@ -172,6 +167,8 @@ class FullcalendarController extends Controller
                 $textColor = '#FFF'; //default
                 $borderColor = '#555';
 
+                // @todo This is an error in that it enforces use of the color extension.  May as well just have it
+                // there by default
                 if ($calendar->exists()) {
                     $bgColor = $calendar->getColorWithHash();
                     $textColor = '#FFF';
