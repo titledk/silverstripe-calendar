@@ -16,6 +16,7 @@ use SilverStripe\ORM\Connect\PDOQuery;
 use SilverStripe\ORM\DB;
 use SilverStripe\View\ArrayData;
 use SilverStripe\Widgets\Model\Widget;
+use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 
 /**
@@ -82,9 +83,12 @@ class CalendarEventsMonthYearWidget extends Widget
      */
     public function getYearMonths()
     {
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->CalendarPage()->Calendars(), true);
+
+
         // @todo this is mysql centric
-        $sql = 'SELECT DISTINCT YEAR(StartDateTime) AS Y,Month(StartDateTime) AS M from Event '.
-        'ORDER BY Y DESC, M DESC';
+        $sql = 'SELECT DISTINCT YEAR(StartDateTime) AS Y,Month(StartDateTime) AS M from Event INNER JOIN Calendar WHERE '.
+        'CalendarID IN (' . $calendarIDs . ') ORDER BY Y DESC, M DESC';
 
         /** @var PDOQuery $dbResult */
         $dbResult = DB::query($sql);

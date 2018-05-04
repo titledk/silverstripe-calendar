@@ -77,6 +77,7 @@ class CalendarTagsWidget extends Widget
         $tags = [];
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->CalendarPage()->Calendars(), true);
 
+        // @todo Do this as a properly formed SilverStripe query
         $sql = 'SELECT DISTINCT "EventTag"."URLSegment","EventTag"."Title",Count("EventTagID") AS "TagCount"
 				    from "EventTag_Events"
 				    INNER JOIN "Event"
