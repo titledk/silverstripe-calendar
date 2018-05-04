@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\PageTypes;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\PaginatedList;
+use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
 use SilverStripe\Core\Convert;
 use SilverStripe\Control\HTTP;
@@ -229,14 +230,13 @@ class CalendarPageController extends PageController
     }
 
     /**
-     * Paginated event list for "eventlist" mode
+     * Paginated event list for "eventlist" mode.  This will only show events for the current calendar page calendars,
+     * and will also take account of calendars restricted by Group
      *
      * @return type
      */
     public function Events()
     {
-        error_log('EVENTS LISTING');
-
         $action = $this->request->param('Action');
 
         //Normal & Registerable events
@@ -247,15 +247,41 @@ class CalendarPageController extends PageController
             || ($action == '' && $indexSetting == 'eventlist')
 
         ) {
-            $calendarMap = $this->Calendars()->map('ID', 'ID');
-
-            $calendarIDs = [];
-
-            foreach($calendarMap as $entry) {
-                $calendarIDs[] = $entry;
+            // save group IDs of member in associative array
+            $member = Security::getCurrentUser();
+            $memberGroups = [];
+            if (!empty($member)) {
+                foreach($member->Groups() as $group) {
+                    $memberGroups[$group->ID] = $group->ID;
+                }
             }
 
-            // This method takes a csv of IDs, not an array.  Converted to deal with i for now
+            echo "---- member groups ----";
+            print_r($memberGroups);
+
+            // add calendar if not group restricted
+            foreach($this->Calendars() as $calendar) {
+                echo "\n\nT1 checking calendar " . $calendar->Title;
+                $groups = $calendar->Groups();
+                if ($groups->Count() > 0) {
+                    echo "\n  T2, gc>0 for calendar " . $calendar->ID;
+                    foreach($groups as $group) {
+                        echo "    Checking group " . $group->ID . ' in mgs ' . print_r($memberGroups, 1);
+                        if(in_array($group->ID, $memberGroups)) {
+                            echo "    GROUP MATCH!!";
+                            $calendarIDs[] = $calendar->ID;
+                        }
+                    }
+                } else {
+                    $calendarIDs[] = $calendar->ID;
+                }
+            }
+
+            echo "\n\nCALENDARS....\n\n";
+            echo print_r($calendarIDs, 1);
+
+
+            // This method takes a csv of IDs, not an array.  Converted to deal                            continue; with i for now
             $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs);
 
             if ($action == 'eventregistration') {
