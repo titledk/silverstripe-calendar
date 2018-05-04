@@ -7,10 +7,12 @@ if (!class_exists('\\SilverStripe\\Widgets\\Model\\Widget')) {
 }
 
 use SilverStripe\Blog\Model\Blog;
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DB;
 use SilverStripe\Widgets\Model\Widget;
+use TitleDK\Calendar\PageTypes\CalendarPage;
 
 /**
  * @method Blog Blog()
@@ -40,15 +42,29 @@ class CalendarTagsWidget extends Widget
     /**
      * @var array
      */
-    //private static $has_one = [
-    //    'Blog' => Blog::class,
-    // ];
+    private static $has_one = [
+        'CalendarPage' => CalendarPage::class,
+    ];
 
     /**
      * @var string
      */
     private static $table_name = 'CalendarTagsCloudWidget';
 
+
+    public function getCMSFields()
+    {
+        $this->beforeUpdateCMSFields(function ($fields) {
+            /**
+             * @var FieldList $fields
+             */
+            $fields->merge([
+                DropdownField::create('CalendarPageID', 'Calendar Page', CalendarPage::get()->map())
+            ]);
+        });
+
+        return parent::getCMSFields();
+    }
 
     /**
      * // @todo revisit once calendar page has many calendars
@@ -70,12 +86,15 @@ class CalendarTagsWidget extends Widget
         $records = DB::query($sql);
         $maxTagCount = 0;
 
+        // store the link outside of the loop to avoid re-traversing
+        $calendarPageLink = $this->CalendarPage()->Link('tag') . '/';
+
         // create DataObjects that can be used to render the tag cloud
         $tags = ArrayList::create();
         foreach ($records as $record) {
             $tag = DataObject::create();
             $tag->TagName = $record['Title'];
-            $link =  'tag/' . $record['URLSegment'];
+            $link =  $calendarPageLink . $record['URLSegment'];
             $tag->Link = $link;
             if ($record['TagCount'] > $maxTagCount) {
                 $maxTagCount = $record['TagCount'];

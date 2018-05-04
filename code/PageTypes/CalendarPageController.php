@@ -139,7 +139,7 @@ class CalendarPageController extends PageController
 								$fullcalendarjs
 							},
 							shadedevents: $shadedEvents,
-							calendars: \"{$this->getValidCalendarIDsForCurrentUser(true)}\"
+							calendars: \"{$this->getValidCalendarIDsForCurrentUser($this->Calendars(), true)}\"
 						});
 					});
 				})(jQuery);
@@ -247,9 +247,9 @@ class CalendarPageController extends PageController
             || ($action == '' && $indexSetting == 'eventlist')
 
         ) {
-            $calendarIDs = $this->getValidCalendarIDsForCurrentUser();
+            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
-            // This method takes a csv of IDs, not an array.  Converted to deal                            continue; with i for now
+            // This method takes a csv of IDs, not an array.
             $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs);
 
             if ($action == 'eventregistration') {
@@ -435,37 +435,5 @@ class CalendarPageController extends PageController
         return CalendarHelper::add_preview_params($url, $this->data());
     }
 
-    /**
-     * @return array valid calend IDs for the current page, taking int account group restrictions
-     */
-    private function getValidCalendarIDsForCurrentUser($returnCSV = false)
-    {
-        $member = Security::getCurrentUser();
-        $memberGroups = [];
-        if (!empty($member)) {
-            foreach ($member->Groups() as $group) {
-                $memberGroups[$group->ID] = $group->ID;
-            }
-        }
 
-        $calendarIDs = [];
-        // add calendar if not group restricted
-        foreach ($this->Calendars() as $calendar) {
-            $groups = $calendar->Groups();
-            if ($groups->Count() > 0) {
-                foreach ($groups as $group) {
-                    if (in_array($group->ID, $memberGroups)) {
-                        $calendarIDs[] = $calendar->ID;
-                    }
-                }
-            } else {
-                $calendarIDs[] = $calendar->ID;
-            }
-        }
-
-        if ($returnCSV) {
-            $calendarIDs = implode(',', $calendarIDs);
-        }
-        return $calendarIDs;
-    }
 }

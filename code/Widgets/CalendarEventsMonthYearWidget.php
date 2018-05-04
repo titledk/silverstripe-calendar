@@ -16,6 +16,7 @@ use SilverStripe\ORM\Connect\PDOQuery;
 use SilverStripe\ORM\DB;
 use SilverStripe\View\ArrayData;
 use SilverStripe\Widgets\Model\Widget;
+use TitleDK\Calendar\PageTypes\CalendarPage;
 
 /**
  * @method Blog Blog()
@@ -43,9 +44,15 @@ class CalendarEventsMonthYearWidget extends Widget
      * @var array
      */
     private static $db = [
-        'NumberOfPosts' => 'Int',
+        'NumberOfMonths' => 'Int',
     ];
 
+    /**
+     * @var array
+     */
+    private static $has_one = [
+        'CalendarPage' => CalendarPage::class,
+    ];
 
     /**
      * @var string
@@ -62,8 +69,8 @@ class CalendarEventsMonthYearWidget extends Widget
              * @var FieldList $fields
              */
             $fields->merge([
-               // DropdownField::create('BlogID', _t(__CLASS__ . '.Blog', 'Blog'), Blog::get()->map()),
-                NumericField::create('NumberOfPosts', _t(__CLASS__ . '.NumberOfPosts', 'Number of Posts'))
+                DropdownField::create('CalendarPageID', 'Calendar Page', CalendarPage::get()->map()),
+                NumericField::create('NumberOfMonths', _t(__CLASS__ . '.NumberOfPosts', 'Number of Months'))
             ]);
         });
 

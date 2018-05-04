@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\Core;
 use SilverStripe\Security\Member;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
+use SilverStripe\Security\Security;
 use TitleDK\Calendar\Events\Event;
 
 /**
@@ -15,7 +16,39 @@ use TitleDK\Calendar\Events\Event;
  */
 class CalendarHelper
 {
+    /**
+     * @return array valid calend IDs for the current page, taking int account group restrictions
+     */
+    public static function getValidCalendarIDsForCurrentUser($calendars, $returnCSV = false)
+    {
+        $member = Security::getCurrentUser();
+        $memberGroups = [];
+        if (!empty($member)) {
+            foreach ($member->Groups() as $group) {
+                $memberGroups[$group->ID] = $group->ID;
+            }
+        }
 
+        $calendarIDs = [];
+        // add calendar if not group restricted
+        foreach ($calendars as $calendar) {
+            $groups = $calendar->Groups();
+            if ($groups->Count() > 0) {
+                foreach ($groups as $group) {
+                    if (in_array($group->ID, $memberGroups)) {
+                        $calendarIDs[] = $calendar->ID;
+                    }
+                }
+            } else {
+                $calendarIDs[] = $calendar->ID;
+            }
+        }
+
+        if ($returnCSV) {
+            $calendarIDs = implode(',', $calendarIDs);
+        }
+        return $calendarIDs;
+    }
 
 
     /**
