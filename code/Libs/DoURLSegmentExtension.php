@@ -11,16 +11,25 @@ use SilverStripe\ORM\DataExtension;
 class DoURLSegmentExtension extends DataExtension
 {
 
-    public static $db = array(
+    private static $db = array(
         'URLSegment' => 'Varchar(255)'
     );
 
+    /**
+     * Generate a slug on save
+     */
     public function onBeforeWrite()
     {
         $this->owner->URLSegment = singleton(SiteTree::class)->generateURLSegment($this->owner->Title);
     }
 
 
+    /**
+     * Get the link, which appears to return the URLSegment
+     *
+     * @return mixed
+     * @throws \SilverStripe\ORM\ValidationException
+     */
     public function getLink()
     {
         $link = $this->owner->URLSegment;
@@ -31,9 +40,4 @@ class DoURLSegmentExtension extends DataExtension
         }
         return $link;
     }
-
-//  function getName() {
-//      $name = $this->owner->Title;
-//      return $name;
-//  }
 }
