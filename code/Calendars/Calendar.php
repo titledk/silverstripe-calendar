@@ -5,6 +5,7 @@ use SilverStripe\Forms\ListboxField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Group;
 use SilverStripe\Security\Permission;
+use TitleDK\Calendar\PageTypes\CalendarPage;
 
 /**
  * Calendar Model
@@ -42,6 +43,10 @@ class Calendar extends DataObject
         'Groups' => Group::class,
     );
 
+    private static $many_many = array(
+        'CalendarPages' => CalendarPage::class
+    );
+
 
     public function getCMSFields()
     {
@@ -63,24 +68,6 @@ class Calendar extends DataObject
                     _t(__CLASS__ . '.ADDGROUP', 'Add group restriction', 'Placeholder text for a dropdown')
                 )->setRightTitle('Only these groups will be able to see this calendar and events, leave empty for public')
         );
-
-        /**
-         * $groupsMap = array();
-        foreach (Group::get() as $group) {
-        // Listboxfield values are escaped, use ASCII char instead of &raquo;
-        $groupsMap[$group->ID] = $group->getBreadcrumbs(' > ');
-        }
-        asort($groupsMap);
-        $fields->addFieldToTab(
-        'Root.Main',
-        ListboxField::create('DirectGroups', Group::singleton()->i18n_plural_name())
-        ->setSource($groupsMap)
-        ->setAttribute(
-        'data-placeholder',
-        _t(__CLASS__ . '.ADDGROUP', 'Add group', 'Placeholder text for a dropdown')
-        )
-        );
-         */
 
         //Events shouldn't be editable from here by default
         $fields->removeByName('Events');

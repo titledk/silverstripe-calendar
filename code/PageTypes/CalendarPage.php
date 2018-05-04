@@ -2,6 +2,7 @@
 namespace TitleDK\Calendar\PageTypes;
 
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\ListboxField;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\View\Requirements;
 use SilverStripe\Core\Convert;
@@ -27,30 +28,42 @@ class CalendarPage extends \Page
     private static $singular_name = 'Calendar Page';
     private static $description = 'Listing of events';
 
-    private static $has_one = array(
-        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar'
+    // for applying group restrictions
+    private static $belongs_many_many = array(
+        'Calendars' => Calendar::class,
     );
 
+    /*
     public function getCMSValidator()
     {
         return new RequiredFields([
-            'CalendarID'
+            'Calendars'
         ]);
     }
+*/
 
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
+
+        $calendarsMap = array();
+        foreach (Calendar::get() as $calendar) {
+            // Listboxfield values are escaped, use ASCII char instead of &raquo;
+            $calendarsMap[$calendar->ID] = $calendar->Title;
+        }
+        asort($calendarsMap);
+
         $fields->addFieldToTab(
             'Root.Main',
-            DropdownField::create(
-                'CalendarID',
-                'Calendar',
-                Calendar::get()->sort('Title')->map('ID', 'Title')
-            )
-                ->setEmptyString('Choose calendar...'),
+            ListboxField::create('Calendars', Calendar::singleton()->i18n_plural_name())
+                ->setSource($calendarsMap)
+                ->setAttribute(
+                    'data-placeholder',
+                    'Select a calendar')
+                    ->setRightTitle('Only events from these calendars will shown on this page.'),
             'Content'
         );
+
         return $fields;
     }
 
