@@ -56,12 +56,12 @@ class Calendar extends DataObject
 
         $fields->addFieldToTab(
             'Root.Main',
-            ListboxField::create('DirectGroups', Group::singleton()->i18n_plural_name())
+            ListboxField::create('Groups', Group::singleton()->i18n_plural_name())
                 ->setSource($groupsMap)
                 ->setAttribute(
                     'data-placeholder',
-                    _t(__CLASS__ . '.ADDGROUP', 'Add group', 'Placeholder text for a dropdown')
-                )
+                    _t(__CLASS__ . '.ADDGROUP', 'Add group restriction', 'Placeholder text for a dropdown')
+                )->setRightTitle('Only these groups will be able to see this calendar and events, leave empty for public')
         );
 
         /**
