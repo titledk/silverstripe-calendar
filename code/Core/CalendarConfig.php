@@ -60,7 +60,7 @@ class CalendarConfig
 					header: {
 						left: 'prev, next',
 						//center: 'title'
-						right: 'title'
+						//right: 'title'
 						//left: 'prev, next',
 						//center: 'title',
 						//right: 'month,basicWeek'
