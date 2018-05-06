@@ -187,7 +187,7 @@ class CalendarPageController extends PageController
     public function tag($req)
     {
         $tagName = $req->param('ID');
-        $tag = EventTag::get()->filter('Title', $tagName)->first();
+        $tag = EventTag::get()->filter('URLSegment', $tagName)->first();
         $events = $tag->Events()->sort('StartDateTime DESC');
 
         $pagedEvents = new PaginatedList($events);
