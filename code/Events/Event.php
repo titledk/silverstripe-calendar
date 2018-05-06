@@ -585,8 +585,8 @@ class Event extends DataObject
 
     /**
      * Getter for internal event link
-     * NOTE: The current implementation only works properly as long as there's only one
-     * {@see CalendarPage} in the site
+     * **** NOTE: The current implementation only works properly as long as there's only one
+     * {@see CalendarPage} in the site ****
      */
     public function getInternalLink()
     {
@@ -606,6 +606,14 @@ class Event extends DataObject
         $calendarPage = CalendarPage::get()->First();
         return CalendarHelper::add_preview_params(Controller::join_links($calendarPage->Link('detail'), $this->ID), $this);
 //      }
+    }
+
+    /**
+     * Get a link relative to the current calendar page URL.  This is for rendering in calendar page event listings
+     */
+    public function getRelativeLink()
+    {
+        return 'detail/' . $this->ID;
     }
 
     /**
