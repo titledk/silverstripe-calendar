@@ -31,6 +31,9 @@ class PaymentRegistrationForm extends Form
     public function __construct($controller, $name)
     {
 
+
+        error_log('payment reg form');
+
         //Fields
         $fields = FieldList::create(
             TextField::create('Name', 'Name'),

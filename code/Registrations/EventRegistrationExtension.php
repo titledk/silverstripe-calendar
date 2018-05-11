@@ -116,11 +116,10 @@ class EventRegistrationExtension extends DataExtension
      */
     public function getRegisterLink()
     {
-        $o = $this->owner;
         //$link = $o->getInternalLink() . "/register";
         //return $link;
 
-        $detailStr = 'register/' . $o->ID;
+        $detailStr = 'register/' . $this->owner->ID;
 
         $calendarPage = CalendarPage::get()->First();
         return $calendarPage->Link() .  $detailStr;
@@ -129,24 +128,31 @@ class EventRegistrationExtension extends DataExtension
 
     public function RegistrationForm()
     {
-        $c = new EventRegistrationController();
+        $eventRegistrationController = new EventRegistrationController();
 
-        $form = $c->registerform();
+        $form = $eventRegistrationController->registerform();
         if ($form) {
             $form->setFormField('EventID', $this->owner->ID);
         }
+
+        // if we use $this->extend we need to add the extension on Event, using the controller makes more sense
+        $eventRegistrationController->extend('updateEventRegistrationForm', $form);
+
 
         return $form;
     }
 
     public function RegistrationPaymentForm()
     {
-        $c = new EventRegistrationController();
+        $eventRegistrationController = new EventRegistrationController();
 
-        $form = $c->paymentregisterform();
+        $form = $eventRegistrationController->paymentregisterform();
         if ($form) {
             $form->setFormField('EventID', $this->owner->ID);
         }
+
+        // if we use $this->extend we need to add the extension on Event, using the controller makes more sense
+        $eventRegistrationController->extend('updateEventRegistrationForm', $form);
 
         return $form;
     }

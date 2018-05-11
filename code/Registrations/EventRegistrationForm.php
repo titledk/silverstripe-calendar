@@ -24,8 +24,6 @@ class EventRegistrationForm extends Form
      */
     public function __construct($controller, $name)
     {
-        echo '**** CREATE EVENT REG FORM ****';
-
         //Fields
         $fields = singleton('TitleDK\Calendar\Registrations\EventRegistration')->getFrontEndFields();
 
@@ -73,8 +71,6 @@ class EventRegistrationForm extends Form
      */
     public function doRegister($data, $form)
     {
-        echo '**** THIS IS THE DO EVENT REGISTER METHOD ****';
-
         $r = new EventRegistration();
         $form->saveInto($r);
 
@@ -95,7 +91,8 @@ class EventRegistrationForm extends Form
         $email->setTemplate('EventRegistration');
         $email->send();
 
-        exit;
+       // @todo why is this here?
+        //  exit;
     }
 
 
@@ -104,7 +101,6 @@ class EventRegistrationForm extends Form
     {
         $fields = $this->Fields();
         foreach ($fields as $field) {
-            //Debug::dump($field->Name);
             if ($field->Name == $name) {
                 $field->setValue($value);
             }
