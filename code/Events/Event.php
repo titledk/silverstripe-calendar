@@ -26,6 +26,7 @@ use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\PageTypes\EventPage;
+use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
 use TitleDK\Calendar\Tags\EventTag;
 
 /**
@@ -679,4 +680,48 @@ class Event extends DataObject
     {
         return Permission::check('ADMIN', 'any', $member) || Permission::check('EVENT_MANAGE', 'any', $member);
     }
+
+
+    // ---- ticket count related helper method.  Possibly trait these ----
+    public function TicketsRemaining()
+    {
+        $helper = new EventRegistrationTicketsHelper($this);
+        return $helper->numberOfTicketsRemaining();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

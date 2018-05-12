@@ -55,6 +55,7 @@ class EventRegistrationController extends Controller
             'paymentregisterform'
         );
 
+
         return $form;
     }
 
