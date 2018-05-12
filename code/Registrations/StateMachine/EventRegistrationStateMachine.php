@@ -84,6 +84,14 @@ class EventRegistrationStateMachine
     }
 
     /**
+     * Mark payment failed
+     */
+    public function makeTicketAvailableAfterPaymentFail()
+    {
+        $this->transitionState(self::UNPAID, self::AVAILABLE);
+    }
+
+    /**
      * Mark a payment as succeeded
      */
     public function paymentSucceeded()
