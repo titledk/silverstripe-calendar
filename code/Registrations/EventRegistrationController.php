@@ -49,15 +49,11 @@ class EventRegistrationController extends Controller
      */
     public function paymentregisterform()
     {
+
         $form = PaymentRegistrationForm::create(
             $this,
             'paymentregisterform'
         );
-
-        // @todo Check where this flag gets set
-        if (isset($_GET['complete'])) {
-            $form->setDone();
-        }
 
         return $form;
     }

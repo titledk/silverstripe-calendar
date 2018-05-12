@@ -26,10 +26,13 @@ class EventRegistration extends DataObject
         'Name' => 'Varchar',
         'PayersName' => 'Varchar',
         'Email' => 'Varchar',
-        'Status' => "Enum('Unpaid,Paid,Cancelled','Unpaid')",
+
+        // this is effectively a finite state machine of the event registration
+        'Status' => "Enum('Available,Unpaid,AwaitingPayment,PaymentExpired,Paid,Cancelled,Booked','Available')",
         'NumberOfTickets' => 'Int',
         'AmountPaid' => 'Money',
-        'Notes' => 'HTMLText'
+        'Notes' => 'HTMLText',
+
     );
 
     private static $has_one = array(
@@ -39,7 +42,7 @@ class EventRegistration extends DataObject
     private static $default_sort = 'Name';
 
     private static $summary_fields = array(
-        'Name' => 'Name',
+        'Name' => 'Created DESC',
         'Status' => 'Payment Status',
         'NumberOfTickets' => 'Tickets',
         'AmountPaid' => 'Amount Paid'

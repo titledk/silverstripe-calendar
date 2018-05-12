@@ -30,10 +30,6 @@ class PaymentRegistrationForm extends Form
      */
     public function __construct($controller, $name)
     {
-
-
-        error_log('payment reg form');
-
         //Fields
         $fields = FieldList::create(
             TextField::create('Name', 'Name'),
@@ -58,6 +54,7 @@ class PaymentRegistrationForm extends Form
                 Email::class,
             )
         );
+
         $this->addExtraClass('PaymentRegistrationForm');
         $this->addExtraClass($name);
 
@@ -87,12 +84,8 @@ class PaymentRegistrationForm extends Form
      * @param type $form
      * @return \SS_HTTPResponse
      */
-    public function doRegisterAndPay($data, $form)
+    public function doRegister($data, $form)
     {
-        echo "---- doRegister ----\n";
-        print_r($data);
-        echo '**** THIS IS THE DO PAYMENT EVENT REGISTER METHOD ****';
-
         $registration = new EventRegistration();
         $form->saveInto($registration);
         $registration->write();
@@ -105,7 +98,6 @@ class PaymentRegistrationForm extends Form
     {
         $fields = $this->Fields();
         foreach ($fields as $field) {
-            //Debug::dump($field->Name);
             if ($field->Name == $name) {
                 $field->setValue($value);
             }

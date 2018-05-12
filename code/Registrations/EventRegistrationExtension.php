@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Registrations;
 
+use SilverStripe\Forms\NumericField;
 use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HeaderField;
@@ -12,9 +13,12 @@ use SilverStripe\Forms\MoneyField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\FieldType\DBInt;
 
 /**
  * Allowing events to have registrations
+ *
+ * Add this extension to Event
  *
  * @package calendar
  * @subpackage registrations
@@ -26,6 +30,7 @@ class EventRegistrationExtension extends DataExtension
         'Registerable' => DBBoolean::class,
         'Cost' => 'Money',
         'TicketsRequired' => DBBoolean::class,
+        'NumberOfAvailableTickets' => DBInt::class,
         'PaymentRequired' => DBBoolean::class,
         'RSVPEmail' => 'Varchar(255)'
     );
@@ -63,6 +68,11 @@ class EventRegistrationExtension extends DataExtension
         $fields->addFieldToTab(
             'Root.Registrations',
             new CheckboxField('TicketsRequired', 'Tickets Required')
+        );
+
+        $fields->addFieldToTab(
+            'Root.Registrations',
+            new NumericField('NumberOfAvailableTickets', 'The Number of Available Tickets')
         );
 
         $fields->addFieldToTab(

@@ -112,9 +112,6 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
 
     public function getEditForm($id = null, $fields = null)
     {
-
-        //$form = parent::getEditForm($id, $fields);
-
         $list = $this->getList();
         $exportButton = new GridFieldExportButton('buttons-before-left');
         $exportButton->setExportColumns($this->getExportFields());
@@ -150,6 +147,7 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
             new FieldList($listField),
             new FieldList()
         )->setHTMLID('Form_EditForm');
+
         // @todo This method does not exist $form->setResponseNegotiator($this->getResponseNegotiator());
         $form->addExtraClass('cms-edit-form cms-panel-padded center');
         $form->setTemplate($this->getTemplatesWithSuffix('_EditForm'));
