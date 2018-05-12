@@ -30,7 +30,9 @@ class EventRegistrationTicketsHelper
         // @todo include state of those under process
         //$sql = "SELECT SUM('NumberOfTickets')";
         $used = $this->numberOfTicketsNotAvailable();
-        $free = $this->event->NumberOfTickets - $used;
+        $free = $this->event->NumberOfAvailableTickets - $used;
+
+        echo 'Tickets free: ' . $free;
         return $free;
     }
 

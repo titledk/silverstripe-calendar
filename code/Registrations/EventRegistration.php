@@ -32,7 +32,6 @@ class EventRegistration extends DataObject
         'NumberOfTickets' => 'Int',
         'AmountPaid' => 'Money',
         'Notes' => 'HTMLText',
-
     );
 
     private static $has_one = array(

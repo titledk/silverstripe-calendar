@@ -67,7 +67,7 @@ class EventHelper
     public static function formatted_start_date($startObj)
     {
         $startTime = strtotime($startObj->value);
-        return date('jS M, Y', $startTime);
+        return date('M j, Y', $startTime);
     }
 
     public static function formatted_alldates($startObj, $endObj)
@@ -86,20 +86,20 @@ class EventHelper
         //
         // Note that the end date time is set when editing, this needs imported also
         if (date('g:ia', $startTime) == '12:00am') {
-            $startDate = date('jS M F, Y', $startTime);
+            $startDate = date('M j F, Y', $startTime);
         } else {
-            $startDate = date('jS M, Y (g:ia)', $startTime);
+            $startDate = date('M j, Y (g:ia)', $startTime);
         }
 
         // @todo see note above
         // @tod null date passes this test without the addition of empty
         if (date('g:ia', $endTime) == '12:00am' && !empty($endDate)) {
 
-            $endDate = date('jS M, Y', $endTime);
+            $endDate = date('M j, Y', $endTime);
         } else {
             // This is the straddling midnight case
             // @todo Add unit test
-            $endDate = date('jS M, Y (g', $endTime) . 'hrs)';
+            $endDate = date('M j, Y (g', $endTime) . 'hrs)';
         }
 
         return $startDate." &ndash; ".$endDate;

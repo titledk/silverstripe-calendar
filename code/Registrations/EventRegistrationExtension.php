@@ -67,30 +67,23 @@ class EventRegistrationExtension extends DataExtension
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            new CheckboxField('TicketsRequired', 'Tickets Required')
+            $ticketsRequiredField = new CheckboxField('TicketsRequired', 'Tickets Required')
         );
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            new NumericField('NumberOfAvailableTickets', 'The Number of Available Tickets')
+            $nTicketsAvailableField = new NumericField('NumberOfAvailableTickets',
+                'Total Number of Available Tickets prior to Sale')
         );
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            new CheckboxField('PaymentRequired', 'Payment Required (must also check "Tickets Required" for this to work)')
+            $paymentRequiredField = new CheckboxField('PaymentRequired', 'Payment Required (must also check "Tickets Required" for this to work)')
         );
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            new LiteralField(
-                'RegistrationCount',
-                '<strong>Current Registration Count:</strong> ' . $this->owner->Registrations()->Count()
-            )
-        );
-
-        $fields->addFieldToTab(
-            'Root.Registrations',
-            new HeaderField('Header4', 'Event Costs (if payment required)', 2)
+            $eventCostsHeader = new HeaderField('Header4', 'Event Costs (if payment required)', 2)
         );
 
         $mf = new MoneyField('Cost');
@@ -103,10 +96,13 @@ class EventRegistrationExtension extends DataExtension
             $mf
         );
 
-        $fields->addFieldToTab(
-            'Root.Registrations',
-            new HeaderField('Header5', 'Current Registrations', 2)
-        );
+
+        // show hide logic
+        $nTicketsAvailableField->displayIf('TicketsRequired')->isChecked();
+        $paymentRequiredField->displayIf('TicketsRequired')->isChecked();
+        // does not work $mf->displayIf('TicketsRequired')->isChecked();
+        $eventCostsHeader->displayIf('TicketsRequired')->isChecked();
+
 
         $registrations = new GridField(
             'Registrations',
