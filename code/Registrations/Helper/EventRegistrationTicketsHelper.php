@@ -27,18 +27,14 @@ class EventRegistrationTicketsHelper
      */
     public function numberOfTicketsRemaining()
     {
-        // @todo include state of those under process
         //$sql = "SELECT SUM('NumberOfTickets')";
         $used = $this->numberOfTicketsNotAvailable();
         $free = $this->event->NumberOfAvailableTickets - $used;
-
-        echo 'Tickets free: ' . $free;
         return $free;
     }
 
     /**
      * Get the number of tickets freely available (ie not being processed)
-     * @todo take account of state
      *
      * @param $registrations
      * @return int
@@ -48,7 +44,9 @@ class EventRegistrationTicketsHelper
         $nTickets = 0;
         $registrations = $this->event->Registrations();
         foreach ($registrations as $reg) {
-            $nTickets += $reg->NumberOfTickets;
+            if ($reg->Status != 'Available') {
+                $nTickets += $reg->NumberOfTickets;
+            }
         }
         return $nTickets;
     }
