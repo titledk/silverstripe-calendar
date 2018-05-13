@@ -14,6 +14,7 @@ use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\FieldType\DBInt;
+use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
 
 /**
  * Allowing events to have registrations
@@ -103,10 +104,17 @@ class EventRegistrationExtension extends DataExtension
         // does not work $mf->displayIf('TicketsRequired')->isChecked();
         $eventCostsHeader->displayIf('TicketsRequired')->isChecked();
 
+        $helper = new EventRegistrationTicketsHelper($this->owner);
+
+        $title = "Registrations (Unticketed)";
+        if ($this->owner->TicketsRequired) {
+            $ticketsRemaining = $helper->numberOfTicketsRemaining();
+            $title = "Registrations (" . $ticketsRemaining . ' tickets remaining)';
+        }
 
         $registrations = new GridField(
             'Registrations',
-            'Registrations',
+            $title,
             $this->owner->Registrations(),
             GridFieldConfig_RelationEditor::create()
         );

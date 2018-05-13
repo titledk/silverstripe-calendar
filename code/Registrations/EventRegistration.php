@@ -38,13 +38,14 @@ class EventRegistration extends DataObject
         'Event' => 'TitleDK\Calendar\Events\Event'
     );
 
-    private static $default_sort = 'Name';
+    private static $default_sort = 'Created DESC';
 
     private static $summary_fields = array(
         'Name' => 'Created DESC',
         'Status' => 'Payment Status',
         'NumberOfTickets' => 'Tickets',
-        'AmountPaid' => 'Amount Paid'
+        'AmountPaid' => 'Amount Paid',
+        'RegistrationCode' => 'Registration Code'
     );
 
     /**
@@ -60,5 +61,10 @@ class EventRegistration extends DataObject
 
         $this->extend('updateFrontEndFields', $fields);
         return $fields;
+    }
+
+    public function getRegistrationCode()
+    {
+        return strtoupper($this->event()->URLSegment) . '-' . str_pad($this->ID, 4, "0", STR_PAD_LEFT);
     }
 }
