@@ -537,7 +537,7 @@ class Event extends DataObject
         $result = $this->RegistrationEmbargoAt;
         if (empty($result)) {
             $mins = $this->config()->get('embargo_registration_relative_to_end_datetime_mins');
-            $result = $this->StartTime + 60*$mins;
+            $result = $this->StartDateTime + 60*$mins;
         }
         return $result;
     }
