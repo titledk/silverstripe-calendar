@@ -532,6 +532,16 @@ class Event extends DataObject
         }
     }
 
+    public function getRegistrationEmbargoDate()
+    {
+        $result = $this->RegistrationEmbargoAt;
+        if (empty($result)) {
+            $mins = $this->config()->get('embargo_registration_relative_to_end_datetime_mins');
+            $result = $this->StartTime + 60*$mins;
+        }
+        return $result;
+    }
+
     /**
      *
      */
