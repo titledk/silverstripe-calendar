@@ -1,6 +1,4 @@
 /*jslint white: true */
-console.log('calendar admin');
-
 (function($) {
     $(document).ready(function () {
         $.entwine(function ($) {
@@ -14,7 +12,7 @@ console.log('calendar admin');
                     this._super();
                 }
             });
-        });Form_ItemEditForm_DurationGroup_Holder
+        });
 
         function updateStatus() {
             var allDay = $('#Form_ItemEditForm_AllDay').is(":checked");

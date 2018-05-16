@@ -86,9 +86,17 @@ class EventRegistrationStateMachine
     /**
      * Mark payment failed
      */
-    public function makeTicketAvailableAfterPaymentFail()
+    public function tryAgainAfterPaymentFailed()
     {
-        $this->transitionState(self::UNPAID, self::AVAILABLE);
+        $this->transitionState(self::UNPAID, self::AWAITING_PAYMENT);
+    }
+
+    /**
+     * Mark payment failed
+     */
+    public function makeTicketAvailableAfterPaymentTimedOut()
+    {
+        $this->transitionState(self::AWAITING_PAYMENT, self::AVAILABLE);
     }
 
     /**
@@ -108,11 +116,6 @@ class EventRegistrationStateMachine
     }
 
     // @todo Cancel
-
-
-
-    //        'Status' => "Enum('Available,Unpaid,AwaitingPayment,PaymentExpired,Paid,Cancelled,Booked','Available')",
-
     private function transitionState($from, $to)
     {
         // @todo Check validity of from and to

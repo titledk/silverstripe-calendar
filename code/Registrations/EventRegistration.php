@@ -40,6 +40,7 @@ class EventRegistration extends DataObject
 
     private static $default_sort = 'Created DESC';
 
+
     private static $summary_fields = array(
         'Name' => 'Created DESC',
         'Status' => 'Payment Status',
@@ -53,6 +54,8 @@ class EventRegistration extends DataObject
      */
     public function getFrontEndFields($param = null)
     {
+        echo 'EVENT REG: getFrontEndFields';
+
         $fields = FieldList::create(
             TextField::create('Name'),
             TextField::create('Email'),
