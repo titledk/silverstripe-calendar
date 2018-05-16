@@ -49,7 +49,7 @@ class EventRegistrationEmbargoTest extends SapphireTest {
     public function setUp()
     {
         $this->now = Carbon::create(2018, 5, 16, 8);
-        Carbon::setTestNow($$this->now);
+        Carbon::setTestNow($this->now);
 
         /** @var Event event */
         $this->event = new Event();
