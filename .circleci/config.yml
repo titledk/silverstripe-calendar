@@ -28,6 +28,7 @@ jobs:
         - master
         - develop
         - upgradess4
+        - unittests
 
     steps:
       - checkout
