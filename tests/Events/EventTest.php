@@ -8,6 +8,7 @@ use TitleDK\Calendar\Events\Event;
 class EventTest extends SapphireTest {
     public function setUp()
     {
+        parent::setUp();
         /** @var Event event */
         $this->event = new Event();
         $this->event->Title = 'Test Event Title';
