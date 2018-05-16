@@ -56,7 +56,7 @@ class EventRegistrationEmbargoTest extends SapphireTest {
         $this->event->Title = 'Test Event Title';
         $this->event->Details = 'This is detail about the test event title';
         $this->event->startDateTime = $this->now;
-        $this->event->save();
+        $this->event->write();
         $e = Event::get()->byID($this->event->ID);
         error_log(print_r($e, 1));
 
