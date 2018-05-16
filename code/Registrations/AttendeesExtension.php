@@ -17,6 +17,10 @@ class AttendeesExtension extends DataExtension
       'AttendeesCSV' => 'Text'
     ];
 
+    private static $summary_fields = [
+        'AttendeesCSV'
+    ];
+
     public function updateCMSFields(FieldList $fields)
     {
         $attendeesField = StringTagField::create(

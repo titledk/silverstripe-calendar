@@ -1,7 +1,12 @@
 <?php
 namespace TitleDK\Calendar\Registrations;
 
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridFieldExportButton;
+use SilverStripe\Forms\GridField\GridFieldPrintButton;
 use SilverStripe\Forms\NumericField;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HeaderField;
@@ -14,6 +19,7 @@ use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\FieldType\DBInt;
+use SilverStripe\View\ArrayData;
 use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
 
 /**
@@ -40,8 +46,31 @@ class EventRegistrationExtension extends DataExtension
         'Registrations' => 'TitleDK\Calendar\Registrations\EventRegistration'
     );
 
+
+
+
+    /**
+     * Add CMS editing fields
+     *
+     * @param FieldList $fields
+     */
     public function updateCMSFields(FieldList $fields)
     {
+        $list = $this->getExportableRegistrationsList();
+        $numberOfRegistrations = $this->owner->Registrations()->count();
+
+        $exportButton = new GridFieldExportButton('buttons-before-left');
+        $exportButton->setExportColumns($this->getExportFields());
+        $listField = GridField::create(
+            $this->sanitiseClassName(EventRegistration::class),
+            false,
+            $list,
+            $fieldConfig = GridFieldConfig_RecordEditor::create($numberOfRegistrations)
+                ->addComponent($exportButton)
+                ->removeComponentsByType(GridFieldFilterHeader::class)
+                ->addComponents(new GridFieldPrintButton('buttons-before-left'))
+        );
+
         $fields->addFieldToTab(
             'Root.Registrations',
             new HeaderField('Header1', 'Event Registration', 2)
@@ -112,17 +141,7 @@ class EventRegistrationExtension extends DataExtension
             $title = "Registrations (" . $ticketsRemaining . ' tickets remaining)';
         }
 
-        $registrations = new GridField(
-            'Registrations',
-            $title,
-            $this->owner->Registrations(),
-            GridFieldConfig_RelationEditor::create()
-        );
-
-        $fields->addFieldToTab(
-            'Root.Registrations',
-            $registrations
-        );
+        $fields->addFieldToTab('Root.Registrations', $listField);
     }
 
     /**
@@ -169,5 +188,41 @@ class EventRegistrationExtension extends DataExtension
         $eventRegistrationController->extend('updateEventRegistrationForm', $form);
 
         return $form;
+    }
+
+    /**
+     * Due to attendees being stored as CSV in a list, the output needs manipulated to add a row for each.  Do this in
+     * memory for now
+     *
+     * @tod individual tickets?
+     *
+     * @return mixed
+     */
+    public function getExportableRegistrationsList()
+    {
+        $records = $this->owner->Registrations()->sort('Created');
+        foreach ($records as $record) {
+            $registration = EventRegistration::get()->byID($record->ID);
+            $record->RegistrationCode = $registration->getRegistrationCode();
+        }
+        return $records;
+    }
+
+
+    /**
+     * Sanitise a model class' name for inclusion in a link
+     *
+     * @param string $class
+     * @return string
+     */
+    protected function sanitiseClassName($class)
+    {
+        return str_replace('\\', '-', $class);
+    }
+
+    public function getExportFields()
+    {
+        //return ['Attendee'];
+        return ['RegistrationCode', 'Status', 'Name', 'PayersName', 'Email', 'AttendeesCSV'];
     }
 }
