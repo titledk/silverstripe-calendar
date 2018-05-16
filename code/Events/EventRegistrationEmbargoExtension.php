@@ -35,7 +35,7 @@ class EventRegistrationEmbargoExtension extends DataExtension
         $embargoField->setRightTitle($rightTitle);
         $fields->addFieldToTab('Root.Main',
             $embargoField,
-        'Calendar'
+            'CalendarID'
         );
 
     }

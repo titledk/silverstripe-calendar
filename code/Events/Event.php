@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Events;
 
+use Carbon\Carbon;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
@@ -24,6 +25,7 @@ use SilverStripe\TagField\TagField;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
+use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\PageTypes\EventPage;
 use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
@@ -38,6 +40,8 @@ use TitleDK\Calendar\Tags\EventTag;
  */
 class Event extends DataObject
 {
+    use DateTimeHelperTrait;
+
     private static $table_name = 'Event';
 
     //Public events are simply called 'Event'
@@ -532,14 +536,37 @@ class Event extends DataObject
         }
     }
 
-    public function getRegistrationEmbargoDate()
+    /**
+     * Get the registration embargo date
+     *
+     * @return Carbon the embargo time as a carbon date object
+     */
+    public function getRegistrationEmbargoDate($returnAsDateTime = false)
     {
-        $result = $this->RegistrationEmbargoAt;
-        if (empty($result)) {
+        error_log('**** EMBARGO: ' . $returnAsDateTime);
+        $result = null;
+        if (empty($this->RegistrationEmbargoAt)) {
             $mins = $this->config()->get('embargo_registration_relative_to_end_datetime_mins');
-            $result = date('Y-m-d H:i:s', $this->StartDateTime->getTimestamp()+ 60*$mins);
+            error_log('MINS: ' . $mins);
+            error_log('SDT: ' . $this->StartDateTime);
+            $result = $this->carbonDateTime($this->StartDateTime)->addMinutes($mins);
+        } else {
+            $result = $this->carbonDateTime($this->RegistrationEmbargoAt);
+        }
+
+        if ($returnAsDateTime) {
+            error_log('++++ from template ++++ ');
+            $result = $this->getSSDateTimeFromCarbon($result);
+            error_log(print_r($result, 1));
         }
         return $result;
+    }
+
+    public function getIsPastRegistrationClosing()
+    {
+        $expiryDate = $this->getRegistrationEmbargoDate();
+        error_log('ED: ' . $expiryDate);
+        return  $expiryDate->lte(Carbon::now());
     }
 
     /**
