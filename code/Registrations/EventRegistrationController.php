@@ -3,6 +3,7 @@ namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\Controller;
+use SilverStripe\SpamProtection\Extension\FormSpamProtectionExtension;
 
 /**
  * Event Registration Controller
@@ -39,6 +40,10 @@ class EventRegistrationController extends Controller
             $form->setDone();
         }
 
+        if ($form->hasExtension(FormSpamProtectionExtension::class)) {
+            $form->enableSpamProtection();
+        }
+
         return $form;
     }
 
@@ -55,6 +60,9 @@ class EventRegistrationController extends Controller
             'paymentregisterform'
         );
 
+        if ($form->hasExtension(FormSpamProtectionExtension::class)) {
+            $form->enableSpamProtection();
+        }
 
         return $form;
     }
