@@ -537,13 +537,22 @@ class Event extends DataObject
     }
 
     /**
+     * Template rendering
+     *
+     * @return Carbon|DatetimeField
+     */
+    public function RegistrationEmbargoDate()
+    {
+        return $this->getRegistrationEmbargoDate(true);
+    }
+
+    /**
      * Get the registration embargo date
      *
-     * @return Carbon the embargo time as a carbon date object
+     * @return Carbon|DatetimeField the embargo time as a carbon date object
      */
     public function getRegistrationEmbargoDate($returnAsDateTime = false)
     {
-        error_log('**** EMBARGO: ' . $returnAsDateTime);
         $result = null;
         if (empty($this->RegistrationEmbargoAt)) {
             $mins = $this->config()->get('embargo_registration_relative_to_end_datetime_mins');
