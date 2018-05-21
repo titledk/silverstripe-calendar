@@ -19,7 +19,7 @@ use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\FieldType\DBInt;
-use SilverStripe\View\ArrayData;
+use SilverStripe\TagField\TagField;
 use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
 
 /**
@@ -125,7 +125,6 @@ class EventRegistrationExtension extends DataExtension
             'Root.Registrations',
             $mf
         );
-
 
         // show hide logic
         $nTicketsAvailableField->displayIf('TicketsRequired')->isChecked();

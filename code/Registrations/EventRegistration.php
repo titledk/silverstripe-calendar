@@ -70,4 +70,5 @@ class EventRegistration extends DataObject
     {
         return strtoupper($this->event()->URLSegment) . '-' . str_pad($this->ID, 4, "0", STR_PAD_LEFT);
     }
+
 }
