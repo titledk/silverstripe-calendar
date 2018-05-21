@@ -21,14 +21,13 @@ class AttendeesExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields)
     {
-
         $attendeesField = new TagField(
             'Attendees',
             'Attendees',
             $this->owner->Attendees(),
             $this->owner->Attendees()
         );
-        
+
         $fields->addFieldToTab('Root.Main', $attendeesField, 'NumberOfTickets' );
     }
 
