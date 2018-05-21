@@ -23,7 +23,7 @@ class AttendeesControllerExtension extends Extension
         Requirements::javascript('titledk/silverstripe-calendar:thirdparty/entwine/jquery.entwine-dist.js');
         $fields = $form->Fields();
         $attendeesField = StringTagField::create(
-            'AttendeesCSV',
+            'Attendees',
             'Attendees',
             [],
             explode(',', $this->owner->AttendeesCSV)

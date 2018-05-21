@@ -54,7 +54,6 @@ class EventRegistrationController extends Controller
      */
     public function paymentregisterform()
     {
-
         $form = PaymentRegistrationForm::create(
             $this,
             'paymentregisterform'
@@ -64,7 +63,12 @@ class EventRegistrationController extends Controller
             $form->enableSpamProtection();
         }
 
-        return $form;
+
+        $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
+        error_log('++++ DATA ++++');
+        error_log(print_r($data, 1));
+        $data['CompanyName'] = 'Wibble';
+        return $data ? $form->loadDataFrom($data) : $form;
     }
 
 

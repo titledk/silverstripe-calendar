@@ -38,6 +38,7 @@ class PaymentRegistrationForm extends Form
             EmailField::create('Email', 'Email'),
             NumericField::create('NumberOfTickets', 'Number of Tickets'),
             TextareaField::create("Notes"),
+            TextField::create('Test'),
             HiddenField::create('EventID')
         );
 
@@ -87,6 +88,10 @@ class PaymentRegistrationForm extends Form
      */
     public function doRegister($data, $form)
     {
+        $session = $this->getRequest()->getSession();
+        print_r($session);
+        die;
+
         $registration = new EventRegistration();
         $form->saveInto($registration);
         $registration->write();
@@ -97,6 +102,7 @@ class PaymentRegistrationForm extends Form
 
     public function setFormField($name, $value)
     {
+        error_log('++++++++++++++++ Setting ' . $name . ' --> ' . $value);
         $fields = $this->Fields();
         foreach ($fields as $field) {
             if ($field->Name == $name) {
