@@ -18,6 +18,8 @@ class AttendeesExtension extends DataExtension
         'Attendees' => Attendee::class
     ];
 
+    private static $summary_fields = ['Attendee'];
+
 
     public function updateCMSFields(FieldList $fields)
     {

@@ -213,11 +213,20 @@ class EventRegistrationExtension extends DataExtension
     public function getExportableRegistrationsList()
     {
         $records = $this->owner->Registrations()->sort('Created');
+        $updatedRecords = new ArrayList();
         foreach ($records as $record) {
+            $attendees = $record->Attendees();
+            foreach($attendees as $attendee) {
+                $record = clone $record;
+                $record->Attendee = $attendee->Title;
+                $updatedRecords->push($record);
+            }
+
+
             $registration = EventRegistration::get()->byID($record->ID);
             $record->RegistrationCode = $registration->getRegistrationCode();
         }
-        return $records;
+        return $updatedRecords;
     }
 
 
@@ -235,6 +244,6 @@ class EventRegistrationExtension extends DataExtension
     public function getExportFields()
     {
         //return ['Attendee'];
-        return ['RegistrationCode', 'Status', 'Name', 'PayersName', 'Email', 'AttendeesCSV'];
+        return ['RegistrationCode', 'Status', 'Name', 'PayersName', 'Email', 'Attendees'];
     }
 }
