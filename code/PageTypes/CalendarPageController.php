@@ -167,13 +167,20 @@ class CalendarPageController extends PageController
         $successfullyRegistered = $session->get(EventRegistration::EVENT_REGISTRATION_SUCCESS_SESSION_KEY);
         $session->clear(EventRegistration::EVENT_REGISTRATION_SUCCESS_SESSION_KEY);
 
+        $registration = null;
+        $registrationID = $session->get(EventRegistration::EVENT_REGISTRATION_KEY);
+        if (!empty($registrationID)) {
+            $registration = EventRegistration::get()->byID($registrationID);
+        }
+
         $event = Event::get()->byID($req->param('ID'));
         if (!$event) {
             return $this->httpError(404);
         }
         return array(
             'Event'    => $event,
-            'SuccessfullyRegistered' => $successfullyRegistered
+            'SuccessfullyRegistered' => $successfullyRegistered,
+            'EventRegistration' => $registration
         );
     }
 
