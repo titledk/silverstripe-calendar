@@ -18,6 +18,8 @@ class EventRegistration extends DataObject
     /** @var string constant for the key used for successful event registration */
     const EVENT_REGISTRATION_SUCCESS_SESSION_KEY = 'event_registration_successful';
 
+    const EVENT_REGISTRATION_KEY = 'event_registration_id';
+
     private static $table_name = 'EventRegistration';
     private static $singular_name = 'Registration';
     private static $plural_name = 'Registrations';
