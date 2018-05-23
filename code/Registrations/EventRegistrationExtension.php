@@ -3,6 +3,7 @@ namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
 use SilverStripe\Forms\NumericField;
@@ -62,15 +63,32 @@ class EventRegistrationExtension extends DataExtension
 
         $exportButton = new GridFieldExportButton('buttons-before-left');
         $exportButton->setExportColumns($this->getExportFields());
+
+        $fieldConfig = GridFieldConfig_RecordEditor::create($numberOfRegistrations)
+            ->addComponent($exportButton)
+            ->removeComponentsByType(GridFieldFilterHeader::class)
+            ->addComponents(
+                new GridFieldPrintButton('buttons-before-left'),
+                new GridFieldDataColumns()
+            );
+/*
+        $fieldConfig->getComponentByType(GridFieldDataColumns::class)->setDisplayFields(array(
+                'Name' => 'Name',
+            ));
+*/
+
         $listField = GridField::create(
-            $this->sanitiseClassName(EventRegistration::class),
-            false,
+            'Registrations',
+            'Registrations',
             $list,
-            $fieldConfig = GridFieldConfig_RecordEditor::create($numberOfRegistrations)
-                ->addComponent($exportButton)
-                ->removeComponentsByType(GridFieldFilterHeader::class)
-                ->addComponents(new GridFieldPrintButton('buttons-before-left'))
+            $fieldConfig
         );
+
+        $listField->setModelClass(EventRegistration::class);
+
+
+
+
 
         $fields->addFieldToTab(
             'Root.Registrations',
