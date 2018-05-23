@@ -166,11 +166,10 @@ class EventRegistrationExtension extends DataExtension
         $form = $eventRegistrationController->registerform();
 
         // if we use $this->extend we need to add the extension on Event, using the controller makes more sense
-        $eventRegistrationController->extend('updateEventRegistrationForm', $form);
         if ($form) {
             $form->setFormField('EventID', $this->owner->ID);
         }
-
+        $eventRegistrationController->extend('updateEventRegistrationForm', $form);
 
         return $form;
     }
@@ -183,20 +182,15 @@ class EventRegistrationExtension extends DataExtension
 
         // if we use $this->extend we need to add the extension on Event, using the controller makes more sense
         error_log('---- updating event registration form ----');
-        $eventRegistrationController->extend('updateEventRegistrationForm', $form);
-        error_log('---- /updating event registration form ----');
-
         if ($form) {
             $form->setFormField('EventID', $this->owner->ID);
         }
+        $eventRegistrationController->extend('updateEventRegistrationForm', $form);
+        error_log('---- /updating event registration form ----');
 
 
 
         $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
-        error_log('++++ DATA ++++');
-        error_log(print_r($data, 1));
-        //$form->getField('CompanyName')->setValue('Wibble');
-        $data['Attendees'] = ['Fred', 'John'];
         return $data ? $form->loadDataFrom($data) : $form;
 
         //return $form;
