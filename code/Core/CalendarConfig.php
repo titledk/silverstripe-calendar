@@ -62,9 +62,11 @@ class CalendarConfig
 						//center: 'title'
 						//right: 'title'
 						//left: 'prev, next',
-						//center: 'title',
+						center: 'title',
 						//right: 'month,basicWeek'
-					}
+					},
+					// add more space for events
+					height: 'auto'
 				"
             )
         ),
