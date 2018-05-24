@@ -87,9 +87,7 @@ class CalendarPageController extends PageController
      */
     public function upcoming()
     {
-        echo '**** UPCOMING ****';
         $events = $this->Events(false);
-
         $grid = $this->owner->createGridLayout($events, 2);
 
         return [
@@ -103,7 +101,6 @@ class CalendarPageController extends PageController
      */
     public function recent()
     {
-        echo '**** RECENT ****';
         $events = $this->Events(false);
         $grid = $this->owner->createGridLayout($events, 2);
 
@@ -335,14 +332,12 @@ class CalendarPageController extends PageController
             $events = CalendarHelper::all_events()
                 ->where($filter);
 
-
             return new PaginatedList($events, $this->getRequest());
         }
 
 
         // recent or upcoming
         if ($action == 'upcoming') {
-            echo '**** UPCOMING QUERY ****';
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
             $now = $this->CurrentMonthDay();
@@ -356,7 +351,6 @@ class CalendarPageController extends PageController
 
             return  new PaginatedList($events, $this->getRequest());
         } else if ($action == 'recent') {
-            echo 'RECENT';
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
             $now = $this->CurrentMonthDay();
@@ -385,6 +379,20 @@ class CalendarPageController extends PageController
         return $cal;
     }
 
+    public function EventPageTitle()
+    {
+        $action = $this->getRequest()->param('Action');
+
+        // @todo Do this smarter
+        if (isset($_GET['month'])) {
+            return $this->CurrentMonthStr();
+        } elseif ($action == 'upcoming') {
+            return 'Upcoming';
+        } else {
+            $action = 'Recent';
+        }
+    }
+
 
     public function CurrentMonth()
     {
@@ -399,14 +407,12 @@ class CalendarPageController extends PageController
     public function CurrentMonthDay()
     {
         $r =  date('Y-m-d', time());
-        echo 'ymd=' . $r;
         return $r;
     }
 
     public function NextMonthDay()
     {
         $r =  date('Y-m-d', time());
-        echo 'ymd=' . $r;
         return $r;
     }
 

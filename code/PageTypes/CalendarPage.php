@@ -33,6 +33,11 @@ class CalendarPage extends \Page
         'Calendars' => Calendar::class,
     );
 
+    public function IsCalendar()
+    {
+        return true;
+    }
+
     /*
     public function getCMSValidator()
     {

@@ -111,7 +111,6 @@ class CalendarHelper
      */
     public static function events_for_month($month, $calendarIDs = [])
     {
-        echo 'Passed in month ' . $month;
         // @todo method needs fixed everywhere to pass in an array of IDs, not a CSV
         if (!is_array($calendarIDs)) {
             $calendarIDs = implode(',', $calendarIDs);
@@ -135,8 +134,6 @@ class CalendarHelper
     public static function events_for_date_range($startDateStr, $endDateStr, $calendarIDS = [])
     {
         $sql = "((StartDateTime BETWEEN '$startDateStr' AND '$endDateStr') OR (EndDateTime BETWEEN '$startDateStr' AND '$endDateStr'))";
-
-        echo 'SQL:' . $sql;
 
         $events = Event::get()
             ->where($sql);
