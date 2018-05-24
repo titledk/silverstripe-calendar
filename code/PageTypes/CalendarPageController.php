@@ -346,13 +346,9 @@ class CalendarPageController extends PageController
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
             $now = $this->CurrentMonthDay();
-            echo 'NOW: ' . $now;
-
             $next = strtotime('+1 month', time());
             $inOneMonth = date('Y-m-d', $next);
-            echo '<br/>IN ONE MONTH: ' . $inOneMonth;
 
-        
 
             // This method takes a csv of IDs, not an array.
             $events = CalendarHelper::events_for_date_range($now, $inOneMonth, $calendarIDs)
@@ -360,10 +356,15 @@ class CalendarPageController extends PageController
 
             return  new PaginatedList($events, $this->getRequest());
         } else if ($action == 'recent') {
+            echo 'RECENT';
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
+            $now = $this->CurrentMonthDay();
+            $prev = strtotime('-1 month', time());
+            $oneMonthAgo = date('Y-m-d', $prev);
+
             // This method takes a csv of IDs, not an array.
-            $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs)
+            $events = CalendarHelper::events_for_date_range($oneMonthAgo, $now, $calendarIDs)
                 ->sort('StartDateTime DESC');
 
             return  new PaginatedList($events, $this->getRequest());
