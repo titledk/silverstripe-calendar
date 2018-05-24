@@ -89,6 +89,7 @@ class CalendarPageController extends PageController
     {
         echo '**** UPCOMING ****';
         $events = $this->Events(false);
+
         $grid = $this->owner->createGridLayout($events, 2);
 
         return [
@@ -341,11 +342,21 @@ class CalendarPageController extends PageController
 
         // recent or upcoming
         if ($action == 'upcoming') {
+            echo '**** UPCOMING QUERY ****';
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
+            $now = $this->CurrentMonthDay();
+            echo 'NOW: ' . $now;
+
+            $next = strtotime('+1 month', time());
+            $inOneMonth = date('Y-m-d', $next);
+            echo '<br/>IN ONE MONTH: ' . $inOneMonth;
+
+        
+
             // This method takes a csv of IDs, not an array.
-            $events = CalendarHelper::events_for_month($this->CurrentMonthDayHour(), $calendarIDs)
-                ->sort('StartDateTime ASC, EndDateTime ASC');
+            $events = CalendarHelper::events_for_date_range($now, $inOneMonth, $calendarIDs)
+                ->sort('StartDateTime ASC');
 
             return  new PaginatedList($events, $this->getRequest());
         } else if ($action == 'recent') {
@@ -384,7 +395,14 @@ class CalendarPageController extends PageController
         }
     }
 
-    public function CurrentMonthDayHour()
+    public function CurrentMonthDay()
+    {
+        $r =  date('Y-m-d', time());
+        echo 'ymd=' . $r;
+        return $r;
+    }
+
+    public function NextMonthDay()
     {
         $r =  date('Y-m-d', time());
         echo 'ymd=' . $r;
