@@ -111,6 +111,7 @@ class CalendarHelper
      */
     public static function events_for_month($month, $calendarIDs = [])
     {
+        echo 'Passed in month ' . $month;
         // @todo method needs fixed everywhere to pass in an array of IDs, not a CSV
         if (!is_array($calendarIDs)) {
             $calendarIDs = implode(',', $calendarIDs);
@@ -121,8 +122,22 @@ class CalendarHelper
 
         $currMonthStr = date('Y-m-d', strtotime($month));
         $nextMonthStr = date('Y-m-d', $nextMonth);
+        return self::events_for_date_range($currMonthStr, $nextMonthStr, $calendarIDs);
 
-        $sql = "((StartDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr') OR (EndDateTime BETWEEN '$currMonthStr' AND '$nextMonthStr'))";
+    }
+
+    /**
+     * @param $startDateStr start date in format 2018-05-15
+     * @param $endDateStr ditto end date
+     * @param array $calendarIDS list of calendar IDs visible
+     * @return \SilverStripe\ORM\DataList
+     */
+    public static function events_for_date_range($startDateStr, $endDateStr, $calendarIDS = [])
+    {
+        $sql = "((StartDateTime BETWEEN '$startDateStr' AND '$endDateStr') OR (EndDateTime BETWEEN '$startDateStr' AND '$endDateStr'))";
+
+        echo 'SQL:' . $sql;
+
         $events = Event::get()
             ->where($sql);
 
