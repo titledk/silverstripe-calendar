@@ -33,8 +33,17 @@ class CalendarPageController extends PageController
         'calendar',
         'registered',
         'noregistrations',
-        'tag'
+        'tag',
+
+        // event listings contextual to current time
+        'recent',
+        'upcoming'
     );
+
+    private static $url_handlers = [
+      '' => 'upcoming',
+        'recent' => 'recent'
+    ];
 
 
     public function init()
@@ -71,6 +80,36 @@ class CalendarPageController extends PageController
         } elseif ($indexSetting == 'calendarview') {
             return $this->calendarview()->renderWith(array('CalendarPage_calendarview', 'Page'));
         }
+    }
+
+    /**
+     * Show upcoming events
+     */
+    public function upcoming()
+    {
+        echo '**** UPCOMING ****';
+        $events = $this->Events(false);
+        $grid = $this->owner->createGridLayout($events, 2);
+
+        return [
+            'Events' => new PaginatedList($events, $this->getRequest()),
+            'GridLayout' => $grid
+        ];
+    }
+
+    /**
+     * Show recent events
+     */
+    public function recent()
+    {
+        echo '**** RECENT ****';
+        $events = $this->Events(false);
+        $grid = $this->owner->createGridLayout($events, 2);
+
+        return [
+            'Events' => new PaginatedList($events, $this->getRequest()),
+            'GridLayout' => $grid
+        ];
     }
 
     public function eventlist()
@@ -241,6 +280,8 @@ class CalendarPageController extends PageController
      * Paginated event list for "eventlist" mode.  This will only show events for the current calendar page calendars,
      * and will also take account of calendars restricted by Group
      *
+     * @param $paged true to paginate the list
+     *
      * @return type
      */
     public function Events()
@@ -265,11 +306,8 @@ class CalendarPageController extends PageController
                     ->filter('Registerable', 1);
             }
 
-            $list = new PaginatedList($events, $this->getRequest());
-
-            return $list;
+            return  new PaginatedList($events, $this->getRequest());
         }
-
 
         //Search
         if ($action == 'search') {
@@ -301,32 +339,25 @@ class CalendarPageController extends PageController
         }
 
 
+        // recent or upcoming
+        if ($action == 'upcoming') {
+            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
+            // This method takes a csv of IDs, not an array.
+            $events = CalendarHelper::events_for_month($this->CurrentMonthDayHour(), $calendarIDs)
+                ->sort('StartDateTime ASC, EndDateTime ASC');
 
-        //TODO below doesn't need to be that complicated...
-//      $events = null;
-//      if ($action == 'past') {
-//          $events = CalendarHelper::past_events();
-//      } else {
-//          if ($this->CurrentCategoryID()) {
-//              $events = PublicEventCategory::get()
-//                  ->ByID($this->CurrentCategoryID())
-//                  ->ComingEvents($this->CurrentDisplayDate());
-//          } else {
-//              $events = CalendarHelper::coming_events($this->CurrentDisplayDate());
-//          }
-//      }
-//
-//      if ($this->CurrentCalendarID()) {
-//          $events = $events->filter(array(
-//              'CalendarID' => $this->CurrentCalendarID()
-//          ));
-//      }
-//
-//      $list = new PaginatedList($events, $this->request);
-//      $list->setPageLength(10);
-//
-//      return $list;
+            return  new PaginatedList($events, $this->getRequest());
+        } else if ($action == 'recent') {
+            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
+
+            // This method takes a csv of IDs, not an array.
+            $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs)
+                ->sort('StartDateTime DESC');
+
+            return  new PaginatedList($events, $this->getRequest());
+        }
+
     }
 
     /**
@@ -351,6 +382,13 @@ class CalendarPageController extends PageController
             $month = date('Y-m', time());
             return $month;
         }
+    }
+
+    public function CurrentMonthDayHour()
+    {
+        $r =  date('Y-m-d', time());
+        echo 'ymd=' . $r;
+        return $r;
     }
 
     public function CurrentMonthStr()
