@@ -46,6 +46,7 @@
             //attendees-list
             var html='<table><th>Title</th><th>Name</th><th>Company</th><th>Email</th><th>Phone</th>';
             var arrayLength = attendees.length;
+            $('#PaymentRegistrationForm_paymentregisterform_NumberOfTickets').val(arrayLength);
             console.log('ATTENDEES', arrayLength);
             var ctr=0;
             for (var i = 0; i < arrayLength; i++) {
