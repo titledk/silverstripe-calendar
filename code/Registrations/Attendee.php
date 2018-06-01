@@ -20,7 +20,14 @@ class Attendee extends DataObject
 {
     private static $table_name = 'Attendee';
 
-    private static $db = ['Title' => 'Varchar(255)'];
+    private static $db = [
+        'Title' => 'Varchar(255)',
+        'FirstName' => 'Varchar(255)',
+        'Surname' => 'Varchar(255)',
+        'Company' => 'Varchar(255)',
+        'Phone' => 'Varchar(255)',
+        'Email' => 'Varchar(255)'
+    ];
 
     /**
      * @var array
