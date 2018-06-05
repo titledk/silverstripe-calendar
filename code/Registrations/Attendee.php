@@ -29,6 +29,10 @@ class Attendee extends DataObject
         'Email' => 'Varchar(255)'
     ];
 
+    private static $summary_fields = [
+      'Title', 'FirstName', 'Surname', 'Company', 'Phone', 'Email'
+    ];
+
     /**
      * @var array
      */

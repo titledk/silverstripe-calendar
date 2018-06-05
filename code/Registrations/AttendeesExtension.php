@@ -22,31 +22,22 @@ class AttendeesExtension extends DataExtension
     ];
 
     // @todo This will need fixed
-    private static $summary_fields = ['Attendee'];
+    //private static $summary_fields = ['Attendee'];
 
 
     public function updateCMSFields(FieldList $fields)
     {
-        /*
-        $attendeesField = new TagField(
-            'Attendees',
-            'Attendees',
-            $this->owner->Attendees(),
-            $this->owner->Attendees()
-        );
-        */
-
-       // $fields->addFieldToTab('Root.Main', $attendeesField, 'NumberOfTickets' );
+        // @todo possibly can remove the attendees tab
 
         $config = GridFieldConfig::create();
         $config->addComponent(new GridFieldButtonRow('before'));
         $config->addComponent(new GridFieldEditableColumns());
         $config->addComponent(new GridFieldAddNewButton());
         $gridField = GridField::create('Attendees', 'Attendees',
-            Attendee::get(),
+            $this->owner->Attendees(),
         $config);
 
-        $fields->addFieldToTab('Root.Main', $gridField, 'NumberOfTickets' );
+        $fields->addFieldToTab('Root.Attendees', $gridField);//, 'NumberOfTickets' );
 
     }
 
