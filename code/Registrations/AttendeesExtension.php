@@ -6,8 +6,7 @@ use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldButtonRow;
 use SilverStripe\Forms\GridField\GridFieldConfig;
 use SilverStripe\ORM\DataExtension;
-use SilverStripe\TagField\StringTagField;
-use SilverStripe\TagField\TagField;
+use SilverStripe\Forms\GridField\GridField;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 
 /**
@@ -22,6 +21,7 @@ class AttendeesExtension extends DataExtension
         'Attendees' => Attendee::class
     ];
 
+    // @todo This will need fixed
     private static $summary_fields = ['Attendee'];
 
 
