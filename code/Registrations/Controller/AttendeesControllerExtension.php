@@ -5,7 +5,9 @@ use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\TagField\StringTagField;
 use SilverStripe\View\Requirements;
@@ -28,49 +30,26 @@ class AttendeesControllerExtension extends Extension
     public function updateEventRegistrationForm(Form $form)
     {
         //Requirements::javascript('silverstripe/admin:thirdparty/jquery-entwine/dist/jquery.entwine-dist.js');
-        Requirements::javascript('titledk/silverstripe-calendar:thirdparty/entwine/jquery.entwine-dist.js');
+        Requirements::javascript('titledk/silverstripe-calendar:thirdparty/parsley/parsley.min.js');
         Requirements::javascript('titledk/silverstripe-calendar:javascript/registration/Attendees.js');
         $fields = $form->Fields();
-        print_r($form->getData());
 
-
-        /*
-         * FieldList::create(
-                LiteralField::create(
-                    'CompleteMsg',
-                    "We've received your registration."
-                )
-            )
-         */
-
-        /*
-        $attendeesField = StringTagField::create(
-            'Attendees',
-            'Attendees',
-            [],
-            explode(',', $this->owner->AttendeesCSV)
-        );
-        $attendeesField->setRightTitle('One ticket will be allocated, and if not free, chargeable for each attendee');
+        $attendeesField = LiteralField::create('AttendeesHTML', '<div id="attendees-list">Attendees will appear here</div>');
         $fields->insertBefore('NumberOfTickets', $attendeesField);
-
-        */
-
-        $attendeesField = LiteralField::create('AttendeesHTML', '<div id="attendees-list">This is the attendees list</div>');
-        $fields->insertBefore('NumberOfTickets', $attendeesField);
-
 
         $addAttendeeButtonHTML = '<a href="#" id="add-attendee-button">Add Attendee</a>';
         $fields->insertBefore('NumberOfTickets', LiteralField::create('AddAttendee', $addAttendeeButtonHTML));
 
         $fields->fieldByName('NumberOfTickets')->setReadonly(true);
 
-        $config = GridFieldConfig::create();
-        $config->addComponent(new GridFieldButtonRow('before'));
-        $config->addComponent(new GridFieldEditableColumns());
-        //$config->addComponent(new GridFieldAddNewButton());
-        $gridField = GridField::create('Attendees', 'Attendees',
-            Attendee::get(),
-            $config);
-        //$fields->push($gridField);
+
+        $jsonField = HiddenField::create('AttendeesJSON');
+        $data = $form->getData();
+        if (!isset($data['AttendeesJSON'])) {
+          $jsonField->setValue('[]');
+        }
+
+        $fields->push($jsonField);
+        $form->setFields($fields);
     }
 }
