@@ -208,10 +208,11 @@ class EventRegistrationExtension extends DataExtension
 
 
 
-        $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
-        return $data ? $form->loadDataFrom($data) : $form;
+        // @todo This is loading old data
+       // $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
+       // return $data ? $form->loadDataFrom($data) : $form;
 
-        //return $form;
+        return $form;
     }
 
     /**
