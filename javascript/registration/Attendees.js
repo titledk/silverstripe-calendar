@@ -196,6 +196,12 @@
             var arrayLength = attendees.length;
             $('#PaymentRegistrationForm_paymentregisterform_NumberOfTickets').val(arrayLength);
             console.log('ATTENDEES', arrayLength);
+            //action_doRegisterThenPay
+            if (!arrayLength) {
+                $('#action_doRegisterThenPay').prop('disabled', true);
+            } else {
+                $('#action_doRegisterThenPay').prop('disabled', false);
+            }
             var ctr=0;
             for (var i = 0; i < arrayLength; i++) {
                 ctr = i;
