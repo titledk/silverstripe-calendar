@@ -9,6 +9,7 @@ use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\Security\Security;
 use SilverStripe\TagField\StringTagField;
 use SilverStripe\View\Requirements;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
@@ -46,7 +47,37 @@ class AttendeesControllerExtension extends Extension
         $jsonField = HiddenField::create('AttendeesJSON');
         $data = $form->getData();
         if (!isset($data['AttendeesJSON'])) {
-          $jsonField->setValue('[]');
+
+
+            if( $member = Security::getCurrentUser() ) {
+                $details = [
+                    [
+                  'first_name' => $member->FirstName,
+                  'surname' => $member->Surname,
+                  'phone' => $member->Phone,
+                  'email' => $member->Email
+                    ]
+                ];
+
+                $jsonField->setValue(json_encode($details));
+            } else {
+                $jsonField->setValue('[]');
+            }
+
+          /*
+            <tr><th>Attendees</th>
+                        <td>
+                            <ul>
+                            <% loop $EventRegistration.Attendees %>
+                                <li>$Title $FirstName $Surname<br/>
+                                    <% include Utils/FontAwesomeIcon Icon='phone' %>$Phone &nbsp;
+                                    <% include Utils/FontAwesomeIcon Icon='envelope-o' %>$Email
+                                </li>
+                            <% end_loop %>
+                            </ul>
+                        </td>
+                    </tr>
+          */
         }
 
         $fields->push($jsonField);
