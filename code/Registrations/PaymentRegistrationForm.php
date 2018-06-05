@@ -38,7 +38,6 @@ class PaymentRegistrationForm extends Form
             EmailField::create('Email', 'Email'),
             NumericField::create('NumberOfTickets', 'Number of Tickets'),
             TextareaField::create("Notes"),
-            TextField::create('Test'),
             HiddenField::create('EventID')
         );
 
