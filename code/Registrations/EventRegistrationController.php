@@ -63,12 +63,13 @@ class EventRegistrationController extends Controller
             $form->enableSpamProtection();
         }
 
+        return $form;
 
-        $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
+        // DATA NOT LOADED HERE
+       // $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
         error_log('++++ DATA ++++');
-        error_log(print_r($data, 1));
-        $data['CompanyName'] = 'Wibble';
-        return $data ? $form->loadDataFrom($data) : $form;
+        //error_log(print_r($data, 1));
+        //return $data ? $form->loadDataFrom($data) : $form;
     }
 
 
