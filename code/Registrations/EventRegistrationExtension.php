@@ -86,10 +86,6 @@ class EventRegistrationExtension extends DataExtension
 
         $listField->setModelClass(EventRegistration::class);
 
-
-
-
-
         $fields->addFieldToTab(
             'Root.Registrations',
             new HeaderField('Header1', 'Event Registration', 2)
@@ -219,7 +215,7 @@ class EventRegistrationExtension extends DataExtension
      * Due to attendees being stored as CSV in a list, the output needs manipulated to add a row for each.  Do this in
      * memory for now
      *
-     * @tod individual tickets?
+     * @todo individual tickets?
      *
      * @return mixed
      */
@@ -232,11 +228,14 @@ class EventRegistrationExtension extends DataExtension
             // these are many many
             foreach($attendees as $attendee) {
                 $clonedRecord = clone $record;
+                /*
                 $clonedRecord->Title = $attendee->Title;
                 $clonedRecord->FirstName = $attendee->FirstName;
                 $clonedRecord->Surname = $attendee->Surname;
                 $clonedRecord->CompanyName = $attendee->Company;
                 $clonedRecord->Phone = $attendee->Phone;
+                */
+                $clonedRecord->CompanyName = 'This is a test T2';
                 $clonedRecord->Email = $attendee->Email;
                 $updatedRecords->push($clonedRecord);
             }
@@ -244,7 +243,10 @@ class EventRegistrationExtension extends DataExtension
 
             $registration = EventRegistration::get()->byID($record->ID);
             $record->RegistrationCode = $registration->getRegistrationCode();
+
         }
+
+
         return $updatedRecords;
     }
 
