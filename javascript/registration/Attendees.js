@@ -202,6 +202,14 @@
             } else {
                 $('#action_doRegisterThenPay').prop('disabled', false);
             }
+
+            // @todo this is a hack, make it more elegant
+            if($('#Signature').length == 0) {
+                //it doesn't exist
+            } else {
+                $('#action_doRegisterThenPay').prop('disabled', true);
+            }
+
             var ctr=0;
             for (var i = 0; i < arrayLength; i++) {
                 ctr = i;
