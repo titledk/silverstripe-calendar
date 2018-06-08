@@ -44,7 +44,9 @@ class EventRegistration extends DataObject
 
 
     private static $summary_fields = array(
-        'Name' => 'Created DESC',
+        'Created' => 'Created DESC',
+        'PayersName' => 'Name (Payer)',
+        'AttendeeName' => 'Name (Attendee)',
         'Status' => 'Payment Status',
         'NumberOfTickets' => 'Tickets',
         'AmountPaid' => 'Amount Paid',

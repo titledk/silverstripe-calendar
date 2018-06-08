@@ -48,14 +48,15 @@ class AttendeesControllerExtension extends Extension
         $data = $form->getData();
         if (!isset($data['AttendeesJSON'])) {
 
-
             if( $member = Security::getCurrentUser() ) {
                 $details = [
                     [
-                  'first_name' => $member->FirstName,
-                  'surname' => $member->Surname,
-                  'phone' => $member->Phone,
-                  'email' => $member->Email
+                        'first_name' => $member->FirstName,
+                        'surname' => $member->Surname,
+                        'phone' => empty($member->Phone)  ? '' : $member->Phone,
+                        'email' => $member->Email,
+                        'company' => empty($member->Company) ? '' : $member->CompanyName,
+                        'title' => empty($member->Title) ? '' : $member->Title
                     ]
                 ];
 
