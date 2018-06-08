@@ -12,13 +12,11 @@
                 form.parsley().validate();
 
                 if (form.parsley().isValid()){
-                    alert('valid');
+                    //alert('valid');
                 } else {
-                    alert('not valid');
+                   // alert('not valid');
                 }
             });
-
-
         });
 
         // Show edit form
