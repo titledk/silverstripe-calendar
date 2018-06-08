@@ -235,7 +235,6 @@ class EventRegistrationExtension extends DataExtension
 
         }
 
-
         return $updatedRecords;
     }
 
