@@ -40,15 +40,10 @@ class AttendeesExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields)
     {
-        // @todo possibly can remove the attendees tab
-
-        $config = GridFieldConfig::create();
-        $config->addComponent(new GridFieldButtonRow('before'));
-        $config->addComponent(new GridFieldEditableColumns());
-        $config->addComponent(new GridFieldAddNewButton());
+        
         $gridField = GridField::create('Attendees', 'Attendees',
-            $this->owner->Attendees(),
-        $config);
+            $this->owner->Attendees()
+        );
 
         $fields->addFieldToTab('Root.Attendees', $gridField);//, 'NumberOfTickets' );
 
