@@ -1,4 +1,21 @@
 # SilverStripe Calendar
+[![Build Status](https://travis-ci.org/gordonbanderson/silverstripe-calendar.svg?branch=upgradess4)](https://travis-ci.org/gordonbanderson/silverstripe-calendar)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/badges/quality-score.png?b=upgradess4)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/?branch=upgradess4)
+[![Code Coverage](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/badges/coverage.png?b=upgradess4)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/?branch=upgradess4)
+[![Build Status](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/badges/build.png?b=upgradess4)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/build-status/upgradess4)
+[![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-calendar/coverage.svg?branch=upgradess4)](https://codecov.io/github/gordonbanderson/silverstripe-calendar?branch=upgradess4)
+
+[![Latest Stable Version](https://poser.pugx.org/titledk/silverstripe-calendar/version)](https://packagist.org/packages/titledk/silverstripe-calendar)
+[![Latest Unstable Version](https://poser.pugx.org/titledk/silverstripe-calendar/v/unstable)](//packagist.org/packages/titledk/silverstripe-calendar)
+[![Total Downloads](https://poser.pugx.org/titledk/silverstripe-calendar/downloads)](https://packagist.org/packages/titledk/silverstripe-calendar)
+[![License](https://poser.pugx.org/titledk/silverstripe-calendar/license)](https://packagist.org/packages/titledk/silverstripe-calendar)
+[![Monthly Downloads](https://poser.pugx.org/titledk/silverstripe-calendar/d/monthly)](https://packagist.org/packages/titledk/silverstripe-calendar)
+[![Daily Downloads](https://poser.pugx.org/titledk/silverstripe-calendar/d/daily)](https://packagist.org/packages/titledk/silverstripe-calendar)
+
+[![Dependency Status](https://www.versioneye.com/php/titledk:silverstripe-calendar/badge.svg)](https://www.versioneye.com/php/titledk:silverstripe-calendar)
+[![Reference Status](https://www.versioneye.com/php/titledk:silverstripe-calendar/reference_badge.svg?style=flat)](https://www.versioneye.com/php/titledk:silverstripe-calendar/references)
+
+![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-calendar/branch.svg?branch=upgradess4)
 
 _by Title Web Solutions_
 
@@ -93,6 +110,7 @@ time picker and dropdown, and duration dropdown, still allowing manual inputs
 
 * [Anselm Christophersen](https://github.com/anselmdk)
 * [Colin Burns](https://github.com/colinburns)
+* [Gordon Anderson](https://github.com/gordonbanderson)  (SS4 upgrade)
 
 
 ## License

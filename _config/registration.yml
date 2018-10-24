@@ -1,0 +1,7 @@
+---
+Name: silverstripe-calendar-registration
+---
+TitleDK\Calendar\Events\Event:
+  # Embargo registration relative to end date or calculated end date.  Negative values are before the end datetime, so
+  # a value of -1440 is a day ago.  Use a positive value to allow for registration during a multiday event
+  embargo_registration_relative_to_end_datetime_mins: 0

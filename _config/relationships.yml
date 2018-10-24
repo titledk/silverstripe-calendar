@@ -1,0 +1,3 @@
+SilverStripe\Security\Group:
+  many_many:
+    Calendars: TitleDK\Calendar\Calendars\Calendar

@@ -1,7 +1,7 @@
 {
     "name": "titledk/silverstripe-calendar",
     "description": "Highly flexible calendar system for SilverStripe",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "homepage": "https://github.com/titledk/silverstripe-calendar",
     "keywords": [
         "silverstripe",
@@ -20,17 +20,38 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
-        "silverstripe/framework": "~3.1"
+        "php" : "~5.6|~7.0",
+        "silverstripe/framework": "~4.1",
+        "silverware/calendar": "~1",
+        "nesbot/carbon": "^1.27",
+        "silverstripe/tagfield": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "TitleDK\\Calendar\\": "code/",
+            "TitleDK\\Calendar\\Tests\\": "tests/"
+        }
     },
     "extra": {
         "installer-name": "calendar",
         "screenshots": [
             "docs/img/preview.png",
             "docs/img/screenshots/frontend-fullcalendar.png"
+        ],
+        "expose": [
+            "images",
+            "css",
+            "javascript",
+            "thirdparty"
         ]
     },
     "support": {
         "issues": "https://github.com/titledk/silverstripe-calendar/issues"
-    }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.9.2",
+        "phpunit/phpunit": "^5.7"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
